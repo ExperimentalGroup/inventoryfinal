@@ -45,84 +45,36 @@ class HomeController extends BaseController {
 			->get();
 
 		$ID = $ids["0"]->strBrchID;
-		
-		$arrID = str_split($ID);
-
-		$new = "";
-		$somenew = "";
-		$arrNew = [];
-		$boolAdd = TRUE;
-
-		for($ctr = count($arrID) - 1; $ctr >= 0; $ctr--)
-		{
-			$new = $arrID[$ctr];
-
-			if($boolAdd)
-			{
-
-				if(is_numeric($new) || $new == '0')
-				{
-					if($new == '9')
-					{
-						$new = '0';
-						$arrNew[$ctr] = $new;
-					}
-					else
-					{
-						$new = $new + 1;
-						$arrNew[$ctr] = $new;
-						$boolAdd = FALSE;
-					}//else
-				}//if(is_numeric($new))
-				else
-				{
-					$arrNew[$ctr] = $new;
-				}//else
-			}//if ($boolAdd)
-			
-			$arrNew[$ctr] = $new;
-		}//for
-
-		for($ctr2 = 0; $ctr2 < count($arrID); $ctr2++)
-		{
-			$somenew = $somenew . $arrNew[$ctr2] ;
-		}
-
-		// Get all products from the database
+		$newID = $this->smart($ID);
 
 		$branches = Branch::all();
 
-		return View::make('branches')->with('branches', $branches)->with('somenew', $somenew);
+		return View::make('branches')->with('branches', $branches)->with('newID', $newID);
 	}
 
 	public function suppliers()
 	{
+		$ids = DB::table('tblSuppliers')
+			->select('strSuppID')
+			->orderBy('updated_at', 'desc')
+			->orderBy('strSuppID', 'desc')
+			->take(1)
+			->get();
+
+		$ID = $ids["0"]->strSuppID;
+		$newID = $this->smart($ID);
+
+
 		// Get all products from the database
 		$suppliers = Supplier::all();
 
-		return View::make('suppliers')->with('suppliers', $suppliers);
+		return View::make('suppliers')->with('suppliers', $suppliers)->with('newID', $newID);
 	}
 
 	public function delivery()
 	{
 		// Get all products from the database
 		//$suppliers = Supplier::all();
-		// $dt = DB::table('tblDeliveries')
-		// ->join('tblSuppliers', function($join)
-		// {
-		// 	$join->on('tblOrders.strSupplID','=','tblSuppliers.strSuppID');
-		// })
-		// ->join('tblEmployees', function($join2)
-		// {
-		// 	$join2->on('tblOrders.strPlacedBy','=','tblEmployees.strEmpID');
-		// })
-		// ->join('tblOrdNotes',function($join3)
-		// {
-		// 	$join3->on('tblOrdNotes.strOrdersID','=','tblOrders.strOrdersID');
-		// })
-		// ->get();
-
-		// return View::make('order')->with('jt', $jt);
 
 		return View::make('delivery');
 	}
@@ -141,13 +93,14 @@ class HomeController extends BaseController {
 	public function createSupp()
 	{
 		$suppliers = Supplier::create(array(
+			'strSuppID' => Input::get('suppID'),
 			'strSuppCompanyName' => Input::get('compName'),
 			'strSuppOwnerLName' => Input::get('suppLName'),
 			'strSuppOwnerFName' => Input::get('suppFName'),
 			'strSuppContactNo' => Input::get('contNumb'),
 			'strSuppAddress' => Input::get('suppAdd')
 		));
-		//$suppliers->save();
+		$suppliers->save();
 		return Redirect::to('/suppliers');
 	}
 
@@ -205,29 +158,29 @@ class HomeController extends BaseController {
 		return View::make('details')->with('details', $details);
 	}
 
-	public function smart()
+	private function smart($id)
 	{
 		//$ID ="emp0111";
 
 		//Retriving lastest ID from the db
-		$ids = DB::table('tblBranches')
-			->select('strBrchID')
-			//->orderBy('updated_at', 'desc')
-			->orderBy('strBrchID', 'desc')
-			->take(1)
-			->get();
+		// $ids = DB::table('tblBranches')
+		// 	->select('strBrchID')
+		// 	//->orderBy('updated_at', 'desc')
+		// 	->orderBy('strBrchID', 'desc')
+		// 	->take(1)
+		// 	->get();
 
-		$ID = $ids["0"]->strBrchID;
+		// $ID = $ids["0"]->strBrchID;
 
-		print_r("Recent ID retrieved from database: " . $ID);
+		//print_r("Recent ID retrieved from database: " . $ID);
 		
-		$arrID = str_split($ID);
+		$arrID = str_split($id);
 
-		echo "<br />";
-			echo "To Array: ";
-		echo "<pre>";
-			print_r($arrID);
-		echo "</pre>";
+		// echo "<br />";
+		// 	echo "To Array: ";
+		// echo "<pre>";
+		// 	print_r($arrID);
+		// echo "</pre>";
 
 		$new = "";
 		$somenew = "";
@@ -268,12 +221,12 @@ class HomeController extends BaseController {
 		{
 			$somenew = $somenew . $arrNew[$ctr2] ;
 		}
-
-		echo "<br />";
-			print_r("Newly created ID : ");
-		echo "<pre>";
-			print_r($somenew);
-		echo "</pre>";
+		return $somenew;
+		// echo "<br />";
+		// 	print_r("Newly created ID : ");
+		// echo "<pre>";
+		// 	print_r($somenew);
+		// echo "</pre>";
 	}
 
 }

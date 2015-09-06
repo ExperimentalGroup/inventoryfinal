@@ -14,6 +14,7 @@ class TblDeliveries extends Migration {
 	{
 		Schema::create('tblDeliveries', function ($table){
 			$table->string('strDlvryID')->primary();
+			$table->string('strOrdDlvry');//fk
 			$table->date('dtDlvryDate');
 			$table->string('strDlvryRecBy');//fk
 		});

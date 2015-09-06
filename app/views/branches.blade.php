@@ -29,7 +29,7 @@
               <li class="bold"><a href="/index">Dashboard</a></li>
               <li class="bold"><a href="/inventory">Inventory</a></li>
               <li class="bold"><a href="/order">Order</a></li>
-              <!-- <li class="bold"><a href="/request">Requests</a></li> -->
+              <li class="bold"><a href="/request">Requests</a></li>
               <li class="bold"><a href="/delivery">Delivery</a></li>
               <li class="bold active"><a href="/branches">Branches</a></li>
               <li class="bold"><a href="/employees">Employees</a></li>
@@ -61,7 +61,7 @@
                       <!-- <label for="price">Branch ID</label>
                       <input type="text" class="form-control" name="brnchID" id="brnchID" placeholder="BranchID"> -->
                         <label for="disabled">Branch ID</label>
-                        <input value={{$somenew}} name="brnchID" id="brnchID" placeholder="BranchID" type="text" class="form-control">
+                        <input value="{{$newID}}" name="brnchID" id="brnchID" placeholder="BranchID" type="text" class="form-control">
                       </div>
                       <div class="form-group">
                       <label for="price">Branch Name</label>

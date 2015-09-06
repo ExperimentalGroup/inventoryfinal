@@ -9,6 +9,7 @@ class tblDeliveriesSeeder extends Seeder{
 			array(
 
 				'strDlvryID' => 'DEL001',
+				'strOrdDlvry' => 'ORD001',
 				'dtDlvryDate' => '2015-07-01',
 				'strDlvryRecBy' => 'EMPL00003'
 			),
@@ -16,6 +17,7 @@ class tblDeliveriesSeeder extends Seeder{
 			array(
 
 				'strDlvryID' => 'DEL002',
+				'strOrdDlvry' => 'ORD001',
 				'dtDlvryDate' => '2015-07-13',
 				'strDlvryRecBy' => 'EMPL00002'
 			),
@@ -23,6 +25,7 @@ class tblDeliveriesSeeder extends Seeder{
 			array(
 
 				'strDlvryID' => 'DEL003',
+				'strOrdDlvry' => 'ORD002',
 				'dtDlvryDate' => '2015-07-20',
 				'strDlvryRecBy' => 'EMPL00003'
 			)

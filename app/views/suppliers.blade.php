@@ -29,7 +29,7 @@
               <li class="bold"><a href="/index">Dashboard</a></li>
               <li class="bold"><a href="/inventory">Inventory</a></li>
               <li class="bold"><a href="/order">Order</a></li>
-             <!--  <li class="bold"><a href="/request">Requests</a></li> -->
+              <li class="bold"><a href="/request">Requests</a></li>
               <li class="bold"><a href="/delivery">Delivery</a></li>
               <li class="bold"><a href="/branches">Branches</a></li>
               <li class="bold"><a href="/employees">Employees</a></li>
@@ -59,26 +59,31 @@
                   <div class="col s12 m12 l4">
                       <div class="form-group">
                       <form action="/suppliers" method="POST">
-                      <label for="price">Company Name</label>
-                      <input type="text" class="form-control" name="compName" id="compName" placeholder="Company">
-                      </div>
-                      <label for="price">Owner Last Name</label>
-                      <div class="form-group">
-                      <input type="text" class="form-control" name="suppLName" id="suppLName" placeholder="Surname">
-                      </div>
-                      <div class="form-group">
-                      <label for="price">Owner First Name</label>
-                      <input type="text" class="form-control" name="suppFName" id="suppFName" placeholder="Given Name">
-                      </div>
-                      <div class="form-group">
-                      <label for="price">Contact Number</label>
-                      <input type="text" class="form-control" name="contNumb" id="contNumb" placeholder="ContNumb">
-                      </div>
-                      <div class="form-group">
-                      <label for="price">Address</label>
-                      <input type="text" class="form-control" name="suppAdd" id="suppAdd" placeholder="SuppAdd">
-                      </div>
-                      <button class="waves-effect waves-light btn btn-small center-text">ADD</button>
+                        
+                        <div class="form-control">
+                          <label for="price">Supplier ID</label>
+                          <input type="text" value="{{$newID}}" name="suppID" id="suppID">
+                        </div>                                 
+                        <label for="price">Company Name</label>
+                        <input type="text" class="form-control" name="compName" id="compName" placeholder="Company">
+                        </div>
+                        <label for="price">Owner Last Name</label>
+                        <div class="form-group">
+                        <input type="text" class="form-control" name="suppLName" id="suppLName" placeholder="Surname">
+                        </div>
+                        <div class="form-group">
+                        <label for="price">Owner First Name</label>
+                        <input type="text" class="form-control" name="suppFName" id="suppFName" placeholder="Given Name">
+                        </div>
+                        <div class="form-group">
+                        <label for="price">Contact Number</label>
+                        <input type="text" class="form-control" name="contNumb" id="contNumb" placeholder="ContNumb">
+                        </div>
+                        <div class="form-group">
+                        <label for="price">Address</label>
+                        <input type="text" class="form-control" name="suppAdd" id="suppAdd" placeholder="SuppAdd">
+                        </div>
+                        <button class="waves-effect waves-light btn btn-small center-text">ADD</button>
                     </form>
                     </div>
                   </div>
