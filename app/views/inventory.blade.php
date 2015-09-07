@@ -31,6 +31,7 @@
               <li class="bold"><a href="/order">Order</a></li>
               <!-- <li class="bold"><a href="/request">Requests</a></li> -->
               <li class="bold"><a href="/delivery">Delivery</a></li>
+              <li class="bold"><a href="/release">Release</a></li>
               <li class="bold"><a href="/branches">Branches</a></li>
               <li class="bold"><a href="/employees">Employees</a></li>
               <li class="bold"><a href="/suppliers">Suppliers</a></li>
@@ -67,8 +68,9 @@
                     <div class="col s12 m12 l4 input-field">
                       <select>
                         <option value="" disabled selected>Model (Any)</option>
-                        <option value="1">Cellphone</option>
-                        <option value="2">Mouse</option>
+                       
+                        <option>Cellphone</option>
+                        <option>Tablet</option>
                       </select>
                     </div>
                     <div class="col s12 m12 l4 input-field">
@@ -142,6 +144,61 @@
               </div>
             </div>
           </div>
+
+
+          <div class="row">
+            <div class="col s12 m12 l6">
+              <div class="card-panel">
+                <span class="card-title">Add New Product</span>
+                <div class="divider"></div>
+                <div class="card-content">
+                  <div class="col s12 m12 l10">
+                      <div class="form-group">
+                      <form action="/inventory" method="POST">
+                      <label for="price">Product ID</label>
+                      <input type="text" class="form-control" name="prodID" id="prodID" placeholder="ProdID">
+                      </div>
+                      <label for="price">Product Name</label>
+                      <div class="form-group">
+                      <input type="text" class="form-control" name="prodName" id="prodName" placeholder="prodName">
+                      </div>
+                      <label for="price">Brand</label>
+                      <div class="form-group">
+                      <input type="text" class="form-control" name="prodBrand" id="prodBrand" placeholder="ProdName">
+                      </div>
+                      <div class="form-group">
+                      <label for="price">Model</label>
+                      <input type="text" class="form-control" name="prodModel" id="prodModel" placeholder="prodModel">
+                      </div>
+                      <div class="form-group">
+                      <label for="price">Retail Price</label>
+                      <input type="text" class="form-control" name="invRPrice" id="invRPrice" placeholder="invRPrice">
+                      </div>
+                      <div class="form-group">
+                      <label for="price">Wholesale Price</label>
+                      <input type="text" class="form-control" name="invWPrice" id="invWPrice" placeholder="invWPrice">
+                      </div>
+                      <div class="form-group">
+                      <label for="price">Available Stock</label>
+                      <input type="text" class="form-control" name="invStock" id="invStock" placeholder="InvStock">
+                      </div>
+                      <button class="waves-effect waves-light btn btn-small center-text">ADD(WAG ICLICK DI PA TAPOS)</button>
+                    </form>
+                    </div>
+                  </div>
+           
+           
+
+                  <div class="clearfix">
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          
+
+          </div>
+
         </div>
       </div>
     </main>

@@ -31,6 +31,8 @@ Route::get('/suppliers', 'HomeController@suppliers');
 
 Route::get('/delivery', 'HomeController@delivery');
 
+Route::get('/release', 'HomeController@release');
+
 Route::post('/branches', array('uses'=>'HomeController@createBranch'));
 
 Route::post('/suppliers', array('uses'=>'HomeController@createSupp'));

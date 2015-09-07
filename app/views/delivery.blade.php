@@ -31,6 +31,7 @@
               <li class="bold"><a href="/order">Order</a></li>
               <!-- <li class="bold"><a href="/request">Requests</a></li> -->
               <li class="bold active"><a href="/delivery">Delivery</a></li>
+              <li class="bold"><a href="/release">Release</a></li>
               <li class="bold"><a href="/branches">Branches</a></li>
               <li class="bold"><a href="/employees">Employees</a></li>
               <li class="bold"><a href="/suppliers">Suppliers</a></li>
@@ -123,28 +124,29 @@
                         <tr>
                           <th>Delivery ID</th>
                           <th>Supplier</th>
-                          <th>Delivered Products</th>
-                          <th>Quantity</th>
+                          <!-- <th>Delivered Products</th>
+                          <th>Quantity</th> -->
                           <!-- <th>Product Subtotals</th>
                           <th>Total Price</th> -->
                           <th>Date Delivered</th>
                           <th>Received By</th>
-                          <th>Status</th>
+                          <!-- <th>Status</th> -->
                           <!-- <th>Actions</th> -->
                         </tr>
                       </thead>
 
                       <tbody>
                         <tr>
-                          <td>DEL001</td>
-                          <td>Nokia Holdings<>
-                          <td>LG Flat Screen Monitor</td>
-                          <td>10</td>
+                          @foreach($djt as $joined)
+                          <td>{{ $joined -> strDlvryID }}</td>
+                          <td>{{ $joined -> strSuppCompanyName }}</td>
+                          <!-- <td>LG Flat Screen Monitor</td>
+                          <td>10</td> -->
                          <!--  <td>P1,500.00</td>
                           <td>P15,000.00</td> -->
-                          <td>06/18/2015</td>
-                          <td>Mother Anna</td>
-                          <td class="yellow-text bold">Pending</td>
+                          <td>{{ $joined -> dtDlvryDate }}</td>
+                          <td>{{ $joined -> strEmpLName.', '. $joined -> strEmpFName}}</td>
+                          <!-- <td class="yellow-text bold">Pending</td> -->
                           <td>
                             <!-- <div class="center-btn">
                               <a class="waves-effect waves-light btn btn-small center-text">Resend</a>
@@ -169,6 +171,7 @@
                             </div> -->
                           </td>
                         </tr>
+                        @endforeach
                       </tbody>
                     </table>
                   </div>

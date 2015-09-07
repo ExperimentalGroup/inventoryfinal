@@ -31,6 +31,7 @@
               <li class="bold"><a href="/order">Order</a></li>
               <li class="bold"><a href="/request">Requests</a></li>
               <li class="bold"><a href="/delivery">Delivery</a></li>
+              <li class="bold"><a href="/release">Release</a></li>
               <li class="bold"><a href="/branches">Branches</a></li>
               <li class="bold"><a href="/employees">Employees</a></li>
               <li class="bold active"><a href="/suppliers">Suppliers</a></li>
@@ -50,53 +51,7 @@
             <span class="page-title">Suppliers</span>
           </div>
 
-          <div class="row">
-            <div class="col s12 m12 l12">
-              <div class="card-panel">
-                <span class="card-title">Add New Suppliers</span>
-                <div class="divider"></div>
-                <div class="card-content">
-                  <div class="col s12 m12 l4">
-                      <div class="form-group">
-                      <form action="/suppliers" method="POST">
-                        
-                        <div class="form-control">
-                          <label for="price">Supplier ID</label>
-                          <input type="text" value="{{$newID}}" name="suppID" id="suppID">
-                        </div>                                 
-                        <label for="price">Company Name</label>
-                        <input type="text" class="form-control" name="compName" id="compName" placeholder="Company">
-                        </div>
-                        <label for="price">Owner Last Name</label>
-                        <div class="form-group">
-                        <input type="text" class="form-control" name="suppLName" id="suppLName" placeholder="Surname">
-                        </div>
-                        <div class="form-group">
-                        <label for="price">Owner First Name</label>
-                        <input type="text" class="form-control" name="suppFName" id="suppFName" placeholder="Given Name">
-                        </div>
-                        <div class="form-group">
-                        <label for="price">Contact Number</label>
-                        <input type="text" class="form-control" name="contNumb" id="contNumb" placeholder="ContNumb">
-                        </div>
-                        <div class="form-group">
-                        <label for="price">Address</label>
-                        <input type="text" class="form-control" name="suppAdd" id="suppAdd" placeholder="SuppAdd">
-                        </div>
-                        <button class="waves-effect waves-light btn btn-small center-text">ADD</button>
-                    </form>
-                    </div>
-                  </div>
-           
-
-                  <div class="clearfix">
-
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
+          
           <div class="row">
             <div class="col s12 m12 l12">
               <div class="card-panel">
@@ -148,6 +103,54 @@
               </div>
             </div>
           </div>
+
+          <div class="row">
+            <div class="col s12 m12 l6">
+              <div class="card-panel">
+                <span class="card-title">Add New Suppliers</span>
+                <div class="divider"></div>
+                <div class="card-content">
+                  <div class="col s12 m12 l10">
+                      <div class="form-group">
+                      <form action="/suppliers" method="POST">
+                        
+                        <div class="form-control">
+                          <label for="price">Supplier ID</label>
+                          <input type="text" value="{{$newID}}" name="suppID" id="suppID" readonly>
+                        </div>                                 
+                        <label for="price">Company Name</label>
+                        <input type="text" class="form-control" name="compName" id="compName" placeholder="Company">
+                        </div>
+                        <label for="price">Owner Last Name</label>
+                        <div class="form-group">
+                        <input type="text" class="form-control" name="suppLName" id="suppLName" placeholder="Surname">
+                        </div>
+                        <div class="form-group">
+                        <label for="price">Owner First Name</label>
+                        <input type="text" class="form-control" name="suppFName" id="suppFName" placeholder="Given Name">
+                        </div>
+                        <div class="form-group">
+                        <label for="price">Contact Number</label>
+                        <input type="text" class="form-control" name="contNumb" id="contNumb" placeholder="ContNumb">
+                        </div>
+                        <div class="form-group">
+                        <label for="price">Address</label>
+                        <input type="text" class="form-control" name="suppAdd" id="suppAdd" placeholder="SuppAdd">
+                        </div>
+                        <button class="waves-effect waves-light btn btn-small center-text">ADD</button>
+                    </form>
+                    </div>
+                  </div>
+           
+
+                  <div class="clearfix">
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
     </main>

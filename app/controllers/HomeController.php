@@ -17,10 +17,20 @@ class HomeController extends BaseController {
 
 	public function employee()
 	{
+		$ids = DB::table('tblEmployees')
+			->select('strEmpID')
+			->orderBy('updated_at', 'desc')
+			->orderBy('strEmpID', 'desc')
+			->take(1)
+			->get();
+
+		$ID = $ids["0"]->strEmpID;
+		$newID = $this->smart($ID);
+
 		// Get all products from the database
 		$employees = Employee::all();
 
-		return View::make('employee')->with ('employees', $employees);
+		return View::make('employee')->with ('employees', $employees)->with('newID', $newID);
 	}
 
 	public function inventoree()
@@ -76,8 +86,45 @@ class HomeController extends BaseController {
 		// Get all products from the database
 		//$suppliers = Supplier::all();
 
-		return View::make('delivery');
+		$djt = DB::table('tblDeliveries')
+		->join('tblOrders', function($join)
+		{
+			$join->on('tblDeliveries.strOrdDlvry','=','tblOrders.strOrdersID');
+		})
+		->join('tblEmployees', function($join2)
+		{
+			$join2->on('tblDeliveries.strDlvryRecBy','=','tblEmployees.strEmpID');
+		})
+		->join('tblSuppliers',function($join3)
+		{
+			$join3->on('tblOrders.strSupplID','=','tblSuppliers.strSuppID');
+		})
+		->get();
+
+		return View::make('delivery')->with('djt', $djt);
+
+
+		// return View::make('delivery');
 	}
+
+	public function release()
+	{
+		
+		$rjt = DB::table('tblReleases')
+		->join('tblBranches', function($join)
+		{
+			$join->on('tblReleases.strReleaseBrchID','=','tblBranches.strBrchID');
+		})
+		->join('tblEmployees', function($join2)
+		{
+			$join2->on('tblReleases.strReleaseBy','=','tblEmployees.strEmpID');
+		})	
+		->get();
+
+
+		return View::make('release')->with('rjt', $rjt);
+	}
+
 
 	public function createBranch()
 	{
@@ -157,6 +204,7 @@ class HomeController extends BaseController {
 
 		return View::make('details')->with('details', $details);
 	}
+
 
 	private function smart($id)
 	{

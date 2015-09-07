@@ -31,6 +31,7 @@
               <li class="bold"><a href="/order">Order</a></li>
               <!-- <li class="bold"><a href="/request">Requests</a></li> -->
               <li class="bold"><a href="/delivery">Delivery</a></li>
+              <li class="bold"><a href="/release">Release</a></li>
               <li class="bold"><a href="/branches">Branches</a></li>
               <li class="bold active"><a href="/employees">Employees</a></li>
               <li class="bold"><a href="/suppliers">Suppliers</a></li>
@@ -50,57 +51,7 @@
             <span class="page-title">Employees</span>
           </div>
 
-           <div class="row">
-            <div class="col s12 m12 l12">
-              <div class="card-panel">
-                <span class="card-title">Add New Employees</span>
-                <div class="divider"></div>
-                <div class="card-content">
-                  <div class="col s12 m12 l4">
-                      <div class="form-group">
-                      <form action="/employees" method="POST">
-                      <label for="price">Employee ID</label>
-                      <input type="text" class="form-control" name="empID" id="empID" placeholder="EmpID">
-                      </div>
-                      <label for="price">Employee Last Name</label>
-                      <div class="form-group">
-                      <input type="text" class="form-control" name="emplName" id="emplName" placeholder="EmpLName">
-                      </div>
-                      <label for="price">Employee First Name</label>
-                      <div class="form-group">
-                      <input type="text" class="form-control" name="empfName" id="empfName" placeholder="EmpFName">
-                      </div>
-                      <div class="form-group">
-                      <label for="price">Branch</label>
-                      <input type="text" class="form-control" name="empBrnch" id="empBrnch" placeholder="EmpBrnch">
-                      </div>
-                      <div class="form-group">
-                      <label for="price">Role</label>
-                      <input type="text" class="form-control" name="empRole" id="empRole" placeholder="EmpRole">
-                      </div>
-                      <div class="form-group">
-                      <label for="price">Status</label>
-                      <input type="text" class="form-control" name="empStatus" id="empStatus" placeholder="EmpStatus">
-                      </div>
-                      <div class="form-group">
-                      <label for="price">Address</label>
-                      <input type="text" class="form-control" name="empAdd" id="empAdd" placeholder="EmpAdd">
-                      </div>
-                      <button class="waves-effect waves-light btn btn-small center-text">ADD</button>
-                    </form>
-                    </div>
-                  </div>
-           
-           
-
-                  <div class="clearfix">
-
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-       
+          
 
           <div class="row">
             <div class="col s12 m12 l12">
@@ -150,6 +101,58 @@
               </div>
             </div>
           </div>
+
+           <div class="row">
+            <div class="col s12 m12 l6">
+              <div class="card-panel">
+                <span class="card-title">Add New Employees</span>
+                <div class="divider"></div>
+                <div class="card-content">
+                  <div class="col s12 m12 l10">
+                      <div class="form-group">
+                      <form action="/employees" method="POST">
+                      <label for="price">Employee ID</label>
+                      <input value="{{$newID}}" type="text" class="form-control" name="empID" id="empID" placeholder="EmpID" readonly>
+                      </div>
+                      <label for="price">Employee Last Name</label>
+                      <div class="form-group">
+                      <input type="text" class="form-control" name="emplName" id="emplName" placeholder="EmpLName">
+                      </div>
+                      <label for="price">Employee First Name</label>
+                      <div class="form-group">
+                      <input type="text" class="form-control" name="empfName" id="empfName" placeholder="EmpFName">
+                      </div>
+                      <div class="form-group">
+                      <label for="price">Branch</label>
+                      <input type="text" class="form-control" name="empBrnch" id="empBrnch" placeholder="EmpBrnch">
+                      </div>
+                      <div class="form-group">
+                      <label for="price">Role</label>
+                      <input type="text" class="form-control" name="empRole" id="empRole" placeholder="EmpRole">
+                      </div>
+                      <div class="form-group">
+                      <label for="price">Status</label>
+                      <input type="text" class="form-control" name="empStatus" id="empStatus" placeholder="EmpStatus">
+                      </div>
+                      <div class="form-group">
+                      <label for="price">Address</label>
+                      <input type="text" class="form-control" name="empAdd" id="empAdd" placeholder="EmpAdd">
+                      </div>
+                      <button class="waves-effect waves-light btn btn-small center-text">ADD</button>
+                    </form>
+                    </div>
+                  </div>
+           
+           
+
+                  <div class="clearfix">
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+       
         </div>
       </div>
     </main>

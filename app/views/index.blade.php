@@ -31,6 +31,7 @@
               <li class="bold"><a href="/order">Order</a></li>
            <!--    <li class="bold"><a href="/request">Requests</a></li> -->
               <li class="bold"><a href="/delivery">Delivery</a></li>
+              <li class="bold"><a href="/release">Release</a></li>
               <li class="bold"><a href="/branches">Branches</a></li>
               <li class="bold"><a href="/employees">Employees</a></li>
               <li class="bold"><a href="/suppliers">Suppliers</a></li>
@@ -52,11 +53,7 @@
             <span class="page-title">Dashboard</span>
           </div>
 
-          <div class="col s12 m12 l12">
-            <div class="input-field">
-            <i class="prefix mdi-action-search"></i>
-            <input id="search" type="text" placeholder="Search by name"/>
-            </div>
+  
 
           <div class="col s12 m12 l8">
             <div class="card-panel">
@@ -179,42 +176,7 @@
               </div>
             </div>
 
-            <div class="card-panel">
-              <span class="card-title">Pending requests</span>
-              <div class="divider"></div>
-              <div class="card-content">
-                <p>
-                  You have 2 pending requests.
-                </p>
-                <table class="centered">
-                  <thead>
-                    <tr>
-                      <th>Item</th>
-                      <th>Qty</th>
-                      <th>Branch</th>
-                    </tr>
-                  </thead>
 
-                  <tbody>
-                    <tr>
-                      <td>LG Flat Screen Monitor</td>
-                      <td>10</td>
-                      <td>gHub West Avenue</td>
-                    </tr>
-                    <tr>
-                      <td>Creative Dual Speakers with Bass</td>
-                      <td>15</td>
-                      <td>gHub Eastwood</td>
-                    </tr>
-                    
-                  </tbody>
-                </table>
-
-                <!-- <p>
-                  You have no pending requests.
-                </p> -->
-              </div>
-            </div>
           </div>
         </div>
       </div>

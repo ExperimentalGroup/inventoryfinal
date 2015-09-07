@@ -28,10 +28,10 @@
               </div>
               <li class="bold"><a href="/index">Dashboard</a></li>
               <li class="bold"><a href="/inventory">Inventory</a></li>
-              <li class="bold active"><a href="/order">Order</a></li>
+              <li class="bold"><a href="/order">Order</a></li>
               <!-- <li class="bold"><a href="/request">Requests</a></li> -->
               <li class="bold"><a href="/delivery">Delivery</a></li>
-              <li class="bold"><a href="/release">Release</a></li>
+              <li class="bold active"><a href="/release">Release</a></li>
               <li class="bold"><a href="/branches">Branches</a></li>
               <li class="bold"><a href="/employees">Employees</a></li>
               <li class="bold"><a href="/suppliers">Suppliers</a></li>
@@ -48,13 +48,13 @@
         <!-- ACTUAL PAGE CONTENT GOES HERE -->
         <div class="row">
           <div class="col s12 m12 l12">
-            <span class="page-title">Order</span>
+            <span class="page-title">Release</span>
           </div>
 
           <div class="row">
             <div class="col s12 m12 l12">
               <div class="card-panel">
-                <span class="card-title">Items Ordered from Suppliers</span>
+                <span class="card-title">Release Report</span>
                 <div class="divider"></div>
                 <div class="card-content">
                   <div class="col s12 m12 l4">
@@ -64,40 +64,58 @@
                     </div>
                   </div>
 
+                  <div class="col s12 m12 l6 offset-l2">
+                    <div class="col s12 m12 l4 input-field">
+                      <select>
+                        <option value="" disabled selected>Release No. (Any)</option>
+                        <option value="1">SAMPLE1</option>
+                        <option value="2">SAMPLE2</option>
+                        <option value="3">SAMPLE3</option>
+                      </select>
+                    </div>
+                    <div class="col s12 m12 l4 input-field">
+                      <select>
+                        <option value="" selected>Branch Name (Any)</option>
+                        <option value="1">SAMPLE1</option>
+                        <option value="2">SAMPLE2</option>
+                      </select>
+                    </div>
+                    <div class="col s12 m12 l4 input-field">
+                      <select>
+                        <option value="" selected>Released By (Any)</option>
+                        <option value="1">SAMPLE1</option>
+                        <option value="2">SAMPLE2</option>
+                        <option value="3">SAMPLE3</option>
+                      </select>
+                    </div>
+                  </div>
+
                   <div class="col s12 m12 l12 overflow-x">
                     <table class="centered">
                       <thead>
                         <tr>
-                          <th>Order ID</th>
-                          <th>Supplier</th>
-                          <th>Date Ordered</th>
-                          <th>Placed by</th>
-                          <th>Status</th>
+                          <th>Release Number</th>
+                          <th>Branch Name</th>
+                          <th>Release by</th>
+                          <th>Date</th>
                         </tr>
                       </thead>
 
                        <tbody>
-                        @foreach($jt as $joined)
+                        @foreach($rjt as $joined)
                         <tr>
-                          <td>{{ $joined -> strOrdersID }}</td>
-                          <td>{{ $joined -> strSuppCompanyName }}</td>
-                          <td>{{ $joined -> dtOrdDate }}</td>
-                          <td>{{ $joined -> strEmpLName.', '. $joined -> strEmpFName}}</td> 
-                          @if($joined -> strOrdNotesStat == 'Pending')
-                          <td class="orange-text bold">PENDING</td>
-                          @elseif($joined -> strOrdNotesStat == 'Declined')
-                          <td class="red-text bold">DECLINED</td>
-                          @elseif($joined -> strOrdNotesStat == 'Accepted')
-                          <td class="green-text bold">ACCEPTED</td>
-                          @endif                         
+                          <td>{{ $joined -> strReleasesID }}</td>
+                          <td>{{ $joined -> strBrchName }}</td>
+                          <td>{{ $joined -> strEmpLName.', '. $joined -> strEmpFName }}</td>
+                          <td>{{ $joined -> dtDateReleased }}</td>         
                           <td>
                             <!-- <div class="center-btn">
                               <a class="waves-effect waves-light btn btn-small center-text" href="/details">View Details</a>
                             </div> -->
-                            {{ HTML::link('/details/'.$joined -> strOrdersID, 'View Details') }}
+                            {{ HTML::link('/release', 'View Details') }}
                           </td>
-                        </tr>
-                        @endforeach
+                           </tr>
+                           @endforeach 
                       </tbody>
                     </table>
                   </div>
@@ -113,48 +131,6 @@
               </div>
             </div>
           </div>
-
-          <div class="row">
-            <div class="col s12 m12 l6">
-              <div class="card-panel">
-                <span class="card-title">Temp Order Form</span>
-                <div class="divider"></div>
-                <div class="card-content">
-                  <div class="col s12 m12 l10">
-                      <div class="form-group">
-                      <form action="/order" method="POST">
-                      <label for="price">Order ID</label>
-                      <input type="text" class="form-control" name="ordID" id="ordID" placeholder="OrdID">
-                      </div>
-                      <label for="price">Supplier</label>
-                      <div class="form-group">
-                      <input type="text" class="form-control" name="suppName" id="suppName" placeholder="SuppName">
-                      </div>
-                      <label for="price">Date Ordered</label>
-                      <div class="form-group">
-                      <input type="text" class="form-control" name="ordDate" id="ordDate" placeholder="ordDate">
-                      </div>
-                      <div class="form-group">
-                      <label for="price">Placed By</label>
-                      <input type="text" class="form-control" name="ordEmp" id="ordEmp" placeholder="ordEmp">
-                      </div>
-                      <button class="waves-effect waves-light btn btn-small center-text">ADD(WAG ICLICK DI PA TAPOS)</button>
-                    </form>
-                    </div>
-                  </div>
-           
-           
-
-                  <div class="clearfix">
-
-                  </div>
-                </div>
-              </div>
-            </div>
-          
-
-          </div>
-
         </div>
       </div>
     </main>
