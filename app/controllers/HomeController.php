@@ -36,13 +36,33 @@ class HomeController extends BaseController {
 	public function inventoree()
 	{
 		// Get all products from the database
+		$ids = DB::table('tblInventory')
+			->select('strBatchID')
+			->orderBy('updated_at', 'desc')
+			->orderBy('strBatchID', 'desc')
+			->take(1)
+			->get();
+
+		$ID = $ids["0"]->strBatchID;
+		$newID = $this->smart($ID);
+
+		$ids2 = DB::table('tblProducts')
+			->select('strProdID')
+			->orderBy('updated_at', 'desc')
+			->orderBy('strProdID', 'desc')
+			->take(1)
+			->get();
+
+		$ID2 = $ids2["0"]->strProdID;
+		$newID2 = $this->smart($ID2);
+
 		$inventory = DB::table('tblInventory')
 		->join('tblProducts', function($join)
 		{
 			$join->on('tblInventory.strProdID','=','tblProducts.strProdID');
 		})->get();
 		
-		return View::make('inventory')->with('inventory', $inventory);
+		return View::make('inventory')->with('inventory', $inventory)->with('newID', $newID)->with('newID2', $newID2);
 	}
 
 	public function branches()
@@ -153,6 +173,7 @@ class HomeController extends BaseController {
 
 	public function createEmp()
 	{
+
 		$employees = Employee::create(array(
 			'strEmpID' => Input::get('empID'),
 			'strEmpFName' => Input::get('empfName'),
@@ -164,6 +185,37 @@ class HomeController extends BaseController {
 		));
 		$employees->save();
 		return Redirect::to('/employees');
+	}
+
+ 	public function createInv()
+	{
+
+		//$inventory = DB::table('tblInventory')
+		//->join('tblProducts', function($join)
+		//{
+		//	$join->on('tblInventory.strProdID','=','tblProducts.strProdID');
+		//})->get();
+		$prod = Product::create(array(
+			'strProdID' => Input::get('proID'),
+			'strProdName' => Input::get('proName'),
+			'strProdBrand' => Input::get('proBrand'),
+			'strProdModel' => Input::get('proModel')
+		));
+		$prod->save();
+		
+		$inv = Inventory::create(array(
+			'strBatchID' => Input::get('batchID'),
+			'strProdID' => Input::get('proID'),
+			'strDlvryID' => "DEL003",
+			'strBrchID' => "BRCH002",
+			'intAvailQty' => Input::get('avaQTY'),
+			'dblCurRetPrice' => Input::get('retPrice'),
+			'dblCurWPrice' => Input::get('whoPrice')
+		));
+		$inv->save();
+
+		
+		return Redirect::to('/inventory');
 	}
 
 	public function order()
@@ -186,6 +238,16 @@ class HomeController extends BaseController {
 
 		return View::make('order')->with('jt', $jt);
 
+	}
+
+	public function neworder()
+	{
+		return View::make('neworder');
+	}
+
+	public function adjust()
+	{
+		return View::make('adjust');
 	}
 
 	public function details()

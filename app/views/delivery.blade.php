@@ -163,14 +163,14 @@
                           <td>P7,500.00</td>
                           <td>03/31/2015</td>
                           <td class="red-text bold">Declined</td> -->
-                          <td>
-                            <!-- <div class="center-btn">
+                          <!-- <td>
+                            <div class="center-btn">
                              <a class="waves-effect waves-light btn btn-small center-text">Resend</a>
                               <a class="waves-effect waves-light btn btn-small center-text">Received</a>
                               <a class="waves-effect waves-light btn btn-small center-text">Cancel</a>
-                            </div> -->
+                            </div>
                           </td>
-                        </tr>
+ -->                        </tr>
                         @endforeach
                       </tbody>
                     </table>

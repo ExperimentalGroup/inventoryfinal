@@ -17,6 +17,7 @@ class TblProducts extends Migration {
 			$table->string('strProdName');
 			$table->string('strProdBrand');
 			$table->string('strProdModel');
+			$table->timestamps();
 		});
 	}
 

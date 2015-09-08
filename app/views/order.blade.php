@@ -51,6 +51,23 @@
             <span class="page-title">Order</span>
           </div>
 
+           <div class="row">
+            <div class="col s12 m12 l6">
+                  <div class="col s12 m12 l10">
+                      <form action="/neworder" method="GET">
+                      <button class="waves-effect waves-light btn btn-small center-text">ADD NEW ORDER</button>
+                    </form>
+                    </div>
+                  </div>
+           
+           
+
+                  <div class="clearfix">
+
+                  </div>
+                </div>
+              
+
           <div class="row">
             <div class="col s12 m12 l12">
               <div class="card-panel">
@@ -114,46 +131,14 @@
             </div>
           </div>
 
-          <div class="row">
-            <div class="col s12 m12 l6">
-              <div class="card-panel">
-                <span class="card-title">Temp Order Form</span>
-                <div class="divider"></div>
-                <div class="card-content">
-                  <div class="col s12 m12 l10">
-                      <div class="form-group">
-                      <form action="/order" method="POST">
-                      <label for="price">Order ID</label>
-                      <input type="text" class="form-control" name="ordID" id="ordID" placeholder="OrdID">
-                      </div>
-                      <label for="price">Supplier</label>
-                      <div class="form-group">
-                      <input type="text" class="form-control" name="suppName" id="suppName" placeholder="SuppName">
-                      </div>
-                      <label for="price">Date Ordered</label>
-                      <div class="form-group">
-                      <input type="text" class="form-control" name="ordDate" id="ordDate" placeholder="ordDate">
-                      </div>
-                      <div class="form-group">
-                      <label for="price">Placed By</label>
-                      <input type="text" class="form-control" name="ordEmp" id="ordEmp" placeholder="ordEmp">
-                      </div>
-                      <button class="waves-effect waves-light btn btn-small center-text">ADD(WAG ICLICK DI PA TAPOS)</button>
-                    </form>
-                    </div>
-                  </div>
-           
-           
-
-                  <div class="clearfix">
-
-                  </div>
-                </div>
               </div>
             </div>
           
 
           </div>
+
+
+         
 
         </div>
       </div>

@@ -3,5 +3,5 @@
 class Product extends Eloquent
 {
 	protected $table = 'tblProducts';
-	protected $fillable = array('strProdName', 'strProdBrand', 'strProdModel','');
+	protected $fillable = array('strProdID','strProdName', 'strProdBrand', 'strProdModel');
 }

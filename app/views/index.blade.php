@@ -80,9 +80,9 @@
                       <td>{{ $status -> intAvailQty }}</td>
                       <td>
                         <div class="center-btn">
-                          <a class="waves-effect waves-light btn btn-small center-text">Order</a>
+                          <a class="waves-effect waves-light btn btn-small center-text" href="/neworder">Order</a>
                           <!-- <a class="waves-effect waves-light btn btn-small center-text">Request</a> -->
-                          <a class="waves-effect waves-light btn btn-small center-text">Adjust</a>
+                          <a class="waves-effect waves-light btn btn-small center-text" href="/adjust">Adjust</a>
                         </div>
                       </td>
                     </tr>

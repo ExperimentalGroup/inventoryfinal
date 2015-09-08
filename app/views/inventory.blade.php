@@ -125,7 +125,7 @@
                          @endif 
                           <td>
                             <div class="center-btn">
-                              <a class="waves-effect waves-light btn btn-small center-text" href="/order">ADJUST</a>
+                              <a class="waves-effect waves-light btn btn-small center-text" href="/adjust">ADJUST</a>
                             </div>
                           </td>
                         </tr>
@@ -153,41 +153,44 @@
                 <div class="divider"></div>
                 <div class="card-content">
                   <div class="col s12 m12 l10">
-                      <div class="form-group">
                       <form action="/inventory" method="POST">
+                      <div class="form-group">
+                      <label for="price">Batch ID</label>
+                      <input value="{{$newID}}" type="text" class="form-control" name="batchID" id="batchID" placeholder="ProdID" readonly>
+                      </div>
+                      <div class="form-group">
                       <label for="price">Product ID</label>
-                      <input type="text" class="form-control" name="prodID" id="prodID" placeholder="ProdID">
+                      <input value="{{$newID2}}" type="text" class="form-control" name="proID" id="proID" placeholder="ProdID" readonly>
                       </div>
                       <label for="price">Product Name</label>
                       <div class="form-group">
-                      <input type="text" class="form-control" name="prodName" id="prodName" placeholder="prodName">
+                      <input type="text" class="form-control" name="proName" id="proName" placeholder="Product Name">
                       </div>
                       <label for="price">Brand</label>
                       <div class="form-group">
-                      <input type="text" class="form-control" name="prodBrand" id="prodBrand" placeholder="ProdName">
+                      <input type="text" class="form-control" name="proBrand" id="proBrand" placeholder="Product Brand">
                       </div>
                       <div class="form-group">
                       <label for="price">Model</label>
-                      <input type="text" class="form-control" name="prodModel" id="prodModel" placeholder="prodModel">
+                      <input type="text" class="form-control" name="proModel" id="proModel" placeholder="Product Model">
                       </div>
                       <div class="form-group">
                       <label for="price">Retail Price</label>
-                      <input type="text" class="form-control" name="invRPrice" id="invRPrice" placeholder="invRPrice">
+                      <input type="text" class="form-control" name="retPrice" id="retPrice" placeholder="Retail Price">
                       </div>
                       <div class="form-group">
                       <label for="price">Wholesale Price</label>
-                      <input type="text" class="form-control" name="invWPrice" id="invWPrice" placeholder="invWPrice">
+                      <input type="text" class="form-control" name="whoPrice" id="whoPrice" placeholder="Wholesale Price">
                       </div>
                       <div class="form-group">
                       <label for="price">Available Stock</label>
-                      <input type="text" class="form-control" name="invStock" id="invStock" placeholder="InvStock">
+                      <input type="text" class="form-control" name="avaQTY" id="avaQTY" placeholder="Available Stock">
                       </div>
-                      <button class="waves-effect waves-light btn btn-small center-text">ADD(WAG ICLICK DI PA TAPOS)</button>
+                      <button class="waves-effect waves-light btn btn-small center-text">ADD</button>
                     </form>
                     </div>
                   </div>
-           
-           
+    
 
                   <div class="clearfix">
 

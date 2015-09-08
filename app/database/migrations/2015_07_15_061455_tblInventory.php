@@ -20,6 +20,7 @@ class TblInventory extends Migration {
 			$table->integer('intAvailQty');
 			$table->double('dblCurRetPrice', 15, 8);
 			$table->double('dblCurWPrice', 15, 8);
+			$table->timestamps();
 		});
 	}
 
