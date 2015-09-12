@@ -251,9 +251,10 @@ class HomeController extends BaseController {
 		return View::make('adjust');
 	}
 
-	public function details()
+	public function details($id)
 	{
 		$details = DB::table('tblOrderedProducts')
+		// ->where('strOPOrdersID', '=', $id)
         ->join('tblOrders', function($join)
         {
             $join->on('tblOrderedProducts.strOPOrdersID', '=', 'tblOrders.strOrdersID')

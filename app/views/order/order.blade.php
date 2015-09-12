@@ -68,7 +68,7 @@
 											<!-- <div class="center-btn">
 												<a class="waves-effect waves-light btn btn-small center-text" href="/details">View Details</a>
 											</div> -->
-											{{ HTML::link('/details/'.$order -> strOrdersID, 'View Details') }}
+											{{ HTML::link('details/'.$order -> strOrdersID, 'View Details') }}
 										</td>
 									</tr>
 									@endforeach
