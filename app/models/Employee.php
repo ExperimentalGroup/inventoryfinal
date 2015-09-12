@@ -9,4 +9,8 @@ class Employee extends Eloquent
 	public function orders() {
 		return $this->hasMany('Order', 'strPlacedBy', 'strEmpID');
 	}
+
+	public function role() {
+		return $this->belongsTo('Role', 'strEmpRoleID');
+	}
 }
