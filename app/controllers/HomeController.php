@@ -29,8 +29,16 @@ class HomeController extends BaseController {
 
 		// Get all products from the database
 		$employees = Employee::all();
+		$branches = Branch::lists('strBrchName', 'strBrchID');
+		$roles = Role::lists('strRoleDescription', 'strRoleID');
 
-		return View::make('employee')->with ('employees', $employees)->with('newID', $newID);
+		$data = array(
+			'employees' => $employees,
+			'branches' => $branches,
+			'roles' => $roles
+		);
+
+		return View::make('employee')->with ('data', $data)->with('newID', $newID);
 	}
 
 	public function inventoree()
@@ -173,7 +181,6 @@ class HomeController extends BaseController {
 
 	public function createEmp()
 	{
-
 		$employees = Employee::create(array(
 			'strEmpID' => Input::get('empID'),
 			'strEmpFName' => Input::get('empfName'),
@@ -237,7 +244,7 @@ class HomeController extends BaseController {
 		})
 		->get();
 
-		return View::make('order')->with('orders', $orders);
+		return View::make('order.order')->with('orders', $orders);
 
 	}
 
@@ -251,9 +258,10 @@ class HomeController extends BaseController {
 		return View::make('adjust');
 	}
 
-	public function details()
+	public function details($id)
 	{
 		$details = DB::table('tblOrderedProducts')
+		// ->where('strOPOrdersID', '=', $id)
         ->join('tblOrders', function($join)
         {
             $join->on('tblOrderedProducts.strOPOrdersID', '=', 'tblOrders.strOrdersID')
