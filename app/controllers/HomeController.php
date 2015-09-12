@@ -227,16 +227,6 @@ class HomeController extends BaseController {
 
 	public function order()
 	{
-		// Get all products from the database
-		// $jt = DB::table('tblOrders')
-		// ->join('tblSuppliers', function($join)
-		// {
-		// 	$join->on('tblOrders.strSupplID','=','tblSuppliers.strSuppID');
-		// })
-		// ->join('tblEmployees', function($join2)
-		// {
-		// 	$join2->on('tblOrders.strPlacedBy','=','tblEmployees.strEmpID');
-		// })
 		$orders = Order::with('supplier', 'employee')
 		->join('tblOrdNotes',function($join3)
 		{
@@ -260,46 +250,30 @@ class HomeController extends BaseController {
 
 	public function details($id)
 	{
-		$details = DB::table('tblOrderedProducts')
-		// ->where('strOPOrdersID', '=', $id)
-        ->join('tblOrders', function($join)
-        {
-            $join->on('tblOrderedProducts.strOPOrdersID', '=', 'tblOrders.strOrdersID')
-                 ->where('tblOrders.strOrdersID', '=','orderid');
-        })
-        ->join('tblProducts', function($join2)
-        {
-        	$join2->on('tblOrderedProducts.strOPProdID','=','tblProducts.strProdID');
-        })
-        ->get();
 
-		return View::make('details')->with('details', $details);
+		$order = Order::with('products.price')->find($id);
+		// $details = DB::table('tblOrderedProducts')
+		// ->where('strOPOrdersID', '=', $id)
+  //       ->join('tblOrders', function($join)
+  //       {
+  //           $join->on('tblOrderedProducts.strOPOrdersID', '=', 'tblOrders.strOrdersID');
+  //                // ->where('tblOrders.strOrdersID', '=','orderid');
+  //           	// ->where('strOPOrdersID', '=', $id);
+  //       })
+  //       ->join('tblProducts', function($join2)
+  //       {
+  //       	$join2->on('tblOrderedProducts.strOPProdID','=','tblProducts.strProdID');
+  //       })
+
+        // dd($order->products[0]->price->toArray());
+
+		return View::make('details')->with('order', $order);
 	}
 
 
 	private function smart($id)
 	{
-		//$ID ="emp0111";
-
-		//Retriving lastest ID from the db
-		// $ids = DB::table('tblBranches')
-		// 	->select('strBrchID')
-		// 	//->orderBy('updated_at', 'desc')
-		// 	->orderBy('strBrchID', 'desc')
-		// 	->take(1)
-		// 	->get();
-
-		// $ID = $ids["0"]->strBrchID;
-
-		//print_r("Recent ID retrieved from database: " . $ID);
-		
 		$arrID = str_split($id);
-
-		// echo "<br />";
-		// 	echo "To Array: ";
-		// echo "<pre>";
-		// 	print_r($arrID);
-		// echo "</pre>";
 
 		$new = "";
 		$somenew = "";
@@ -341,11 +315,6 @@ class HomeController extends BaseController {
 			$somenew = $somenew . $arrNew[$ctr2] ;
 		}
 		return $somenew;
-		// echo "<br />";
-		// 	print_r("Newly created ID : ");
-		// echo "<pre>";
-		// 	print_r($somenew);
-		// echo "</pre>";
 	}
 
 }

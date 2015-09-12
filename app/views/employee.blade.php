@@ -69,33 +69,33 @@
                 <div class="form-group">
                 <form action="/employees" method="POST">
                   <label for="price">Employee ID</label>
-                  <input value="{{$newID}}" type="text" class="form-control" name="empID" id="empID" placeholder="EmpID" readonly>
+                  <input value="{{$newID}}" type="text" class="form-control" name="empID" id="empID" placeholder="Employee ID" readonly>
                   </div>
                   <label for="price">Employee Last Name</label>
                   <div class="form-group">
-                  <input type="text" class="form-control" name="emplName" id="emplName" placeholder="EmpLName">
+                  <input type="text" class="form-control" name="emplName" id="emplName" placeholder="Last Name">
                   </div>
                   <label for="price">Employee First Name</label>
                   <div class="form-group">
-                  <input type="text" class="form-control" name="empfName" id="empfName" placeholder="EmpFName">
+                  <input type="text" class="form-control" name="empfName" id="empfName" placeholder="First Name">
                   </div>
                   <div class="form-group">
                   <label for="price">Branch</label>
                   {{ Form::select('empBrnch', $data['branches'], null, array('class' => 'browser-default')) }}
-                  {{-- <input type="text" class="form-control" name="empBrnch" id="empBrnch" placeholder="EmpBrnch"> --}}
+                  {{-- <input type="text" class="form-control" name="empBrnch" id="empBrnch" placeholder="Branch"> --}}
                   </div>
                   <div class="form-group">
                   <label for="price">Role</label>
                   {{ Form::select('empRole', $data['roles'], null, array('class' => 'browser-default')) }}
-                  {{-- <input type="text" class="form-control" name="empRole" id="empRole" placeholder="EmpRole"> --}}
+                  {{-- <input type="text" class="form-control" name="empRole" id="empRole" placeholder="Role"> --}}
                   </div>
                   <div class="form-group">
                   <label for="price">Status</label>
-                  <input type="text" class="form-control" name="empStatus" id="empStatus" placeholder="EmpStatus">
+                  <input type="text" class="form-control" name="empStatus" id="empStatus" placeholder="Status">
                   </div>
                   <div class="form-group">
                   <label for="price">Address</label>
-                  <input type="text" class="form-control" name="empAdd" id="empAdd" placeholder="EmpAdd">
+                  <input type="text" class="form-control" name="empAdd" id="empAdd" placeholder="Address">
                   </div>
                   <button class="waves-effect waves-light btn btn-small center-text">ADD</button>
                 </form>
