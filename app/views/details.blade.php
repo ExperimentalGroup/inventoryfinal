@@ -35,10 +35,11 @@
                   </tr>
                 </thead>
                 <tbody>
-                    @foreach($details as $tempdetails)
+                    @foreach($order->products as $product)
                       <tr>
-                        <td>{{ $tempdetails->strProdName}}</td>
-                        <td>{{ $tempdetails->intOPQuantity}}</td>
+                        <td>{{ $product->strProdName}}</td>
+                        <td>{{ $product->pivot->intOPQuantity}}</td>
+                        <td>{{ $product->price[0]->dblCurRetPrice }}
                       </tr>
                     @endforeach
                 </tbody>
