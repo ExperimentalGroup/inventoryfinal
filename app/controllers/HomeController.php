@@ -237,7 +237,7 @@ class HomeController extends BaseController {
 		})
 		->get();
 
-		return View::make('order')->with('orders', $orders);
+		return View::make('order.order')->with('orders', $orders);
 
 	}
 
