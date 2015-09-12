@@ -221,22 +221,23 @@ class HomeController extends BaseController {
 	public function order()
 	{
 		// Get all products from the database
-		$jt = DB::table('tblOrders')
-		->join('tblSuppliers', function($join)
-		{
-			$join->on('tblOrders.strSupplID','=','tblSuppliers.strSuppID');
-		})
-		->join('tblEmployees', function($join2)
-		{
-			$join2->on('tblOrders.strPlacedBy','=','tblEmployees.strEmpID');
-		})
+		// $jt = DB::table('tblOrders')
+		// ->join('tblSuppliers', function($join)
+		// {
+		// 	$join->on('tblOrders.strSupplID','=','tblSuppliers.strSuppID');
+		// })
+		// ->join('tblEmployees', function($join2)
+		// {
+		// 	$join2->on('tblOrders.strPlacedBy','=','tblEmployees.strEmpID');
+		// })
+		$orders = Order::with('supplier', 'employee')
 		->join('tblOrdNotes',function($join3)
 		{
 			$join3->on('tblOrdNotes.strOrdersID','=','tblOrders.strOrdersID');
 		})
 		->get();
 
-		return View::make('order')->with('jt', $jt);
+		return View::make('order')->with('orders', $orders);
 
 	}
 

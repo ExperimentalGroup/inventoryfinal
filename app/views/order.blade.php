@@ -94,24 +94,24 @@
                       </thead>
 
                        <tbody>
-                        @foreach($jt as $joined)
+                        @foreach($orders as $order)
                         <tr>
-                          <td>{{ $joined -> strOrdersID }}</td>
-                          <td>{{ $joined -> strSuppCompanyName }}</td>
-                          <td>{{ $joined -> dtOrdDate }}</td>
-                          <td>{{ $joined -> strEmpLName.', '. $joined -> strEmpFName}}</td> 
-                          @if($joined -> strOrdNotesStat == 'Pending')
+                          <td>{{ $order -> strOrdersID }}</td>
+                          <td>{{ $order -> supplier -> strSuppCompanyName }}</td>
+                          <td>{{ $order -> dtOrdDate }}</td>
+                          <td>{{ $order -> employee -> strEmpLName.', '. $order -> employee -> strEmpFName}}</td> 
+                          @if($order -> strOrdNotesStat == 'Pending')
                           <td class="orange-text bold">PENDING</td>
-                          @elseif($joined -> strOrdNotesStat == 'Declined')
+                          @elseif($order -> strOrdNotesStat == 'Declined')
                           <td class="red-text bold">DECLINED</td>
-                          @elseif($joined -> strOrdNotesStat == 'Accepted')
+                          @elseif($order -> strOrdNotesStat == 'Accepted')
                           <td class="green-text bold">ACCEPTED</td>
                           @endif                         
                           <td>
                             <!-- <div class="center-btn">
                               <a class="waves-effect waves-light btn btn-small center-text" href="/details">View Details</a>
                             </div> -->
-                            {{ HTML::link('/details/'.$joined -> strOrdersID, 'View Details') }}
+                            {{ HTML::link('/details/'.$order -> strOrdersID, 'View Details') }}
                           </td>
                         </tr>
                         @endforeach
