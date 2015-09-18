@@ -244,9 +244,10 @@ class HomeController extends BaseController {
 		->join('tblProducts', function($join)
 		{
 			$join->on('tblInventory.strProdID','=','tblProducts.strProdID');
-		})->get();
+		})
+		->select('strProdName', 'dblCurRetPrice', 'dblCurWPrice', 'intAvailQty')
+		->get();
 
-		
 		echo json_encode($products);
 	}
 
