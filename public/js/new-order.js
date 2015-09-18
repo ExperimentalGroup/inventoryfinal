@@ -24,36 +24,34 @@ $(function(){
 		type: 'GET',
 		success: function(data)
 		{
-			// var strProducts = $.parseJSON(data);
-			// var wahaha = [];
-			// var abc = [];
-			// var strProdukto = $.map(strProducts[0], function(ret)
-			// {
-			// 	return ret;
-			// });
-			// 	console.log(strProducts[0]['dblCurRetPrice']);
-			// // 	// Rated SPG
-			// 	// for (var i = 0; i < strProducts.length; i++) {
-			// 	// 	for (var j = 0; j < strProducts.length; j++) {
-			// 	// 		if(j==0) wahaha[i][j] = strProducts[i]['strProdName'];
-			// 	// 			else if(j==1) wahaha[i][j] = strProducts[i]['dblCurRetPrice'];
-			// 	// 				else if(j==2)	wahaha[i][j] = strProducts[i]['dblCurWPrice'];
-			// 	// 					else if(j==3) wahaha[i][j] = strProducts[i]['intAvailQty'];
-			// 	// 	}
-			// 	// }
+			var strProducts = $.parseJSON(data);
+			var strProdukto = [];
+			var aaa = [];
 
-			// 	for (var i = 0; i < strProducts.length; i++) {
-			// 		wahaha[i] = 
-			// 		[
-			// 			strProducts[i]['strProdName'],
-			// 			strProducts[i]['dblCurRetPrice'],
-			// 			strProducts[i]['dblCurWPrice'],
-			// 			strProducts[i]['intAvailQty']
-			// 		]
-			// 	}
+			for (var i = 0; i < strProducts.length; i++) {
+				strProdukto[i] = $.map(strProducts[i], function(ret)
+				{
+					return ret;
+				});
+			};
 
-			// 	// tblProducts.row.add(wahaha).draw();
-				console.log(dataSet);
+			for (var i = 0; i < strProducts.length; i++) {
+						aaa[i] = 
+						[
+							strProdukto[i][0],
+							strProdukto[i][1],
+							strProdukto[i][2],
+							strProdukto[i][3],
+							'<div class="center-btn">' + '<a class="waves-effect waves-light btn btn-small center-text product-add">ADD TO PRODUCT LIST</a>' + '</div>'					
+						];
+			}			
+
+			for(var i = 0; i < aaa.length; i++)
+			{
+				tblProducts.row.add(aaa[i]).draw();
+			}
+					
+				// console.log(dataSet);
 		},
 		error: function(xhr)
 		{

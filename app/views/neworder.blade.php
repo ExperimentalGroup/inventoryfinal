@@ -32,7 +32,7 @@
                     <th>Retail Price</th>
                     <th>Wholesale Price</th>
                     <th>Quantity</th>
-                    <th>Price Type</td>
+                    <th></td>
                   </tr>
                 </thead>
 
