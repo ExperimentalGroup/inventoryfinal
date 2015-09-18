@@ -193,5 +193,8 @@
 
   </div>
 </div>
-<script type="text/javascript" src="{{asset('js/new-order.js')}}"></script>
+@stop
+
+@section('scripts')
+{{ HTML::script('js/new-order.js') }}
 @stop

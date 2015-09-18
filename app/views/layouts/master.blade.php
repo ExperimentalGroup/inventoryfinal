@@ -5,17 +5,9 @@
 
     <!-- STYLES START -->
     {{ HTML::style('css/materialize.min.css') }}
+    {{ HTML::style('css/datatables.min.css') }}
     {{ HTML::style('css/style.css') }}
-    {{-- <link type="text/css" rel="stylesheet" href="css/materialize.min.css"> --}}
-    {{-- <link type="text/css" rel="stylesheet" href="css/style.css"> --}}
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.9/css/jquery.dataTables.min.css">
     <!-- STYLES END -->
-    <script src="asset('js/materialize.min.js')" type="text/javascript"></script>
-    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-    <!-- {{HTML::style('js/jquery.dataTables.min.js')}}
-    {{--  <script type="text/javascript" src="js/jquery.dataTables.min.js"></script> --}} -->
-    <!-- // <script src="asset('js/jquery-2.1.4.min.js')" type="text/javascript"></script> -->
-     // <script type="text/javascript" src="https://cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js"></script>
   </head>
   <body>
     <header>
@@ -59,14 +51,13 @@
     </main>
 
     <!-- SCRIPTS START -->
-    <!-- {{ HTML::script('js/jquery-2.1.4.min.js') }} -->
-    <!-- {{ HTML::script('js/materialize.min.js') }} -->
-    <!-- {{ HTML::script('js/app.js') }} -->
-     <!-- <script src="asset('js/jquery-2.1.4.min.js')" type="text/javascript"></script>
-    // <script src="asset('js/materialize.min.js')" type="text/javascript"></script> -->
-    <script src="asset('js/app.js')" type="text/javascript"></script> 
-   
+    {{ HTML::script('js/jquery-2.1.4.min.js') }}
+    {{ HTML::script('js/materialize.min.js') }}
+    {{ HTML::script('js/datatables.min.js') }}
+    {{ HTML::script('js/app.js') }}
     <!-- SCRIPTS END -->
+
+    @yield('scripts')
   </body>
 </html>
 <!--  -->

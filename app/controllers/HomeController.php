@@ -248,7 +248,7 @@ class HomeController extends BaseController {
 		->select('strProdName', 'dblCurRetPrice', 'dblCurWPrice', 'intAvailQty')
 		->get();
 
-		echo json_encode($products);
+		return Response::json($products);
 	}
 
 
