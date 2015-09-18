@@ -17,9 +17,18 @@ class loginController extends \BaseController {
 		$chk2 = Login::where('strPassword','=',Input::get('password'))->first();	
 		if($chk1 && $chk2)
 		{
+			Session::put('username', $un);
+			//$id = Login::all();
 
-			Session::put('username', '$un');
-			$id = Login::all();
+			$empId = DB::table('tblLogin')
+			->join('tblEmployees',function($join)
+			{
+				$join->on('tblLogin.strLoginEmpID','=','tblEmployees.strEmpID')
+					 ->where('tblLogin.strUsername','=',Session::get('username'));
+			})->get();
+
+			
+
 
 			//dashboard(danger stocks)
 			$index = DB::table('tblInventory')
@@ -30,7 +39,7 @@ class loginController extends \BaseController {
 			})->get();
 
 			
-			return View::make('index')->with('id',$id)->with('index', $index);
+			return View::make('index')->with('index', $index)->with('empId',$empId);
 		}
 		else
 			return Redirect::to('/')->with('message', 'Login Failed, USERNAME/PASSWORD Dont Exists');
@@ -45,6 +54,14 @@ class loginController extends \BaseController {
 		}
 		else
 		{
+			$empId = DB::table('tblLogin')
+			->join('tblEmployees',function($join)
+			{
+				$join->on('tblLogin.strLoginEmpID','=','tblEmployees.strEmpID')
+					 ->where('tblLogin.strUsername','=',Session::get('username'));
+			})->get();
+
+			
 			$index = DB::table('tblInventory')
 			->join('tblProducts',function($join)
 			{
@@ -52,7 +69,7 @@ class loginController extends \BaseController {
 					 ->where('tblInventory.intAvailQty','<=','10');
 			})->get();
 
-			return View::make('index')->with('index', $index);
+			return View::make('index')->with('index', $index)->with('empId',$empId);
 		}
 		
 	}

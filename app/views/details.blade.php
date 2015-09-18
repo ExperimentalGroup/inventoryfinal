@@ -39,7 +39,8 @@
                       <tr>
                         <td>{{ $product->strProdName}}</td>
                         <td>{{ $product->pivot->intOPQuantity}}</td>
-                        <td>{{ $product->price[0]->dblCurRetPrice }}
+                        <td>{{ $product->price[0]->dblCurRetPrice }}</td>
+                        <td>{{ $product->price[0]->dblCurRetPrice *  $product->pivot->intOPQuantity}}</td>
                       </tr>
                     @endforeach
                 </tbody>

@@ -55,3 +55,5 @@ Route::get('/request', function()
 {
 	return View::make('request');
 });
+
+Route::get('/product-load', 'HomeController@productTable');

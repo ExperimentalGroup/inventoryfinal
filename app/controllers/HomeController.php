@@ -238,9 +238,52 @@ class HomeController extends BaseController {
 
 	}
 
-	public function neworder()
+	public function productTable()
 	{
-		return View::make('neworder');
+		$products = DB::table('tblInventory')
+		->join('tblProducts', function($join)
+		{
+			$join->on('tblInventory.strProdID','=','tblProducts.strProdID');
+		})->get();
+
+		
+		echo json_encode($products);
+	}
+
+
+	public function newOrder()
+	{
+		$products = DB::table('tblInventory')
+		->join('tblProducts', function($join)
+		{
+			$join->on('tblInventory.strProdID','=','tblProducts.strProdID');
+		})->get();
+
+		$suppliers = Supplier::lists('strSuppCompanyName','strSuppID');
+
+		$data = array(
+			'suppliers' => $suppliers
+		);
+
+		$ids = DB::table('tblOrders')
+			->select('strOrdersID')
+			->orderBy('strOrdersID', 'desc')
+			->take(1)
+			->get();
+
+		$ID = $ids["0"]->strOrdersID;
+		$newID = $this->smart($ID);
+
+		Session::put('orderqueue',$newID);
+
+		$ordProd = OrderProduct::all();
+
+		return View::make('neworder')->with('products', $products)->with('data',$data)->with('newID',$newID)->with('ordProd',$ordProd);
+	}
+
+	public function newOrderAdd()
+	{
+
 	}
 
 	public function adjust()

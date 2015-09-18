@@ -8,7 +8,14 @@
     {{ HTML::style('css/style.css') }}
     {{-- <link type="text/css" rel="stylesheet" href="css/materialize.min.css"> --}}
     {{-- <link type="text/css" rel="stylesheet" href="css/style.css"> --}}
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.9/css/jquery.dataTables.min.css">
     <!-- STYLES END -->
+    <script src="asset('js/materialize.min.js')" type="text/javascript"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <!-- {{HTML::style('js/jquery.dataTables.min.js')}}
+    {{--  <script type="text/javascript" src="js/jquery.dataTables.min.js"></script> --}} -->
+    <!-- // <script src="asset('js/jquery-2.1.4.min.js')" type="text/javascript"></script> -->
+     // <script type="text/javascript" src="https://cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js"></script>
   </head>
   <body>
     <header>
@@ -26,7 +33,7 @@
               </div>
               <div class="account-pane center-align">
                 <!-- use amber for admin, blue for employee, ?? for manager -->
-                Logged in as: <span class="bold amber-text text-accent-4">Han Seoul-Oh(Admin)</span>
+                Logged in as: <span class="bold amber-text text-accent-4">{{Session::get('username')}}</span>
                 <br/>
                 Branch: <span class="bold">Main</span>
               </div>
@@ -52,12 +59,14 @@
     </main>
 
     <!-- SCRIPTS START -->
-    {{ HTML::script('js/jquery-2.1.4.min.js') }}
-    {{ HTML::script('js/materialize.min.js') }}
-    {{ HTML::script('js/app.js') }}
-    {{-- <script src="js/jquery-2.1.4.min.js" type="text/javascript"></script>
-    <script src="js/materialize.min.js" type="text/javascript"></script>
-    <script src="js/app.js" type="text/javascript"></script> --}}
+    <!-- {{ HTML::script('js/jquery-2.1.4.min.js') }} -->
+    <!-- {{ HTML::script('js/materialize.min.js') }} -->
+    <!-- {{ HTML::script('js/app.js') }} -->
+     <!-- <script src="asset('js/jquery-2.1.4.min.js')" type="text/javascript"></script>
+    // <script src="asset('js/materialize.min.js')" type="text/javascript"></script> -->
+    <script src="asset('js/app.js')" type="text/javascript"></script> 
+   
     <!-- SCRIPTS END -->
   </body>
 </html>
+<!--  -->
