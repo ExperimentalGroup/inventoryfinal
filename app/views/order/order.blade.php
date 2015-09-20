@@ -10,19 +10,13 @@
 
 		 <div class="row">
 			<div class="col s12 m12 l6">
-						<div class="col s12 m12 l10">
-								<form action="/neworder" method="GET">
-								<button class="waves-effect waves-light btn btn-small center-text">ADD NEW ORDER</button>
-							</form>
-							</div>
-						</div>
-		 
-		 
-
-						<div class="clearfix">
-
-						</div>
-					</div>
+				<div class="col s12 m12 l10">
+					<form action="/neworder" method="GET">
+						<button class="waves-effect waves-light btn btn-small center-text">ADD NEW ORDER</button>
+					</form>
+				</div>
+			</div>
+		 </div>
 				
 
 		<div class="row">
@@ -68,10 +62,32 @@
 											<!-- <div class="center-btn">
 												<a class="waves-effect waves-light btn btn-small center-text" href="/details">View Details</a>
 											</div> -->
-											{{ HTML::link('details/'.$order -> strOrdersID, 'View Details') }}
-										</td>
+											<div class="container">
+				                           <!-- Modal Trigger -->
+				                              <a class="modal-trigger waves-effect waves-light btn" href="#{{$order->strOrdersID}}">View Details</a>
+				                              @foreach($orders as $order)
+				                              <!-- Modal Structure -->
+				                              <div id="{{$order->strOrdersID}}" class="modal modal-fixed-footer">
+				                                <div class="modal-content">
+				                                  <h4>Order Details</h4>
+				                                  <p>Order ID: {{$order -> strOrdersID}}<br>
+				                                     Supplier Name: {{$order -> supplier -> strSuppCompanyName}}<br>
+				                                     Placed By: {{$order->employee -> strEmpLName.', '.$order->employee->strEmpFName}}<br>
+				                                     Order Date: {{$order-> dtOrdDate}}<br>
+				                                     <br>Products Ordered:<br>
+				                                     {{$order->strOPProdID}} 
+                        							 {{ $order->intOPQuantity}} 
+				                                  </p>
+				                                </div>
+				                                <div class="modal-footer">
+				                                  <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Close</a>
+				                                </div>
+				                              </div>
+				                              @endforeach
+				                            </div>
+				                          </td>
 									</tr>
-									@endforeach
+										@endforeach
 								</tbody>
 							</table>
 						</div>
@@ -90,13 +106,16 @@
 
 				</div>
 			</div>
-		
+@stop
 
-		</div>
-
-
-	 
-
-	</div>
-</div>
+@section('scripts')
+<!--{{ HTML::script('js/new-order.js') }}-->
+<script type="text/javascript" src="js/jquery.js"></script>
+<script src="js/materialize.js"></script>
+<script>   
+    $(document).ready(function(){
+    // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+    $('.modal-trigger').leanModal();
+  }); 
+</script>
 @stop

@@ -232,6 +232,10 @@ class HomeController extends BaseController {
 		{
 			$join3->on('tblOrdNotes.strOrdersID','=','tblOrders.strOrdersID');
 		})
+		->join('tblOrderedProducts',function($join3)
+		{
+			$join3->on('tblOrdNotes.strOrdersID','=','tblOrderedProducts.strOPOrdersID');
+		})
 		->get();
 
 		return View::make('order.order')->with('orders', $orders);

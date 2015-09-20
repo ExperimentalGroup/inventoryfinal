@@ -9,6 +9,16 @@
           </div>
 
           <div class="row">
+      <div class="col s12 m12 l6">
+        <div class="col s12 m12 l10">
+            <button class="modal-trigger waves-effect waves-light btn btn-small center-text" href="#newprod">ADD NEW PRODUCT</button>
+          </form>
+        </div>
+      </div>
+     </div>
+
+
+          <div class="row">
             <div class="col s12 m12 l12">
               <div class="card-panel">
                 <span class="card-title">Items on current branch</span>
@@ -102,14 +112,10 @@
             </div>
           </div>
 
-
-          <div class="row">
-            <div class="col s12 m12 l6">
-              <div class="card-panel">
-                <span class="card-title">Add New Product</span>
-                <div class="divider"></div>
-                <div class="card-content">
-                  <div class="col s12 m12 l10">
+  <div id="newprod" class="modal modal-fixed-footer">
+          <div class="modal-content">
+          <h4>Add New Branch</h4>
+          <p>
                       <form action="/inventory" method="POST">
                       <div class="form-group">
                       <label for="price">Batch ID</label>
@@ -144,21 +150,23 @@
                       <input type="text" class="form-control" name="avaQTY" id="avaQTY" placeholder="Available Stock">
                       </div>
                       <button class="waves-effect waves-light btn btn-small center-text">ADD</button>
-                    </form>
-                    </div>
-                  </div>
-    
-
-                  <div class="clearfix">
-
-                  </div>
-                </div>
-              </div>
-            </div>
-          
-
-          </div>
-
-        </div>
-      </div>
+                       </p>
+                      </div>
+                                <div class="modal-footer">
+                                  <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Close</a>
+                                </div>
+                      </form>
 @stop
+
+@section('scripts')
+<!--{{ HTML::script('js/new-order.js') }}-->
+<script type="text/javascript" src="js/jquery.js"></script>
+<script src="js/materialize.js"></script>
+<script>   
+    $(document).ready(function(){
+    // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+    $('.modal-trigger').leanModal();
+  }); 
+</script>
+@stop
+

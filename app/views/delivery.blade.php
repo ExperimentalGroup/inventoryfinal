@@ -97,37 +97,33 @@
                           @foreach($djt as $joined)
                           <td>{{ $joined -> strDlvryID }}</td>
                           <td>{{ $joined -> strSuppCompanyName }}</td>
-                          <!-- <td>LG Flat Screen Monitor</td>
-                          <td>10</td> -->
-                         <!--  <td>P1,500.00</td>
-                          <td>P15,000.00</td> -->
                           <td>{{ $joined -> dtDlvryDate }}</td>
                           <td>{{ $joined -> strEmpLName.', '. $joined -> strEmpFName}}</td>
                           <!-- <td class="yellow-text bold">Pending</td> -->
                           <td>
-                            <!-- <div class="center-btn">
-                              <a class="waves-effect waves-light btn btn-small center-text">Resend</a>
-                              <a class="waves-effect waves-light btn btn-small center-text">Received</a>
-                              <a class="waves-effect waves-light btn btn-small center-text">Cancel</a>
-                            </div> -->
-                          </td>
-                        </tr>
-                        <tr>
-                         <!--  <td>gHub Eastwood</td> -->
-                          <!-- <td>Creative Dual Speakers with Bass</td>
-                          <td>15</td>
-                          <td>P500.00</td>
-                          <td>P7,500.00</td>
-                          <td>03/31/2015</td>
-                          <td class="red-text bold">Declined</td> -->
-                          <!-- <td>
-                            <div class="center-btn">
-                             <a class="waves-effect waves-light btn btn-small center-text">Resend</a>
-                              <a class="waves-effect waves-light btn btn-small center-text">Received</a>
-                              <a class="waves-effect waves-light btn btn-small center-text">Cancel</a>
+                             <div class="container">
+                           <!-- Modal Trigger -->
+                              <a class="modal-trigger waves-effect waves-light btn" href="#{{$joined->strDlvryID}}">View Details</a>
+                              @foreach($djt as $joined)
+                              <!-- Modal Structure -->
+                              <div id="{{$joined->strDlvryID}}" class="modal modal-fixed-footer">
+                                <div class="modal-content">
+                                  <h4>Delivery Details</h4>
+                                  <p>Delivery ID: {{$joined-> strDlvryID}}<br>
+                                     Supplier: {{$joined->strSuppCompanyName}}<br>
+                                     Received By: {{$joined->strEmpLName.', '.$joined->strEmpFName}}<br>
+                                     Delivery Date: {{$joined-> dtDlvryDate}}<br>
+                                     <br>Products Delivered:<br>
+                                  </p>
+                                </div>
+                                <div class="modal-footer">
+                                  <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Close</a>
+                                </div>
+                              </div>
+                              @endforeach
                             </div>
                           </td>
- -->                        </tr>
+                        </tr>
                         @endforeach
                       </tbody>
                     </table>
@@ -138,4 +134,16 @@
                   </div>
 
       </div> 
+@stop
+
+@section('scripts')
+<!--{{ HTML::script('js/new-order.js') }}-->
+<script type="text/javascript" src="js/jquery.js"></script>
+<script src="js/materialize.js"></script>
+<script>   
+    $(document).ready(function(){
+    // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+    $('.modal-trigger').leanModal();
+  }); 
+</script>
 @stop
