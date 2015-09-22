@@ -107,6 +107,7 @@
                   </div>
 
       </div> 
+<<<<<<< HEAD
 
 
                               <!-- Modal Structure -->
@@ -160,6 +161,8 @@
 
 
 
+=======
+>>>>>>> 266a8bce2e0ca29ef954397736f722cc7ee57348
 @stop
 
 @section('scripts')

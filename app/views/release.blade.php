@@ -145,3 +145,15 @@
   }); 
 </script>
 @stop
+
+@section('scripts')
+<!--{{ HTML::script('js/new-order.js') }}-->
+<script type="text/javascript" src="js/jquery.js"></script>
+<script src="js/materialize.js"></script>
+<script>   
+    $(document).ready(function(){
+    // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+    $('.modal-trigger').leanModal();
+  }); 
+</script>
+@stop
