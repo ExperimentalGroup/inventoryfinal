@@ -8,6 +8,15 @@
             <span class="page-title">Release</span>
           </div>
 
+           <div class="row">
+      <div class="col s12 m12 l6">
+        <div class="col s12 m12 l10">
+            <button class="modal-trigger waves-effect waves-light btn btn-small center-text" href="#newrel">ADD NEW RELEASE</button>
+          </form>
+        </div>
+      </div>
+     </div>
+
           <div class="row">
             <div class="col s12 m12 l12">
               <div class="card-panel">
@@ -68,8 +77,29 @@
                           <td>
                             <!-- <div class="center-btn">
                               <a class="waves-effect waves-light btn btn-small center-text" href="/details">View Details</a>
-                            </div> -->
-                            {{ HTML::link('/release', 'View Details') }}
+                            </div> 
+                            {{ HTML::link('/release', 'View Details') }} -->
+                            <div class="container">
+                           <!-- Modal Trigger -->
+                              <a class="modal-trigger waves-effect waves-light btn" href="#{{$joined->strReleasesID}}">View Details</a>
+                              @foreach($rjt as $joined)
+                              <!-- Modal Structure -->
+                              <div id="{{$joined->strReleasesID}}" class="modal modal-fixed-footer">
+                                <div class="modal-content">
+                                  <h4>Release Details</h4>
+                                  <p>Release ID: {{$joined-> strReleasesID}}<br>
+                                     Branch Name: {{$joined->strBrchName}}<br>
+                                     Released By: {{$joined->strEmpLName.', '.$joined->strEmpFName}}<br>
+                                     Release Date: {{$joined-> dtDateReleased}}<br>
+                                     <br>Products Released:<br>
+                                  </p>
+                                </div>
+                                <div class="modal-footer">
+                                  <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Close</a>
+                                </div>
+                              </div>
+                              @endforeach
+                            </div>
                           </td>
                            </tr>
                            @endforeach 
@@ -90,4 +120,28 @@
           </div>
         </div>
       </div>
+
+                              <!-- Modal Structure -->
+                              <div id="newrel" class="modal modal-fixed-footer">
+                                <div class="modal-content">
+                                  <h4>ADD NEW RELEASE</h4>
+                                  <p>Wala pa kong nilagay to. Easy lng po.
+                                  </p>
+                                </div>
+                                <div class="modal-footer">
+                                  <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Close</a>
+                                </div>
+                              </div>
+@stop
+
+@section('scripts')
+<!--{{ HTML::script('js/new-order.js') }}-->
+<script type="text/javascript" src="js/jquery.js"></script>
+<script src="js/materialize.js"></script>
+<script>   
+    $(document).ready(function(){
+    // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+    $('.modal-trigger').leanModal();
+  }); 
+</script>
 @stop

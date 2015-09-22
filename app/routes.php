@@ -41,6 +41,8 @@ Route::post('/employees', array('uses'=>'HomeController@createEmp'));
 
 Route::post('/inventory', array('uses'=>'HomeController@createInv'));
 
+Route::post('/delivery', array('uses'=>'HomeController@add_delivery'));
+
 Route::get('/details/{id}', 'HomeController@details');
 
 Route::get('/order', 'HomeController@order');

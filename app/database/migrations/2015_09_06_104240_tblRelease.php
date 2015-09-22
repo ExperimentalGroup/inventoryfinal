@@ -17,6 +17,7 @@ class TblRelease extends Migration {
 			$table->string('strReleaseBrchID');//fk
 			$table->string('strReleaseBy');//fk
 			$table->date('dtDateReleased');
+			$table->timestamps();
 		});
 	}
 

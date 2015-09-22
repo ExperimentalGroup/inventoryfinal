@@ -8,6 +8,15 @@
       <span class="page-title">Employees</span>
     </div>
 
+    <div class="row">
+      <div class="col s12 m12 l6">
+        <div class="col s12 m12 l10">
+            <button class="modal-trigger waves-effect waves-light btn btn-small center-text" href="#newemp">ADD NEW EMPLOYEE</button>
+          </form>
+        </div>
+      </div>
+     </div>
+
     
 
     <div class="row">
@@ -59,14 +68,12 @@
       </div>
     </div>
 
-     <div class="row">
-      <div class="col s12 m12 l6">
-        <div class="card-panel">
-          <span class="card-title">Add New Employees</span>
-          <div class="divider"></div>
-          <div class="card-content">
-            <div class="col s12 m12 l10">
-                <div class="form-group">
+
+<div id="newemp" class="modal modal-fixed-footer">
+          <div class="modal-content">
+          <h4>Add New Employee</h4>
+          <p>
+           <div class="form-group">
                 <form action="/employees" method="POST">
                   <label for="price">Employee ID</label>
                   <input value="{{$newID}}" type="text" class="form-control" name="empID" id="empID" placeholder="Employee ID" readonly>
@@ -98,20 +105,22 @@
                   <input type="text" class="form-control" name="empAdd" id="empAdd" placeholder="Address">
                   </div>
                   <button class="waves-effect waves-light btn btn-small center-text">ADD</button>
-                </form>
-              </div>
-            </div>
-     
-     
+              </p>
+                      </div>
+                                <div class="modal-footer">
+                                  <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Close</a>
+                                </div>
+                      </form>
+@stop
 
-            <div class="clearfix">
-
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
- 
-  </div>
-</div>
+@section('scripts')
+<!--{{ HTML::script('js/new-order.js') }}-->
+<script type="text/javascript" src="js/jquery.js"></script>
+<script src="js/materialize.js"></script>
+<script>   
+    $(document).ready(function(){
+    // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+    $('.modal-trigger').leanModal();
+  }); 
+</script>
 @stop

@@ -17,6 +17,7 @@ class TblDeliveries extends Migration {
 			$table->string('strOrdDlvry');//fk
 			$table->date('dtDlvryDate');
 			$table->string('strDlvryRecBy');//fk
+			$table->timestamps();
 		});
 	}
 

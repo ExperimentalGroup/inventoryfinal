@@ -129,10 +129,42 @@ class HomeController extends BaseController {
 		})
 		->get();
 
-		return View::make('delivery')->with('djt', $djt);
+
+		$ids = DB::table('tblDeliveries')
+			->select('strDlvryID')
+			->orderBy('strDlvryID', 'desc')
+			->take(1)
+			->get();
+
+		$ID = $ids["0"]->strDlvryID;
+		$newID = $this->smart($ID);
+
+		$orders = Order::lists('strOrdersID', 'strOrdersID');
+
+		$data = array(
+			'orders' => $orders
+		);
+
+		return View::make('delivery')->with('djt', $djt)->with('data', $data)->with('newID',$newID);
 
 
 		// return View::make('delivery');
+	}
+
+	public function add_delivery()
+	{
+
+
+		$delivery = Delivery::create(array(
+			'strDlvryID' => Input::get('dlvID'),
+			'dtDlvryDate'=> Input::get('dtDelv'),
+			'strOrdDlvry' => Input::get('ordID'),
+			'strDlvryRecBy' => Input::get('empNameRec')
+		));
+		$delivery->save();
+
+		return Redirect::to('/delivery');
+
 	}
 
 	public function release()
@@ -231,6 +263,10 @@ class HomeController extends BaseController {
 		->join('tblOrdNotes',function($join3)
 		{
 			$join3->on('tblOrdNotes.strOrdersID','=','tblOrders.strOrdersID');
+		})
+		->join('tblOrderedProducts',function($join3)
+		{
+			$join3->on('tblOrdNotes.strOrdersID','=','tblOrderedProducts.strOPOrdersID');
 		})
 		->get();
 

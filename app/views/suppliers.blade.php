@@ -8,6 +8,15 @@
             <span class="page-title">Suppliers</span>
           </div>
 
+           <div class="row">
+      <div class="col s12 m12 l6">
+        <div class="col s12 m12 l10">
+            <button class="modal-trigger waves-effect waves-light btn btn-small center-text" href="#newsupp">ADD NEW SUPPLIER</button>
+          </form>
+        </div>
+      </div>
+     </div>
+
           
           <div class="row">
             <div class="col s12 m12 l12">
@@ -61,14 +70,11 @@
             </div>
           </div>
 
-          <div class="row">
-            <div class="col s12 m12 l6">
-              <div class="card-panel">
-                <span class="card-title">Add New Suppliers</span>
-                <div class="divider"></div>
-                <div class="card-content">
-                  <div class="col s12 m12 l10">
-                      <div class="form-group">
+          <div id="newsupp" class="modal modal-fixed-footer">
+          <div class="modal-content">
+          <h4>Add New Supplier</h4>
+          <p>
+           <div class="form-group">
                       <form action="/suppliers" method="POST">
                         
                         <div class="form-control">
@@ -95,19 +101,22 @@
                         <input type="text" class="form-control" name="suppAdd" id="suppAdd" placeholder="SuppAdd">
                         </div>
                         <button class="waves-effect waves-light btn btn-small center-text">ADD</button>
-                    </form>
-                    </div>
-                  </div>
-           
+              </p>
+                      </div>
+                                <div class="modal-footer">
+                                  <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Close</a>
+                                </div>
+                      </form>
+@stop
 
-                  <div class="clearfix">
-
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </div>
+@section('scripts')
+<!--{{ HTML::script('js/new-order.js') }}-->
+<script type="text/javascript" src="js/jquery.js"></script>
+<script src="js/materialize.js"></script>
+<script>   
+    $(document).ready(function(){
+    // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+    $('.modal-trigger').leanModal();
+  }); 
+</script>
 @stop

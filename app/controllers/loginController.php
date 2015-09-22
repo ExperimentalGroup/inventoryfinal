@@ -23,12 +23,8 @@ class loginController extends \BaseController {
 			$empId = DB::table('tblLogin')
 			->join('tblEmployees',function($join)
 			{
-				$join->on('tblLogin.strLoginEmpID','=','tblEmployees.strEmpID')
-					 ->where('tblLogin.strUsername','=',Session::get('username'));
+				$join->on('tblLogin.strLoginEmpID','=','tblEmployees.strEmpID');
 			})->get();
-
-			
-
 
 			//dashboard(danger stocks)
 			$index = DB::table('tblInventory')
