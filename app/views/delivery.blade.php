@@ -70,9 +70,9 @@
                         <tr>
                           @foreach($djt as $joined)
                           <td>{{ $joined -> strDlvryID }}</td>
-                          <td>{{ $joined -> strSuppCompanyName }}</td>
+                          <td>{{$joined->strSuppCompanyName}}</td>
                           <td>{{ $joined -> dtDlvryDate }}</td>
-                          <td>{{ $joined -> strEmpLName.', '. $joined -> strEmpFName}}</td>
+                          <td>{{ $joined ->employee-> strEmpLName.', '. $joined->employee-> strEmpFName}}</td>
                           <td>
                              <div class="container">
                            <!-- Modal Trigger -->
@@ -84,9 +84,30 @@
                                   <h4>Delivery Details</h4>
                                   <p>Delivery ID: {{$joined-> strDlvryID}}<br>
                                      Supplier: {{$joined->strSuppCompanyName}}<br>
-                                     Received By: {{$joined->strEmpLName.', '.$joined->strEmpFName}}<br>
+                                     Received By: {{$joined->employee->strEmpLName.', '.$joined->employee->strEmpFName}}<br>
                                      Delivery Date: {{$joined-> dtDlvryDate}}<br>
-                                     <br>Products Delivered:<br>
+                                     
+                                     <table class="centered">
+                                      <thead>
+                                        <tr>
+                                          <th>Delivered Items</th>
+                                          <th>Quantity</th>
+                                          <th>Retail Price</th>
+                                          <th>Price Subtotals</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                          @foreach($joined->products as $product)
+                                            <tr>
+                                              <td>{{ $product->strProdName}}</td>
+                                              <td>{{ $product->pivot->intDetQty}}</td>
+                                              <td>{{ $product->price[0]->dblCurRetPrice }}</td>
+                                              <td>{{ $product->price[0]->dblCurRetPrice *  $product->pivot->intDetQty}}</td>
+                                            </tr>
+                                          @endforeach
+                                      </tbody>
+                                    </table>
+                                     
                                   </p>
                                 </div>
                                 <div class="modal-footer">
@@ -107,7 +128,6 @@
                   </div>
 
       </div> 
-<<<<<<< HEAD
 
 
                               <!-- Modal Structure -->
@@ -122,11 +142,11 @@
                                         </div>
                                         <label for="price">Received By</label>
                                         <div class="form-group">
-                                        <input type="text" class="form-control" name="empNameRec" id="empNameRec" value="EMPL00004" readonly>
+                                        <input type="text" class="form-control" name="empNameRec" id="empNameRec" value="EMPL00003" readonly>
                                         </div>
                                         <label for="price">Date Delivered</label>
                                         <div class="form-group">
-                                        <input id="dtDelv" name="dtDelv" type="date"/>
+                                          <input id="dtDelv" name="dtDelv" type="date"/>
                                         </div>
                                         <div class="form-group">
                                         <label for="price">Order ID (kase sympre pwede lng mg deliver sayo pag may inorder ka, so SUPPOSEDLY lahat lng ng PENDING orders ang pwede iadd sa delivery. Wala pa ko nilalagay na condtion e so lahat ng orders plng nka list dto. And also lahat ng nasa baba use sna nya is ipakita un details nung order, well qng gusto nyo na ganun)</label>
@@ -158,11 +178,6 @@
                                 </div>
                               </div>
 
-
-
-
-=======
->>>>>>> 266a8bce2e0ca29ef954397736f722cc7ee57348
 @stop
 
 @section('scripts')

@@ -64,12 +64,12 @@ class HomeController extends BaseController {
 		$ID2 = $ids2["0"]->strProdID;
 		$newID2 = $this->smart($ID2);
 
-		$inventory = DB::table('tblInventory')
-		->join('tblProducts', function($join)
-		{
-			$join->on('tblInventory.strProdID','=','tblProducts.strProdID');
-		})->get();
-		
+		// $inventory = DB::table('tblInventory')
+		// ->join('tblProducts', function($join)
+		// {
+		// 	$join->on('tblInventory.strProdID','=','tblProducts.strProdID');
+		// })->get();
+		$inventory = Inventory::all();
 		return View::make('inventory')->with('inventory', $inventory)->with('newID', $newID)->with('newID2', $newID2);
 	}
 
@@ -111,24 +111,28 @@ class HomeController extends BaseController {
 
 	public function delivery()
 	{
-		// Get all products from the database
-		//$suppliers = Supplier::all();
-
-		$djt = DB::table('tblDeliveries')
-		->join('tblOrders', function($join)
+		$djt = Delivery::with('employee')
+		->join('tblOrders',function($join)
 		{
-			$join->on('tblDeliveries.strOrdDlvry','=','tblOrders.strOrdersID');
-		})
-		->join('tblEmployees', function($join2)
-		{
-			$join2->on('tblDeliveries.strDlvryRecBy','=','tblEmployees.strEmpID');
+			$join->on('tblDeliveries.strOrdDlvry','=', 'tblOrders.strOrdersID');
 		})
 		->join('tblSuppliers',function($join3)
 		{
 			$join3->on('tblOrders.strSupplID','=','tblSuppliers.strSuppID');
 		})
+		// ->join('tblDeliveryDetails',function($join)
+		// {
+		// 	$join->on('tblDeliveryDetails.strDetID','=','tblDeliveries.strDlvryID');
+		// })
+		// ->join('tblProducts',function($join)
+		// {
+		// 	$join->on('tblDeliveryDetails.strDetProdID','=','tblProducts.strProdID');
+		// })
+		// ->join('tblInventory',function($join)
+		// {
+		// 	$join->on('tblInventory.strDlvryID','=','tblDeliveries.strDlvryID');
+		// })
 		->get();
-
 
 		$ids = DB::table('tblDeliveries')
 			->select('strDlvryID')
@@ -170,19 +174,24 @@ class HomeController extends BaseController {
 	public function release()
 	{
 		
-		$rjt = DB::table('tblReleases')
-		->join('tblBranches', function($join)
+		// $rjt = DB::table('tblReleases')
+		// ->join('tblBranches', function($join)
+		// {
+		// 	$join->on('tblReleases.strReleaseBrchID','=','tblBranches.strBrchID');
+		// })
+		// ->join('tblEmployees', function($join2)
+		// {
+		// 	$join2->on('tblReleases.strReleaseBy','=','tblEmployees.strEmpID');
+		// })	
+		// ->get();
+		$release = Release::with('branch','employee','products')
+		->join('tblReleaseNotes',function($join)
 		{
-			$join->on('tblReleases.strReleaseBrchID','=','tblBranches.strBrchID');
+			$join->on('tblReleaseNotes.strReleaseID','=','tblReleases.strReleasesID');
 		})
-		->join('tblEmployees', function($join2)
-		{
-			$join2->on('tblReleases.strReleaseBy','=','tblEmployees.strEmpID');
-		})	
 		->get();
 
-
-		return View::make('release')->with('rjt', $rjt);
+		return View::make('release')->with('release', $release);
 	}
 
 
@@ -259,15 +268,23 @@ class HomeController extends BaseController {
 
 	public function order()
 	{
-		$orders = Order::with('supplier', 'employee')
-		->join('tblOrdNotes',function($join3)
-		{
-			$join3->on('tblOrdNotes.strOrdersID','=','tblOrders.strOrdersID');
-		})
-		->join('tblOrderedProducts',function($join3)
-		{
-			$join3->on('tblOrdNotes.strOrdersID','=','tblOrderedProducts.strOPOrdersID');
-		})
+		$orders = Order::with('supplier', 'employee','products','notes')
+		// ->join('tblOrdNotes',function($join3)
+		// {
+		// 	$join3->on('tblOrdNotes.strOrdersID','=','tblOrders.strOrdersID');
+		// })
+		// ->join('tblOrderedProducts',function($join3)
+		// {
+		// 	$join3->on('tblOrders.strOrdersID','=','tblOrderedProducts.strOPOrdersID');
+		// })
+		// ->join('tblProducts',function ($join)
+		// {
+		// 	$join->on('tblOrderedProducts.strOPProdID','=','tblProducts.strProdID');
+		// })
+		// ->join('tblInventory',function($join)
+		// {
+		// 	$join->on('tblInventory.strProdID','=','tblProducts.strProdID');
+		// })
 		->get();
 
 		return View::make('order.order')->with('orders', $orders);
@@ -350,7 +367,6 @@ class HomeController extends BaseController {
 		return View::make('details')->with('order', $order);
 	}
 
-
 	private function smart($id)
 	{
 		$arrID = str_split($id);
@@ -366,7 +382,6 @@ class HomeController extends BaseController {
 
 			if($boolAdd)
 			{
-
 				if(is_numeric($new) || $new == '0')
 				{
 					if($new == '9')
@@ -389,7 +404,6 @@ class HomeController extends BaseController {
 			
 			$arrNew[$ctr] = $new;
 		}//for
-
 		for($ctr2 = 0; $ctr2 < count($arrID); $ctr2++)
 		{
 			$somenew = $somenew . $arrNew[$ctr2] ;

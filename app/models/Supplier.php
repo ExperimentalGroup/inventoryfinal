@@ -9,4 +9,8 @@ class Supplier extends Eloquent
 	public function orders() {
 		return $this->hasMany('Order', 'strSupplID', 'strSuppID');
 	}
+
+	// public function deliveries() {
+	// 	return $this->hasManyThrough('Delivery','Order','strSupplID','strOrdDlvry');
+	// }
 }

@@ -18,4 +18,7 @@ class Order extends Eloquent
 		return $this->belongsToMany('Product', 'tblOrderedProducts', 'strOPOrdersID', 'strOPProdID')->withPivot('intOPQuantity');
 	}
 
+	public function notes() {
+		return $this->hasMany('OrderNotes','strOrderID','strOrdersID');
+	}
 }

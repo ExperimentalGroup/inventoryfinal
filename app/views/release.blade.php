@@ -68,11 +68,11 @@
                       </thead>
 
                        <tbody>
-                        @foreach($rjt as $joined)
+                        @foreach($release as $joined)
                         <tr>
                           <td>{{ $joined -> strReleasesID }}</td>
-                          <td>{{ $joined -> strBrchName }}</td>
-                          <td>{{ $joined -> strEmpLName.', '. $joined -> strEmpFName }}</td>
+                          <td>{{ $joined -> branch -> strBrchName }}</td>
+                          <td>{{ $joined -> employee -> strEmpLName.', '. $joined -> employee -> strEmpFName }}</td>
                           <td>{{ $joined -> dtDateReleased }}</td>         
                           <td>
                             <!-- <div class="center-btn">
@@ -82,16 +82,37 @@
                             <div class="container">
                            <!-- Modal Trigger -->
                               <a class="modal-trigger waves-effect waves-light btn" href="#{{$joined->strReleasesID}}">View Details</a>
-                              @foreach($rjt as $joined)
+                              @foreach($release as $joined)
                               <!-- Modal Structure -->
                               <div id="{{$joined->strReleasesID}}" class="modal modal-fixed-footer">
                                 <div class="modal-content">
                                   <h4>Release Details</h4>
-                                  <p>Release ID: {{$joined-> strReleasesID}}<br>
-                                     Branch Name: {{$joined->strBrchName}}<br>
-                                     Released By: {{$joined->strEmpLName.', '.$joined->strEmpFName}}<br>
+                                  <p>Release ID: {{$joined -> strReleasesID}}<br>
+                                     Branch Name: {{$joined -> branch -> strBrchName}}<br>
+                                     Released By: {{$joined -> employee -> strEmpLName.', '.$joined -> employee -> strEmpFName}}<br>
                                      Release Date: {{$joined-> dtDateReleased}}<br>
                                      <br>Products Released:<br>
+
+                                     <table class="centered">
+                                        <thead>
+                                          <tr>
+                                            <th>Released Items</th>
+                                            <th>Quantity</th>
+                                            <th>Retail Price</th>
+                                            <th>Price Subtotals</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach($joined->products as $product)
+                                              <tr>
+                                                <td>{{ $product->strProdName}}</td>
+                                                <td>{{ $product->pivot->intReleaseQty}}</td>
+                                                <td>{{ $product->price[0]->dblCurRetPrice }}</td>
+                                                <td>{{ $product->price[0]->dblCurRetPrice *  $product->pivot->intReleaseQty}}</td>
+                                              </tr>
+                                            @endforeach
+                                        </tbody>
+                                     </table>
                                   </p>
                                 </div>
                                 <div class="modal-footer">

@@ -43,7 +43,7 @@ class CreatingForeignKeys extends Migration {
 		});
 
 		Schema::table('tblOrdNotes', function($table){
-			$table->foreign('strOrdersID')->references('strOrdersID')->on('tblOrders');
+			$table->foreign('strOrderID')->references('strOrdersID')->on('tblOrders');
 		});
 
 		// Schema::table('tblOrdDelivery', function($table){
@@ -135,7 +135,7 @@ class CreatingForeignKeys extends Migration {
 		});
 
 		Schema::table('tblOrdNotes', function ($table) {
-			$table->dropColumn('strOrdersID');
+			$table->dropColumn('strOrderID');
 		});
 
 		// Schema::table('tblOrdDelivery', function ($table) {

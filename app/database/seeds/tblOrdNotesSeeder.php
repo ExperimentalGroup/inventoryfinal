@@ -9,21 +9,21 @@ class tblOrdNotesSeeder extends Seeder{
 			array(
 
 				'strOrdNotesID' => 'ORDNOTE001',
-				'strOrdersID' => 'ORD001',
+				'strOrderID' => 'ORD001',
 				'strOrdNotesStat' => 'Pending'
 			),
 
 			array(
 
 				'strOrdNotesID' => 'ORDNOTE002',
-				'strOrdersID' => 'ORD003',
+				'strOrderID' => 'ORD003',
 				'strOrdNotesStat' => 'Pending'
 			),
 
 			array(
 
 				'strOrdNotesID' => 'ORDNOTE003',
-				'strOrdersID' => 'ORD002',
+				'strOrderID' => 'ORD002',
 				'strOrdNotesStat' => 'Pending'
 			)
 			

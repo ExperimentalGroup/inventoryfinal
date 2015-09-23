@@ -11,8 +11,17 @@ class Product extends Eloquent
 		return $this->hasMany('Inventory', 'strProdID');
 	}
 
-	// public function orders()
-	// {
-	// 	return $this->belongstoMany('Order');
-	// }
+	public function orders()
+	{
+		return $this->belongstoMany('Order');
+	}
+
+	public function deliveries()
+	{
+		return $this->belongstoMany('Delivery');
+	}
+
+	public function releases() {
+		return $this->belongstoMany('Release');
+	}
 }

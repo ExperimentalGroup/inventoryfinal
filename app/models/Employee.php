@@ -13,4 +13,12 @@ class Employee extends Eloquent
 	public function role() {
 		return $this->belongsTo('Role', 'strEmpRoleID');
 	}
+
+	public function deliveries(){
+		return $this->hasMany('Delivery', 'strDlvryID');
+	}
+
+	public function releases() {
+		return $this->hasMany('Release','strReleaseBy','strEmpID');
+	}
 }

@@ -14,7 +14,7 @@ class TblNotesOrder extends Migration {
 	{
 		Schema::create('tblOrdNotes', function($table){
 			$table->string('strOrdNotesID')->primary();
-			$table->string('strOrdersID');//fk
+			$table->string('strOrderID');//fk
 			$table->string('strOrdNotesStat');
 			$table->timestamps();
 		});

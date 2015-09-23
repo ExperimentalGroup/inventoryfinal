@@ -51,13 +51,14 @@
 										<td>{{ $order -> supplier -> strSuppCompanyName }}</td>
 										<td>{{ $order -> dtOrdDate }}</td>
 										<td>{{ $order -> employee -> strEmpLName.', '. $order -> employee -> strEmpFName}}</td> 
-										@if($order -> strOrdNotesStat == 'Pending')
+										@if($order ->notes[0] -> strOrdNotesStat == 'Pending')
 										<td class="orange-text bold">PENDING</td>
-										@elseif($order -> strOrdNotesStat == 'Declined')
+										@elseif($order ->notes[0] -> strOrdNotesStat == 'Declined')
 										<td class="red-text bold">DECLINED</td>
-										@elseif($order -> strOrdNotesStat == 'Accepted')
+										@elseif($order ->notes[0] -> strOrdNotesStat == 'Accepted')
 										<td class="green-text bold">ACCEPTED</td>
-										@endif                         
+										@endif
+
 										<td>
 											<!-- <div class="center-btn">
 												<a class="waves-effect waves-light btn btn-small center-text" href="/details">View Details</a>
@@ -74,9 +75,33 @@
 				                                     Supplier Name: {{$order -> supplier -> strSuppCompanyName}}<br>
 				                                     Placed By: {{$order->employee -> strEmpLName.', '.$order->employee->strEmpFName}}<br>
 				                                     Order Date: {{$order-> dtOrdDate}}<br>
-				                                     <br>Products Ordered:<br>
-				                                     {{$order->strOPProdID}} 
-                        							 {{ $order->intOPQuantity}} 
+				                                     <!-- {{$order->products}} -->
+				                                     <!-- <br>Products Ordered:<br>
+				                                     {{$order -> strProdName}} 
+                        							 {{$order -> intOPQuantity}}<!
+                        							 {{$order -> dblCurRetPrice}}
+                        							 {{$order -> dblCurWPrice}} --> 
+
+                        							 <table class="centered">
+										                <thead>
+										                  <tr>
+										                    <th>Ordered Items</th>
+										                    <th>Quantity</th>
+										                    <th>Retail Price</th>
+										                    <th>Price Subtotals</th>
+										                  </tr>
+										                </thead>
+										                <tbody>
+										                    @foreach($order->products as $product)
+										                      <tr>
+										                        <td>{{ $product->strProdName}}</td>
+										                        <td>{{ $product->pivot->intOPQuantity}}</td>
+										                        <td>{{ $product->price[0]->dblCurRetPrice }}</td>
+										                        <td>{{ $product->price[0]->dblCurRetPrice *  $product->pivot->intOPQuantity}}</td>
+										                      </tr>
+										                    @endforeach
+										                </tbody>
+										             </table>
 				                                  </p>
 				                                </div>
 				                                <div class="modal-footer">
