@@ -16,7 +16,7 @@ class TblInventory extends Migration {
 			$table->string('strBatchID')->primary();
 			$table->string('strProdID');//fk
 			$table->string('strDlvryID');//fk
-			$table->string('strBrchID');//fk
+			//$table->string('strBrchID');//fk
 			$table->integer('intAvailQty');
 			$table->double('dblCurRetPrice', 15, 8);
 			$table->double('dblCurWPrice', 15, 8);

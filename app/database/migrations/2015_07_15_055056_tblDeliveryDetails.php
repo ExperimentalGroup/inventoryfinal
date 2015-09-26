@@ -13,11 +13,14 @@ class TblDeliveryDetails extends Migration {
 	public function up()
 	{
 		Schema::create('tblDeliveryDetails', function ($table){
-			$table->string('strDetID')->primary();//fk
+			$table->string('strDetID');//fk
 			$table->string('strDetProdID');//fk
 			$table->integer('intDetQty');
+
+			$table->primary(array('strDetID','strDetProdID'));
 		});
 	}
+
 
 	/**
 	 * Reverse the migrations.

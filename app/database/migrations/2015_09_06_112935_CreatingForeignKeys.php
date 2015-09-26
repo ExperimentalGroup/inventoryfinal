@@ -35,7 +35,7 @@ class CreatingForeignKeys extends Migration {
 		Schema::table('tblInventory', function($table){
 			$table->foreign('strProdID')->references('strProdID')->on('tblProducts');
 			$table->foreign('strDlvryID')->references('strDlvryID')->on('tblDeliveries');
-			$table->foreign('strBrchID')->references('strBrchID')->on('tblBranches');
+			//$table->foreign('strBrchID')->references('strBrchID')->on('tblBranches');
 		});
 
 		Schema::table('tblLogin', function($table){
@@ -127,7 +127,7 @@ class CreatingForeignKeys extends Migration {
 		Schema::table('tblInventory', function ($table) {
 			$table->dropColumn('strProdID');
 			$table->dropColumn('strDlvryID');
-			$table->dropColumn('strBrchID');
+			//$table->dropColumn('strBrchID');
 		});
 
 		Schema::table('tblLogin', function($table) {
