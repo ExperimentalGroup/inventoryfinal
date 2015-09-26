@@ -1,8 +1,8 @@
 <?php
 
-class DeliveryDetail extends Eloquent()
+class DeliveryDetail extends Eloquent
 {
 	
 	protected $table = 'tblDeliveryDetails';
-	protected $fillable = array('strDetProdID', 'intDetQty');
+	protected $fillable = array('strDetID','strDetProdID', 'intDetQty');
 }

@@ -55,7 +55,7 @@
                     </div>
                   </div>
 
-                  <div class="col s12 m12 l12 overflow-x">
+                <div class="col s12 m12 l12 overflow-x">
                     <table class="centered">
                       <thead>
                         <tr>
@@ -142,34 +142,27 @@
                                         </div>
                                         <label for="price">Received By</label>
                                         <div class="form-group">
-                                        <input type="text" class="form-control" name="empNameRec" id="empNameRec" value="EMPL00003" readonly>
+                                        <input type="text" class="form-control" name="empNameRec" id="empNameRec" value="{{Session::get('empID')}}" readonly>
                                         </div>
                                         <label for="price">Date Delivered</label>
                                         <div class="form-group">
-                                          <input id="dtDelv" name="dtDelv" type="date"/>
+                                        <input id="dtDelv" name="dtDelv" type="date"/>
                                         </div>
                                         <div class="form-group">
-                                        <label for="price">Order ID (kase sympre pwede lng mg deliver sayo pag may inorder ka, so SUPPOSEDLY lahat lng ng PENDING orders ang pwede iadd sa delivery. Wala pa ko nilalagay na condtion e so lahat ng orders plng nka list dto. And also lahat ng nasa baba use sna nya is ipakita un details nung order, well qng gusto nyo na ganun)</label>
+                                        <label for="price">Order ID</label>
                                         {{ Form::select('ordID', $data['orders'], null, array('class' => 'browser-default')) }}
-                                        {{-- <input type="text" class="form-control" name="ordID" id="ordID" placeholder="Branch"> --}}
+                                        {{-- <input type="text" class="form-control" name="ordID" id="ordID"> --}}
                                         </div>
                                         <div class="form-group">
-                                        <label for="price">Supplier</label>
-                                        <input type="text" class="form-control" name="delSupp" id="delSupp" value="SAMPLE ONLY" readonly>
+                                        <label for="price">Product</label>
+                                        {{ Form::select('delProd', $data['products'], null, array('class' => 'browser-default')) }}
+                                        {{-- <input type="text" class="form-control" name="delProd" id="delProd"> --}}
                                         </div>
-                                        <label for="price">Placed By</label>
-                                        <div class="form-group">
-                                        <input type="text" class="form-control" name="empNamePlc" id="empNamePlc" value="SAMPLE ONLY" readonly>
-                                        </div>
-                                        <div class="form-group">
-                                        <label for="price">Products Ordered</label>
-                                        <input type="text" class="form-control" name="empAdd" id="empAdd" value="SAMPLE ONLY" readonly>
-                                        </div>
-                                        <div class="form-group">
                                         <label for="price">Quantity</label>
-                                        <input type="text" class="form-control" name="delQty" id="delQty" value="SAMPLE ONLY" readonly>
+                                        <div class="form-group">
+                                        <input type="number" name="quantity" id="quantity" min="1" value="1">
                                         </div>
-                                        <button class="waves-effect waves-light btn btn-small center-text">ADD(Nakakapag Add pero sa Delivery table lng di ko pa masama un notes. Pahelp sa part na to.)</button>
+                                        <button class="waves-effect waves-light btn btn-small center-text">ACCEPT</button>
                                   </p>
                                 </div>
                                 </form>
@@ -177,6 +170,9 @@
                                   <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Close</a>
                                 </div>
                               </div>
+
+
+
 
 @stop
 

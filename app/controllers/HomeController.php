@@ -27,6 +27,16 @@ class HomeController extends BaseController {
 		$ID = $ids["0"]->strEmpID;
 		$newID = $this->smart($ID);
 
+		$ids2 = DB::table('tblLogin')
+			->select('strUsername')
+			->orderBy('updated_at', 'desc')
+			->orderBy('strUsername', 'desc')
+			->take(1)
+			->get();
+
+		$ID2 = $ids2["0"]->strUsername;
+		$newID2 = $this->smart($ID2);
+
 		// Get all products from the database
 		$employees = Employee::all();
 		$branches = Branch::lists('strBrchName', 'strBrchID');
@@ -38,22 +48,12 @@ class HomeController extends BaseController {
 			'roles' => $roles
 		);
 
-		return View::make('employee')->with ('data', $data)->with('newID', $newID);
+		return View::make('employee')->with ('data', $data)->with('newID', $newID)->with('newID2', $newID2);
 	}
 
 	public function inventoree()
 	{
-		// Get all products from the database
-		$ids = DB::table('tblInventory')
-			->select('strBatchID')
-			->orderBy('updated_at', 'desc')
-			->orderBy('strBatchID', 'desc')
-			->take(1)
-			->get();
-
-		$ID = $ids["0"]->strBatchID;
-		$newID = $this->smart($ID);
-
+		
 		$ids2 = DB::table('tblProducts')
 			->select('strProdID')
 			->orderBy('updated_at', 'desc')
@@ -64,13 +64,15 @@ class HomeController extends BaseController {
 		$ID2 = $ids2["0"]->strProdID;
 		$newID2 = $this->smart($ID2);
 
-		// $inventory = DB::table('tblInventory')
-		// ->join('tblProducts', function($join)
-		// {
-		// 	$join->on('tblInventory.strProdID','=','tblProducts.strProdID');
-		// })->get();
-		$inventory = Inventory::all();
-		return View::make('inventory')->with('inventory', $inventory)->with('newID', $newID)->with('newID2', $newID2);
+		$inventory = DB::table('tblInventory')
+		->join('tblProducts', function($join)
+		{
+			$join->on('tblInventory.strProdID','=','tblProducts.strProdID');
+		})->get();
+		
+		$products = Product::all();
+
+		return View::make('inventory')->with('inventory', $inventory)->with('newID2', $newID2)->with('products',$products);
 	}
 
 	public function branches()
@@ -120,18 +122,6 @@ class HomeController extends BaseController {
 		{
 			$join3->on('tblOrders.strSupplID','=','tblSuppliers.strSuppID');
 		})
-		// ->join('tblDeliveryDetails',function($join)
-		// {
-		// 	$join->on('tblDeliveryDetails.strDetID','=','tblDeliveries.strDlvryID');
-		// })
-		// ->join('tblProducts',function($join)
-		// {
-		// 	$join->on('tblDeliveryDetails.strDetProdID','=','tblProducts.strProdID');
-		// })
-		// ->join('tblInventory',function($join)
-		// {
-		// 	$join->on('tblInventory.strDlvryID','=','tblDeliveries.strDlvryID');
-		// })
 		->get();
 
 		$ids = DB::table('tblDeliveries')
@@ -144,15 +134,15 @@ class HomeController extends BaseController {
 		$newID = $this->smart($ID);
 
 		$orders = Order::lists('strOrdersID', 'strOrdersID');
+		$products = Product::lists('strProdName', 'strProdID');
 
 		$data = array(
-			'orders' => $orders
+			'orders' => $orders,
+			'products' => $products
 		);
 
 		return View::make('delivery')->with('djt', $djt)->with('data', $data)->with('newID',$newID);
 
-
-		// return View::make('delivery');
 	}
 
 	public function add_delivery()
@@ -167,6 +157,24 @@ class HomeController extends BaseController {
 		));
 		$delivery->save();
 
+		$details = DeliveryDetail::create(array(
+			'strDetID' => Input::get('dlvID'),
+			'strDetProdID' => Input::get('delProd'),
+			'intDetQty' => Input::get('quantity')
+		));
+		$details->save();
+
+
+		$id1 = Input::get('delProd');
+		$addQ = Input::get('quantity');
+		$inventory = Inventory::find($id1);
+
+		$inventory->strDlvryID = Input::get('dlvID');
+		$inventory->intAvailQty += $addQ;
+
+
+		$inventory->save();
+
 		return Redirect::to('/delivery');
 
 	}
@@ -174,16 +182,16 @@ class HomeController extends BaseController {
 	public function release()
 	{
 		
-		// $rjt = DB::table('tblReleases')
-		// ->join('tblBranches', function($join)
-		// {
-		// 	$join->on('tblReleases.strReleaseBrchID','=','tblBranches.strBrchID');
-		// })
-		// ->join('tblEmployees', function($join2)
-		// {
-		// 	$join2->on('tblReleases.strReleaseBy','=','tblEmployees.strEmpID');
-		// })	
-		// ->get();
+		$ids = DB::table('tblReleases')
+			->select('strReleasesID')
+			->orderBy('strReleasesID', 'desc')
+			->take(1)
+			->get();
+
+		$ID = $ids["0"]->strReleasesID;
+		$newID = $this->smart($ID);
+
+
 		$release = Release::with('branch','employee','products')
 		->join('tblReleaseNotes',function($join)
 		{
@@ -191,9 +199,64 @@ class HomeController extends BaseController {
 		})
 		->get();
 
-		return View::make('release')->with('release', $release);
+		$branches = Branch::lists('strBrchName', 'strBrchID');
+		$products = Product::lists('strProdName', 'strProdID');
+
+		$data = array(
+			'branches' => $branches,
+			'products' => $products
+		);
+
+
+		return View::make('release')->with('release', $release)->with('data',$data)->with('newID', $newID);
 	}
 
+	public function minus_release()
+	{
+		$release = Release::create(array(
+			'strReleasesID' => Input::get('relID'),
+			'strReleaseBrchID'=> Input::get('relBranch'),
+			'strReleaseBy' => Input::get('empNameRel'),
+			'dtDateReleased' => Input::get('dtRel')
+		));
+		$release->save();
+
+		$details = ReleaseDetail::create(array(
+			'strReleaseHeaderID'=> Input::get('relID'),
+			'strReleaseProducts' => Input::get('relProd'),
+			'intReleaseQty' => Input::get('quantityRel')
+		));
+		$details->save();
+
+
+		$ids = DB::table('tblReleaseNotes')
+			->select('strReleaseNotesID')
+			->orderBy('strReleaseNotesID', 'desc')
+			->take(1)
+			->get();
+
+		$ID = $ids["0"]->strReleaseNotesID;
+		$newID = $this->smart($ID);
+
+		$notes = ReleaseNote::create(array(
+			'strReleaseNotesID'=> $newID,
+			'strReleaseID' => Input::get('relID'),
+			'strReleaseNotesStat' => 'Pending'
+		));
+		$notes->save();
+
+
+		$id1 = Input::get('relProd');
+		$addQ = Input::get('quantityRel');
+		$inventory = Inventory::find($id1);
+
+		$inventory->intAvailQty -= $addQ;
+
+
+		$inventory->save();
+
+		return Redirect::to('/release');
+	}
 
 	public function createBranch()
 	{
@@ -232,6 +295,14 @@ class HomeController extends BaseController {
 			'strEmpRoleID' => Input::get('empRole')
 		));
 		$employees->save();
+
+		$account = Login::create(array(
+			'strUsername' => Input::get('newEmpUName'),
+			'strPassword' => Input::get('newEmpPass'),
+			'strLoginEmpID' => Input::get('empID')
+		));
+		$account->save();
+		
 		return Redirect::to('/employees');
 	}
 
@@ -251,7 +322,7 @@ class HomeController extends BaseController {
 		));
 		$prod->save();
 		
-		$inv = Inventory::create(array(
+		/*$inv = Inventory::create(array(
 			'strBatchID' => Input::get('batchID'),
 			'strProdID' => Input::get('proID'),
 			'strDlvryID' => "DEL003",
@@ -260,7 +331,7 @@ class HomeController extends BaseController {
 			'dblCurRetPrice' => Input::get('retPrice'),
 			'dblCurWPrice' => Input::get('whoPrice')
 		));
-		$inv->save();
+		$inv->save();*/
 
 		
 		return Redirect::to('/inventory');
@@ -269,22 +340,6 @@ class HomeController extends BaseController {
 	public function order()
 	{
 		$orders = Order::with('supplier', 'employee','products','notes')
-		// ->join('tblOrdNotes',function($join3)
-		// {
-		// 	$join3->on('tblOrdNotes.strOrdersID','=','tblOrders.strOrdersID');
-		// })
-		// ->join('tblOrderedProducts',function($join3)
-		// {
-		// 	$join3->on('tblOrders.strOrdersID','=','tblOrderedProducts.strOPOrdersID');
-		// })
-		// ->join('tblProducts',function ($join)
-		// {
-		// 	$join->on('tblOrderedProducts.strOPProdID','=','tblProducts.strProdID');
-		// })
-		// ->join('tblInventory',function($join)
-		// {
-		// 	$join->on('tblInventory.strProdID','=','tblProducts.strProdID');
-		// })
 		->get();
 
 		return View::make('order.order')->with('orders', $orders);
@@ -367,6 +422,7 @@ class HomeController extends BaseController {
 		return View::make('details')->with('order', $order);
 	}
 
+
 	private function smart($id)
 	{
 		$arrID = str_split($id);
@@ -382,6 +438,7 @@ class HomeController extends BaseController {
 
 			if($boolAdd)
 			{
+
 				if(is_numeric($new) || $new == '0')
 				{
 					if($new == '9')
@@ -404,6 +461,7 @@ class HomeController extends BaseController {
 			
 			$arrNew[$ctr] = $new;
 		}//for
+
 		for($ctr2 = 0; $ctr2 < count($arrID); $ctr2++)
 		{
 			$somenew = $somenew . $arrNew[$ctr2] ;

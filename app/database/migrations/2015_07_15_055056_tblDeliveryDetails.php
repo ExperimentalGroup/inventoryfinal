@@ -16,6 +16,7 @@ class TblDeliveryDetails extends Migration {
 			$table->string('strDetID');//fk
 			$table->string('strDetProdID');//fk
 			$table->integer('intDetQty');
+			$table->timestamps();
 
 			$table->primary(array('strDetID','strDetProdID'));
 		});

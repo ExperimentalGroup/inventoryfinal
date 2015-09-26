@@ -3,7 +3,20 @@
 @section('content')
 <div class="main-wrapper">
   <!-- ACTUAL PAGE CONTENT GOES HERE -->
-  
+  <?php $a; ?>
+@if(!Session::has('username'))
+@foreach($empId as $empId)
+        <?php Session::put('username', $un); ?>
+        @if ($empId -> strUsername == Session::get('username'))
+             <?php $a=$empId->strEmpID; Session::put('empID', $a); ?>
+             <?php $b=$empId->strEmpLName . ", " . $empId->strEmpFName; Session::put('empName', $b); ?>
+             <?php $d=$empId->strEmpBrchID; Session::put('empBrchID', $d); ?>
+             <?php $c=$empId->strBrchName; Session::put('empBrch', $c); ?>
+             <?php $e=$empId->strEmpRoleID; Session::put('empRole', $e); ?>              
+        @endif
+@endforeach
+@endif
+
   
   <div class="row">
     <div class="col s12 m12 l12">
@@ -17,6 +30,7 @@
         <span class="card-title">Inventory status</span>
         <div class="divider"></div>
         <div class="card-content">
+        @if (count($index) > 0)
           <p>
             These items are in <span class="red-text bold">danger</span> stocks.
           </p>
@@ -32,6 +46,7 @@
 
             <tbody>
               @foreach($index as $status)
+              
               <tr>
                 <td>{{ $status -> strProdName }}</td>
                 <td>{{ $status -> intAvailQty }}</td>
@@ -43,16 +58,16 @@
                   </div>
                 </td>
               </tr>
+              
               @endforeach
             </tbody>
           </table>
-
-          <!-- <p>
-            All of your items are in <span class="green-text bold">good</span> stocks.
-          </p> -->
+        @else
+          <p> All of your items are in <span class="green-text bold">good</span> stocks.</p>
+        @endif
         </div>
       </div>
-
+ @if( Session::get('empBrchID') == 'BRCH001')
       <div class="card-panel">
         <span class="card-title">Incoming requests</span>
         <div class="divider"></div>
@@ -90,6 +105,8 @@
           </p> -->
         </div>
       </div>
+@endif
+
     </div>
     <div class="col s12 m12 l4">
       <div class="card-panel">
@@ -97,7 +114,7 @@
         <div class="divider"></div>
         <div class="card-content">
           <p>
-            You have 3 pending orders.
+            You have pending orders.
           </p>
           <table class="centered table-fixed">
             <thead>
@@ -109,21 +126,17 @@
             </thead>
 
             <tbody>
+             @foreach($orders as $order)
+             @if($order ->notes[0] -> strOrdNotesStat == 'Pending')
               <tr>
-                <td>iPhone 6</td>
-                <td>20</td>
-                <td>Apple PH</td>
+               @foreach($order->products as $product)
+               <td>{{ $product->strProdName}}</td>
+                <td>{{ $product->pivot->intOPQuantity}}</td>
+                <td>{{$order -> supplier -> strSuppCompanyName }}</td>
+                @endforeach
               </tr>
-              <tr>
-                <td>Razer Deathadder 2013</td>
-                <td>15</td>
-                <td>Razer</td>
-              </tr>
-              <tr>
-                <td>League of Legends Mouse Pads</td>
-                <td>50</td>
-                <td>Garena Phillipines</td>
-              </tr>
+              @endif
+              @endforeach
             </tbody>
           </table>
 

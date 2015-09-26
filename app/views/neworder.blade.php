@@ -165,7 +165,7 @@
                           {{ Form::select('strSuppCompanyName', $data['suppliers'], null, array('class' => 'browser-default')) }}
                           {{-- <input type="text" class="form-control" name="suppName" id="suppliersppName" placeholder="Supplier"> --}}
                         </td>
-                        <td><input type="text" class="form-control" name="empPlacer" id="empPlacer" readonly value="{{Session::get('username')}}"></td>
+                        <td><input type="text" class="form-control" name="empPlacer" id="empPlacer" readonly value="{{Session::get('empID')}}"></td>
                         <td>
                           <div class="center-btn">
                           <a class="waves-effect waves-light btn btn-small center-text">SUBMIT</a>

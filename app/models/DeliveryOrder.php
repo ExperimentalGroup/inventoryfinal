@@ -1,6 +1,6 @@
 <?php
 
-class DeliveryOrder extends Eloquent()
+class DeliveryOrder extends Eloquent
 {
 
 	protected $table = 'tblOrdDelivery';

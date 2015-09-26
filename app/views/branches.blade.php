@@ -6,9 +6,11 @@
         <div class="row">
           <div class="col s12 m12 l12">
             <span class="page-title">Branches</span>
-          </div>
+          </div> 
 
-          <div class="row">
+
+ @if( Session::get('empBrchID') == 'BRCH001' && Session::get('empRole') == 'ROLE0001' )
+ <div class="row">
       <div class="col s12 m12 l6">
         <div class="col s12 m12 l10">
             <button class="modal-trigger waves-effect waves-light btn btn-small center-text" href="#newbranch">ADD NEW BRANCH</button>
@@ -16,6 +18,7 @@
         </div>
       </div>
      </div>
+ @endif
            
 
           <div class="row">

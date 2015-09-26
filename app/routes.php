@@ -43,6 +43,8 @@ Route::post('/inventory', array('uses'=>'HomeController@createInv'));
 
 Route::post('/delivery', array('uses'=>'HomeController@add_delivery'));
 
+Route::post('/release', array('uses'=>'HomeController@minus_release'));
+
 Route::get('/details/{id}', 'HomeController@details');
 
 Route::get('/order', 'HomeController@order');

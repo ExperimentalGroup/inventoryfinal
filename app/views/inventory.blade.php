@@ -8,20 +8,22 @@
             <span class="page-title">Inventory</span>
           </div>
 
+ @if( Session::get('empBrchID') == 'BRCH001' && Session::get('empRole') == 'ROLE0001' )
           <div class="row">
       <div class="col s12 m12 l6">
         <div class="col s12 m12 l10">
             <button class="modal-trigger waves-effect waves-light btn btn-small center-text" href="#newprod">ADD NEW PRODUCT</button>
-          </form>
+            <button class="modal-trigger waves-effect waves-light btn btn-small center-text" href="#viewprod">VIEW ALL PRODUCTS</button>
         </div>
       </div>
      </div>
+  @endif
 
 
           <div class="row">
             <div class="col s12 m12 l12">
               <div class="card-panel">
-                <span class="card-title">Items on current branch</span>
+                <span class="card-title">Items on {{Session::get('empBrch')}} branch</span>
                 <div class="divider"></div>
                 <div class="card-content">
                   <div class="col s12 m12 l4">
@@ -75,6 +77,7 @@
 
                       <tbody>
                          @foreach($inventory as $inventory)
+                         
                         <tr>
                           <td>{{ $inventory->strProdID }}</td>
                           <td>{{ $inventory->strProdName }}</td>
@@ -96,6 +99,7 @@
                             </div>
                           </td>
                         </tr>
+                        
                         @endforeach
                       </tbody>
                     </table>
@@ -112,15 +116,11 @@
             </div>
           </div>
 
-  <div id="newprod" class="modal modal-fixed-footer">
+ <div id="newprod" class="modal modal-fixed-footer">
           <div class="modal-content">
-          <h4>Add New Branch</h4>
+          <h4>Add New Product</h4>
           <p>
-                      <form action="/inventory" method="POST">
-                      <div class="form-group">
-                      <label for="price">Batch ID</label>
-                      <input value="{{$newID}}" type="text" class="form-control" name="batchID" id="batchID" placeholder="ProdID" readonly>
-                      </div>
+                 <form action="/inventory" method="POST">
                       <div class="form-group">
                       <label for="price">Product ID</label>
                       <input value="{{$newID2}}" type="text" class="form-control" name="proID" id="proID" placeholder="ProdID" readonly>
@@ -137,25 +137,56 @@
                       <label for="price">Model</label>
                       <input type="text" class="form-control" name="proModel" id="proModel" placeholder="Product Model">
                       </div>
-                      <div class="form-group">
-                      <label for="price">Retail Price</label>
-                      <input type="text" class="form-control" name="retPrice" id="retPrice" placeholder="Retail Price">
-                      </div>
-                      <div class="form-group">
-                      <label for="price">Wholesale Price</label>
-                      <input type="text" class="form-control" name="whoPrice" id="whoPrice" placeholder="Wholesale Price">
-                      </div>
-                      <div class="form-group">
-                      <label for="price">Available Stock</label>
-                      <input type="text" class="form-control" name="avaQTY" id="avaQTY" placeholder="Available Stock">
-                      </div>
                       <button class="waves-effect waves-light btn btn-small center-text">ADD</button>
-                       </p>
+</form>
+</p>
+</div>
+                                <div class="modal-footer">
+                                  <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Close</a>
+                                </div>
+</div>
+
+<div id="viewprod" class="modal modal-fixed-footer">
+          <div class="modal-content">
+          <h4>ALL PRODUCTS</h4>
+          <p>
+          <div class="col s12 m12 l4">
+              <div class="input-field">
+                <i class="prefix mdi-action-search"></i>
+                <input id="search" type="text" placeholder="Search by name"/>
+              </div>
+            </div>
+     
+
+            <div class="col s12 m12 l12 overflow-x">
+              <table class="centered">
+                <thead>
+                  <tr>
+                    <th>Product ID</th>
+                    <th>Product Name</th>
+                    <th>Brand</th>
+                    <th>Model</th>
+                  </tr>
+                </thead>
+                <tbody>
+                 @foreach($products as $products)
+                  <tr>
+                  <td>{{ $products->strProdID }}</td>
+                  <td>{{ $products->strProdName }}</td>
+                  <td>{{ $products->strProdBrand }}</td>
+                  <td>{{ $products->strProdModel }}</td>
+                  </tr>
+                  @endforeach
+                </tbody>
+              </table>
+            </div>
+          </p>
                       </div>
                                 <div class="modal-footer">
                                   <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Close</a>
                                 </div>
-                      </form>
+    </div>
+
 @stop
 
 @section('scripts')

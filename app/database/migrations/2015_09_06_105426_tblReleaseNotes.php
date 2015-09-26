@@ -16,6 +16,7 @@ class TblReleaseNotes extends Migration {
 			$table->string('strReleaseNotesID')->primary();
 			$table->string('strReleaseID');//fk
 			$table->string('strReleaseNotesStat');
+			$table->timestamps();
 		});
 	}
 

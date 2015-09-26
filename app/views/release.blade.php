@@ -146,25 +146,42 @@
                               <div id="newrel" class="modal modal-fixed-footer">
                                 <div class="modal-content">
                                   <h4>ADD NEW RELEASE</h4>
-                                  <p>Wala pa kong nilagay to. Easy lng po.
+                                  <p>
+                                  <div class="form-group">
+                                      <form action="/release" method="POST">
+                                        <label for="price">Release ID</label>
+                                        <input value="{{$newID}}" type="text" class="form-control" name="relID" id="relID" readonly>
+                                        </div>
+                                        <label for="price">Released By</label>
+                                        <div class="form-group">
+                                        <input type="text" class="form-control" name="empNameRel" id="empNameRel" value="{{Session::get('empID')}}" readonly>
+                                        </div>
+                                        <label for="price">Date Released</label>
+                                        <div class="form-group">
+                                        <input id="dtDelv" name="dtRel" type="date"/>
+                                        </div>
+                                        <div class="form-group">
+                                        <label for="price">Branch</label>
+                                       {{ Form::select('relBranch', $data['branches'], null, array('class' => 'browser-default')) }}
+                                       {{-- <input type="text" class="form-control" name="relBranch" id="relBranch" placeholder="Branch"> --}}
+                                        </div>
+                                        <div class="form-group">
+                                        <label for="price">Product</label>
+                                        {{ Form::select('relProd', $data['products'], null, array('class' => 'browser-default')) }}
+                                        {{-- <input type="text" class="form-control" name="relProd" id="relProd"> --}}
+                                        </div>
+                                        <label for="price">Quantity</label>
+                                        <div class="form-group">
+                                        <input type="number" name="quantityRel" id="quantityRel" min="1" value="1">
+                                        </div>
+                                        <button class="waves-effect waves-light btn btn-small center-text">ACCEPT</button>
+                                        </form>
                                   </p>
                                 </div>
                                 <div class="modal-footer">
                                   <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Close</a>
                                 </div>
                               </div>
-@stop
-
-@section('scripts')
-<!--{{ HTML::script('js/new-order.js') }}-->
-<script type="text/javascript" src="js/jquery.js"></script>
-<script src="js/materialize.js"></script>
-<script>   
-    $(document).ready(function(){
-    // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
-    $('.modal-trigger').leanModal();
-  }); 
-</script>
 @stop
 
 @section('scripts')

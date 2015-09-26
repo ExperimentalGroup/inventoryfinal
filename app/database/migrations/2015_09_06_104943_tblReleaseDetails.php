@@ -16,6 +16,7 @@ class TblReleaseDetails extends Migration {
 			$table->string('strReleaseProducts');//fk
 			$table->string('strReleaseHeaderID');//fk
 			$table->integer('intReleaseQty');
+			$table->timestamps();
 
 			//composite keys
 			$table->primary(array('strReleaseProducts','strReleaseHeaderID'));

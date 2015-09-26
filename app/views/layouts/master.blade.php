@@ -25,14 +25,13 @@
               </div>
               <div class="account-pane center-align">
                 <!-- use amber for admin, blue for employee, ?? for manager -->
-                Logged in as: <span class="bold amber-text text-accent-4">{{Session::get('username')}}</span>
+                Logged in as: <span class="bold amber-text text-accent-4">{{Session::get('empName')}} ( {{Session::get('empRole')}} )</span>
                 <br/>
-                Branch: <span class="bold">Main</span>
+                Branch: <span class="bold">{{Session::get('empBrch')}}</span>
               </div>
               <li class="bold {{ strpos(Request::url(), 'index') !== false ? 'active' : '' }}"><a href="/index">Dashboard</a></li>
               <li class="bold {{ strpos(Request::url(), 'inventory') !== false ? 'active' : '' }}"><a href="/inventory">Inventory</a></li>
               <li class="bold {{ strpos(Request::url(), 'order') !== false ? 'active' : '' }}"><a href="/order">Order</a></li>
-              <!-- <li class="bold"><a href="/request">Requests</a></li> -->
               <li class="bold {{ strpos(Request::url(), 'delivery') !== false ? 'active' : '' }}"><a href="/delivery">Delivery</a></li>
               <li class="bold {{ strpos(Request::url(), 'release') !== false ? 'active' : '' }}"><a href="/release">Release</a></li>
               <li class="bold {{ strpos(Request::url(), 'branches') !== false ? 'active' : '' }}"><a href="/branches">Branches</a></li>
