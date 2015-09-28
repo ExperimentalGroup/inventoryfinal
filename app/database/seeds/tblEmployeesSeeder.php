@@ -15,7 +15,7 @@ class tblEmployeesSeeder extends Seeder{
 				'intEmpAge' =>'18',
 				'strEmpStatus' => 'Regular',
 				'strEmpAddress' => '44 Rizal St.,Mandaluyong City',
-				'strEmpBrchID' => 'BRCH001',
+				'strEmpBrchID' => 'BRCH002',
 				'strEmpRoleID' => 'ROLE0001'
 			),
 			
@@ -27,7 +27,7 @@ class tblEmployeesSeeder extends Seeder{
 				'intEmpAge' =>'22',
 				'strEmpStatus' => 'Part Time',
 				'strEmpAddress' => 'Signal Village, Taguig City',
-				'strEmpBrchID' => 'BRCH003',
+				'strEmpBrchID' => 'BRCH002',
 				'strEmpRoleID' => 'ROLE0002'
 			),
 
@@ -41,6 +41,18 @@ class tblEmployeesSeeder extends Seeder{
 				'strEmpAddress' => 'Sta. Mesa, Manila',
 				'strEmpBrchID' => 'BRCH002',
 				'strEmpRoleID' => 'ROLE0003'
+			),
+
+			array(
+
+				'strEmpID' => 'EMPL00004',
+				'strEmpFName' => 'Peter',
+				'strEmpLName' => 'Seva',
+				'intEmpAge' =>'31',
+				'strEmpStatus' => 'Regular',
+				'strEmpAddress' => 'QC',
+				'strEmpBrchID' => 'BRCH003',
+				'strEmpRoleID' => 'ROLE0001'
 			)
 
 	);
