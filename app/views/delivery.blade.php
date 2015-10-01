@@ -11,7 +11,7 @@
       <div class="row">
       <div class="col s12 m12 l6">
         <div class="col s12 m12 l10">
-            <button class="modal-trigger waves-effect waves-light btn btn-small center-text" href="#newdlv">ADD NEW DELIVERY</button>
+            <button class="modal-trigger waves-effect waves-light btn btn-small center-text" href="#newdlv" disabled>ADD NEW DELIVERY (INC)</button>
           </form>
         </div>
       </div>
@@ -142,7 +142,7 @@
                                         </div>
                                         <label for="price">Received By</label>
                                         <div class="form-group">
-                                        <input type="text" class="form-control" name="empNameRec" id="empNameRec" value="{{Session::get('empID')}}" readonly>
+                                        <input type="text" class="form-control" name="empNameRec" id="empNameRec" value="{{Session::get('empName')}}" readonly>
                                         </div>
                                         <label for="price">Date Delivered</label>
                                         <div class="form-group">

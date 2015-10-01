@@ -54,7 +54,7 @@
                   <div class="center-btn">
                     <a class="waves-effect waves-light btn btn-small center-text" href="/neworder">Order</a>
                     <!-- <a class="waves-effect waves-light btn btn-small center-text">Request</a> -->
-                    <a class="waves-effect waves-light btn btn-small center-text" href="/adjust">Adjust</a>
+                    <a class="waves-effect waves-light btn btn-small center-text" href="/inventory">Adjust</a>
                   </div>
                 </td>
               </tr>
@@ -67,7 +67,7 @@
         @endif
         </div>
       </div>
- @if( Session::get('empBrchID') == 'BRCH001')
+ @if( !Session::get('empBrchID') == 'BRCH002')
       <div class="card-panel">
         <span class="card-title">Incoming requests</span>
         <div class="divider"></div>

@@ -9,7 +9,7 @@
           </div> 
 
 
- @if( Session::get('empBrchID') == 'BRCH001' && Session::get('empRole') == 'ROLE0001' )
+ @if( Session::get('empBrchID') == 'BRCH002' && Session::get('empRole') == 'ROLE0001' )
  <div class="row">
       <div class="col s12 m12 l6">
         <div class="col s12 m12 l10">
@@ -24,7 +24,7 @@
           <div class="row">
             <div class="col s12 m12 l12">
               <div class="card-panel">
-                <span class="card-title">gHuB Branches in Metro Manila</span>
+                <span class="card-title">gHuB Branches</span>
                 <div class="divider"></div>
                 <div class="card-content">
                   <div class="col s12 m12 l4">
@@ -52,6 +52,39 @@
                           <td>{{ $branches->strBrchID }}</td>
                           <td>{{ $branches->strBrchName }}</td>
                           <td>{{ $branches->strBrchAddress }}</td>
+                          <td><button class="modal-trigger waves-effect waves-light btn btn-small center-text" href="#{{$branches->strBrchID}}">EDIT</button>
+                             
+                              <!-- Modal Structure -->
+                              <div id="{{$branches->strBrchID}}" class="modal modal-fixed-footer">
+                                <div class="modal-content">
+                                  <h4>EDIT BRANCH DETAILS</h4>
+                                  <p>
+                                  <form action="/branchupdate" method="POST">
+                                      <div class="form-group">
+                                      <!-- <label for="price">Branch ID</label>
+                                      <input type="text" class="form-control" name="brnchID" id="brnchID" placeholder="BranchID"> -->
+                                        <label for="disabled">Branch ID</label>
+                                        <input value="{{$branches->strBrchID}}" name="EbrnchID" id="EbrnchID" placeholder="BranchID" type="text" class="form-control" readonly>
+                                      </div>
+                                      <div class="form-group">
+                                      <label for="price">Branch Name</label>
+                                      <input type="text" class="form-control" name="EbrnchName" id="EbrnchName" value="{{ $branches->strBrchName }}">
+                                      </div>
+                                      <div class="form-group">
+                                      <label for="price">Branch Address</label>
+                                      <input type="text" class="form-control" name="EbrnchAdd" id="EbrnchAdd" value="{{ $branches->strBrchAddress }}">
+                                      </div>
+                                  </p>
+                                </div>
+                                <div class="modal-footer">
+                                  <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Close</a>
+                                  <button type="submit" class="waves-effect waves-green btn-flat ">DONE EDITING</button>
+                                </div>
+                                </form>
+                              </div>
+                            
+
+                          </td>
                         </tr>
                         @endforeach
                       </tbody>
@@ -89,11 +122,12 @@
                       <label for="price">Branch Address</label>
                       <input type="text" class="form-control" name="brnchAdd" id="brnchAdd" placeholder="BranchAdd">
                       </div>
-                      <button type="submit" class="waves-effect waves-light btn btn-small center-text">ADD</button>
+                      
               </p>
                       </div>
                                 <div class="modal-footer">
                                   <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Close</a>
+                                  <button type="submit" class="waves-effect waves-green btn-flat ">ADD</button>
                                 </div>
                       </form>
 

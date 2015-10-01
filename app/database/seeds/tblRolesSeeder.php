@@ -9,7 +9,7 @@ class tblRolesSeeder extends Seeder{
 			array(
 
 				'strRoleID' => 'ROLE0001',
-				'strRoleDescription' => 'Adminisistrator'
+				'strRoleDescription' => 'Administrator'
 			),
 
 			array(

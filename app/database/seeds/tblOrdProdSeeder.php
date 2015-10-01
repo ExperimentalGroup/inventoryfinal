@@ -25,6 +25,27 @@ class tblOrdProdSeeder extends Seeder{
 				'strOPOrdersID' => 'ORD003',
 				'strOPProdID' => 'PRO001',
 				'intOPQuantity' => '5'
+			),
+
+			array(
+
+				'strOPOrdersID' => 'ORD003',
+				'strOPProdID' => 'PRO002',
+				'intOPQuantity' => '11'
+			),
+
+			array(
+
+				'strOPOrdersID' => 'ORD003',
+				'strOPProdID' => 'PRO003',
+				'intOPQuantity' => '20'
+			),
+
+			array(
+
+				'strOPOrdersID' => 'ORD002',
+				'strOPProdID' => 'PRO001',
+				'intOPQuantity' => '5'
 			)
 			
 		);

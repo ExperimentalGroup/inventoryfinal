@@ -2,11 +2,11 @@
 
 @section('content')
 <div class="main-wrapper">
-  <!-- ACTUAL PAGE CONTENT GOES HERE -->
-  <div class="row">
-    <div class="col s12 m12 l12">
-      <span class="page-title">Employees</span>
-    </div>
+      <!-- ACTUAL PAGE CONTENT GOES HERE -->
+      <div class="row">
+        <div class="col s12 m12 l12">
+             <span class="page-title">Employees</span>
+        </div>
 
  @if( Session::get('empRole') == 'ROLE0001' )
     <div class="row">
@@ -52,6 +52,7 @@
                     <td>{{ $employee->strEmpLName . ", " . $employee->strEmpFName}}</td>
                     <td>{{ $employee->strEmpStatus }}</td>  
                     <td>{{ $employee->strEmpAddress }}</td>
+                    
                   </tr>
                   @endif
                   @endforeach
@@ -78,7 +79,7 @@
           <p>
            <div class="form-group">
                 <form action="/employees" method="POST">
-                  EMPLOYEE ACCOUNT DETAILS<br>
+                  <!--EMPLOYEE ACCOUNT DETAILS<br>
                   <label for="price">Employee Username</label>
                   <div class="form-group">
                   <input type="text" class="form-control" name="newEmpUName" id="newEmpUName" value="{{$newID2}}" readonly>
@@ -86,7 +87,7 @@
                   <label for="price">Employee Password</label>
                   <div class="form-group">
                   <input type="password" class="form-control" name="newEmpPass" id="newEmpPass">
-                  </div>
+                  </div> -->
                   EMPLOYEE PERSONAL DETAILS<br>
                   <label for="price">Employee ID</label>
                   <input value="{{$newID}}" type="text" class="form-control" name="empID" id="empID" placeholder="Employee ID" readonly>
@@ -117,11 +118,12 @@
                   <label for="price">Address</label>
                   <input type="text" class="form-control" name="empAdd" id="empAdd" placeholder="Address">
                   </div>
-                  <button class="waves-effect waves-light btn btn-small center-text">ADD</button>
+                 
               </p>
                       </div>
                                 <div class="modal-footer">
                                   <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Close</a>
+                                   <button class="waves-effect waves-green btn-flat ">ADD</button>
                                 </div>
                       </form>
   </div>
@@ -153,7 +155,7 @@
                   <tr>
                     <td>{{ $employee->strEmpID }}</td>  
                     <td>{{ $employee->strEmpLName . ", " . $employee->strEmpFName}}</td>
-                    <td>{{ $employee -> strEmpBrchID}}</td>
+                    <td>{{ $employee->strEmpBrchID}}</td>
                     <td>{{ $employee->strEmpStatus }}</td>  
                     <td>{{ $employee->strEmpAddress }}</td>
                   </tr>

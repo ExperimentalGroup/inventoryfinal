@@ -3,7 +3,7 @@
 class Inventory extends Eloquent
 {
 	protected $table = 'tblInventory';
-	protected $primaryKey = 'strProdID';
+	protected $primaryKey = 'strBatchID';
 	protected $fillable = array('strBatchID','strProdID', 'strDlvryID', 'strBrchID', 'intAvailQty', 'dblCurRetPrice', 'dblCurWPrice');
 
 	public function product()

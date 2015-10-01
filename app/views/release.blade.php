@@ -11,7 +11,7 @@
            <div class="row">
       <div class="col s12 m12 l6">
         <div class="col s12 m12 l10">
-            <button class="modal-trigger waves-effect waves-light btn btn-small center-text" href="#newrel">ADD NEW RELEASE</button>
+            <button class="modal-trigger waves-effect waves-light btn btn-small center-text" href="#newrel" disabled>ADD NEW RELEASE(INC)</button>
           </form>
         </div>
       </div>
@@ -154,7 +154,7 @@
                                         </div>
                                         <label for="price">Released By</label>
                                         <div class="form-group">
-                                        <input type="text" class="form-control" name="empNameRel" id="empNameRel" value="{{Session::get('empID')}}" readonly>
+                                        <input type="text" class="form-control" name="empNameRel" id="empNameRel" value="{{Session::get('empName')}}" readonly>
                                         </div>
                                         <label for="price">Date Released</label>
                                         <div class="form-group">

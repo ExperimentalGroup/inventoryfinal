@@ -45,13 +45,19 @@ Route::post('/delivery', array('uses'=>'HomeController@add_delivery'));
 
 Route::post('/release', array('uses'=>'HomeController@minus_release'));
 
+Route::post('/adjust', array('uses'=>'HomeController@adjustInv'));
+
+Route::post('/supplierupdate',array('uses'=>'HomeController@update_supplier'));
+
+Route::post('/branchupdate',array('uses'=>'HomeController@update_branch'));
+
+Route::post('/employeeupdate',array('uses'=>'HomeController@update_employee'));
+
 Route::get('/details/{id}', 'HomeController@details');
 
 Route::get('/order', 'HomeController@order');
 
 Route::get('/neworder', 'HomeController@newOrder');
-
-Route::get('/adjust', 'HomeController@adjust');
 
 Route::get('/smart', 'HomeController@smart');
 

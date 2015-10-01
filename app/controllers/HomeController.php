@@ -29,7 +29,6 @@ class HomeController extends BaseController {
 
 		$ids2 = DB::table('tblLogin')
 			->select('strUsername')
-			->orderBy('updated_at', 'desc')
 			->orderBy('strUsername', 'desc')
 			->take(1)
 			->get();
@@ -64,12 +63,12 @@ class HomeController extends BaseController {
 		$ID2 = $ids2["0"]->strProdID;
 		$newID2 = $this->smart($ID2);
 
-		$inventory = DB::table('tblInventory')
-		->join('tblProducts', function($join)
-		{
-			$join->on('tblInventory.strProdID','=','tblProducts.strProdID');
-		})->get();
-		
+		// $inventory = DB::table('tblInventory')
+		// ->join('tblProducts', function($join)
+		// {
+		// 	$join->on('tblInventory.strProdID','=','tblProducts.strProdID');
+		// })->get();
+		$inventory = Inventory::all();
 		$products = Product::all();
 
 		return View::make('inventory')->with('inventory', $inventory)->with('newID2', $newID2)->with('products',$products);
@@ -153,7 +152,7 @@ class HomeController extends BaseController {
 			'strDlvryID' => Input::get('dlvID'),
 			'dtDlvryDate'=> Input::get('dtDelv'),
 			'strOrdDlvry' => Input::get('ordID'),
-			'strDlvryRecBy' => Input::get('empNameRec')
+			'strDlvryRecBy' => Session::get('empID')
 		));
 		$delivery->save();
 
@@ -164,16 +163,26 @@ class HomeController extends BaseController {
 		));
 		$details->save();
 
+		$ids = DB::table('tblInventory')
+			->select('strBatchID')
+			->orderBy('updated_at', 'desc')
+			->orderBy('strBatchID', 'desc')
+			->take(1)
+			->get();
 
-		$id1 = Input::get('delProd');
-		$addQ = Input::get('quantity');
-		$inventory = Inventory::find($id1);
+		$ID = $ids["0"]->strBatchID;
+		$newID = $this->smart($ID);
+				
+		$inv = Inventory::create(array(
+			'strBatchID' => $newID,
+			'strProdID' => Input::get('delProd'),
+			'strDlvryID' => Input::get('dlvID'),
+			'intAvailQty' => Input::get('quantity'),
+			'dblCurRetPrice' => '0',
+			'dblCurWPrice' => '0'
+		));
+		$inv->save();
 
-		$inventory->strDlvryID = Input::get('dlvID');
-		$inventory->intAvailQty += $addQ;
-
-
-		$inventory->save();
 
 		return Redirect::to('/delivery');
 
@@ -216,7 +225,7 @@ class HomeController extends BaseController {
 		$release = Release::create(array(
 			'strReleasesID' => Input::get('relID'),
 			'strReleaseBrchID'=> Input::get('relBranch'),
-			'strReleaseBy' => Input::get('empNameRel'),
+			'strReleaseBy' => Session::get('empID'),
 			'dtDateReleased' => Input::get('dtRel')
 		));
 		$release->save();
@@ -258,6 +267,43 @@ class HomeController extends BaseController {
 		return Redirect::to('/release');
 	}
 
+	public function adjustInv()
+	{
+
+		$ids = DB::table('tblAdjustments')
+			->select('strAdjID')
+			->orderBy('strAdjID', 'desc')
+			->take(1)
+			->get();
+
+		$ID = $ids["0"]->strAdjID;
+		$newID = $this->smart($ID);
+
+		$id = Input::get('batchID');
+		$invadj = Inventory::find($id);
+
+		$qty = $invadj->intAvailQty;
+		$prodID = $invadj->strProdID;
+		$counter = Input::get('adjQTY');
+		$invadj->intAvailQty += $counter;
+
+		$invadj->save();
+
+		$adjust = Adjust::create(array(
+			'strAdjID' => $newID,
+			'strAdjProdID' => $prodID,
+			'intAdjQtyBef' => $qty,
+			'intAdjQtyAft' => $qty + $counter,
+			'strAdjReason' => Input::get('adjRes'),
+			 'dtAdjDate' => Input::get('dtAdj'),
+			 'strAdjBatchID' => Input::get('batchID')
+		)); 
+		$adjust->save();
+
+
+		return Redirect::to('/inventory');
+	}
+
 	public function createBranch()
 	{
 		$branch = Branch::create(array(
@@ -296,12 +342,12 @@ class HomeController extends BaseController {
 		));
 		$employees->save();
 
-		$account = Login::create(array(
+		/*$account = Login::create(array(
 			'strUsername' => Input::get('newEmpUName'),
 			'strPassword' => Input::get('newEmpPass'),
 			'strLoginEmpID' => Input::get('empID')
 		));
-		$account->save();
+		$account->save();*/
 		
 		return Redirect::to('/employees');
 	}
@@ -336,6 +382,53 @@ class HomeController extends BaseController {
 		
 		return Redirect::to('/inventory');
 	}
+
+	public function update_supplier()
+	{
+		$id = Input::get('EsuppID');
+		$supplier = Supplier::find($id);
+
+		$supplier->strSuppCompanyName=Input::get('EcompName');
+		$supplier->strSuppOwnerLName=Input::get('EsuppLName');
+		$supplier->strSuppOwnerFName=Input::get('EsuppFName');
+		$supplier->strSuppContactNo=Input::get('EcontNumb');
+		$supplier->strSuppAddress=Input::get('EsuppAdd');
+
+		$supplier->save();
+
+		return Redirect::to('/suppliers');
+	}
+
+	public function update_branch()
+	{
+		$id = Input::get('EbrnchID');
+		$branch = Branch::find($id);
+
+		$branch->strBrchName=Input::get('EbrnchName');
+		$branch->strBrchAddress=Input::get('EbrnchAdd');
+
+		$branch->save();
+
+		return Redirect::to('/branches');
+
+	}
+
+	/*public function update_employee()
+	{
+		$id = Input::get('EempID');
+		$employee = Employee::find($id);
+
+		$employee->strEmpLName = Input::get('EemplName');
+		$employee->strEmpFName = Input::get('EempfName');
+		$employee->strEmpBrchID = Input::get('EempBrnch');
+		$employee->strEmpRoleID = Input::get('EempRole');
+		$employee->strEmpStatus = Input::get('EempStatus');
+		$employee->strEmpAddress =  Input::get('EempAdd');
+
+		$employee->save();
+
+		return Redirect::to('/employees');
+	} */
 
 	public function order()
 	{
