@@ -17,10 +17,7 @@ class loginController extends \BaseController {
 		$chk2 = Login::where('strPassword','=',Input::get('password'))->first();	
 		if($chk1 && $chk2)
 		{
-
-			
 			//$id = Login::all();
-
 			$empId = DB::table('tblLogin')
 			->join('tblEmployees',function($join)
 			{
@@ -30,11 +27,14 @@ class loginController extends \BaseController {
 			{
 				$join->on('tblEmployees.strEmpBrchID','=','tblBranches.strBrchID');
 			})
+			->join('tblRoles',function($join)
+			{
+				$join->on('tblEmployees.strEmpRoleID','=','tblRoles.strRoleID');
+			})
 			->get();
 
 			$orders = Order::with('supplier', 'employee','products','notes')
 			->get();
-
 
 			//dashboard(danger stocks)
 			$index = DB::table('tblInventory')
@@ -60,14 +60,12 @@ class loginController extends \BaseController {
 		}
 		else
 		{
-
 			$empId = DB::table('tblLogin')
 			->join('tblEmployees',function($join)
 			{
 				$join->on('tblLogin.strLoginEmpID','=','tblEmployees.strEmpID');
 					// ->where('tblLogin.strUsername','=',Session::get('username'));
 			})->get();
-
 			$orders = Order::with('supplier', 'employee','products','notes')
 			->get();
 			

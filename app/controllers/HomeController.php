@@ -413,7 +413,7 @@ class HomeController extends BaseController {
 
 	}
 
-	/*public function update_employee()
+	public function update_employee()
 	{
 		$id = Input::get('EempID');
 		$employee = Employee::find($id);
@@ -428,7 +428,7 @@ class HomeController extends BaseController {
 		$employee->save();
 
 		return Redirect::to('/employees');
-	} */
+	} 
 
 	public function order()
 	{

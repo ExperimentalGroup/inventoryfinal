@@ -25,7 +25,7 @@
               </div>
               <div class="account-pane center-align">
                 <!-- use amber for admin, blue for employee, ?? for manager -->
-                Logged in as: <span class="bold amber-text text-accent-4">{{Session::get('empName')}} ( {{Session::get('empRole')}} )</span>
+                Logged in as: <span class="bold amber-text text-accent-4">{{Session::get('empName')}} ( {{Session::get('empRoleDesc')}} )</span>
                 <br/>
                 Branch: <span class="bold">{{Session::get('empBrch')}}</span>
               </div>

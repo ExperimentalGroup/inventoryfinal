@@ -21,4 +21,12 @@ class Employee extends Eloquent
 	public function releases() {
 		return $this->hasMany('Release','strReleaseBy','strEmpID');
 	}
+
+	public function logins() {
+		return $this->hasMany('Login', 'strLoginEmpID', 'strEmpID');
+	}
+
+	public function branch() {
+		return $this->belongsTo('Branch', 'strEmpBrchID');
+	}
 }

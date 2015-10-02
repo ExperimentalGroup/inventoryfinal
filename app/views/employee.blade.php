@@ -52,7 +52,57 @@
                     <td>{{ $employee->strEmpLName . ", " . $employee->strEmpFName}}</td>
                     <td>{{ $employee->strEmpStatus }}</td>  
                     <td>{{ $employee->strEmpAddress }}</td>
-                    
+                    <td><button class="modal-trigger waves-effect waves-light btn btn-small center-text" href="#{{$employee->strEmpID}}">EDIT</button>
+                             
+                              <!-- Modal Structure -->
+                              <div id="{{$employee->strEmpID}}" class="modal modal-fixed-footer">
+                                <div class="modal-content">
+                                  <h4>EDIT EMPLOYEE DETAILS</h4>
+                                  <p>
+                                  <form action="/employeeupdate" method="POST">
+                                      <div class="form-group">
+                                      <!-- <label for="price">Branch ID</label>
+                                      <input type="text" class="form-control" name="brnchID" id="brnchID" placeholder="BranchID"> -->
+                                        <label for="disabled">Employee ID</label>
+                                        <input value="{{$employee->strEmpID}}" name="EempID" id="EempID" placeholder="EmpID" type="text" class="form-control" readonly>
+                                      </div>
+                                      <div class="form-group">
+                                      <label for="price">Employee Last Name</label>
+                                      <input type="text" class="form-control" name="EemplName" id="EemplName" value="{{ $employee->strEmpLName }}">
+                                      </div>
+                                      <div class="form-group">
+                                      <label for="price">Employee First Name</label>
+                                      <input type="text" class="form-control" name="EempfName" id="EempfName" value="{{ $employee->strEmpFName }}">
+                                      </div>
+                                      <div class="form-group">
+                                      <label for="price">Branch</label>
+                                      {{ Form::select('EempBrnch', $data['branches'], null, array('class' => 'browser-default')) }}
+                                      {{-- <input type="text" class="form-control" name="EempBrnch" id="EempBrnch" placeholder="Branch"> --}}
+                                      </div>
+                                      <div class="form-group">
+                                      <label for="price">Role</label>
+                                      {{ Form::select('EempRole', $data['roles'], null, array('class' => 'browser-default')) }}
+                                      {{-- <input type="text" class="form-control" name="EempRole" id="EempRole" placeholder="Role"> --}}
+                                      </div>
+                                      <div class="form-group">
+                                      <label for="price">Employee Status</label>
+                                      <input type="text" class="form-control" name="EempStatus" id="EempStatus" value="{{ $employee->strEmpStatus }}">
+                                      </div>
+                                      <div class="form-group">
+                                      <label for="price">Employee Adress</label>
+                                      <input type="text" class="form-control" name="EempAdd" id="EempAdd" value="{{ $employee->strEmpAddress }}">
+                                      </div>
+                                  </p>
+                                </div>
+                                <div class="modal-footer">
+                                  <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Close</a>
+                                  <button type="submit" class="waves-effect waves-green btn-flat ">DONE EDITING</button>
+                                </div>
+                                </form>
+                              </div>
+                            
+
+                          </td>
                   </tr>
                   @endif
                   @endforeach

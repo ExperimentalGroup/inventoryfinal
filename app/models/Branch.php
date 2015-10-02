@@ -9,6 +9,10 @@ class Branch extends Eloquent
 	public function branches() {
 		return $this->hasMany('Release','strReleaseBrchID','strBrchID');
 	}
+
+	public function employees() {
+		return $this->hasMany('Employee', 'strEmpBrchID', 'strBrchID');
+	}
 }
 
 

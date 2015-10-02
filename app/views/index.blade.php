@@ -12,7 +12,8 @@
              <?php $b=$empId->strEmpLName . ", " . $empId->strEmpFName; Session::put('empName', $b); ?>
              <?php $d=$empId->strEmpBrchID; Session::put('empBrchID', $d); ?>
              <?php $c=$empId->strBrchName; Session::put('empBrch', $c); ?>
-             <?php $e=$empId->strEmpRoleID; Session::put('empRole', $e); ?>              
+             <?php $e=$empId->strEmpRoleID; Session::put('empRole', $e); ?>
+             <?php $f=$empId->strRoleDescription; Session::put('empRoleDesc', $f); ?>              
         @endif
 @endforeach
 @endif

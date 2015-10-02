@@ -110,7 +110,7 @@
                 @endif
                 @endforeach -->
                 <tbody>
-                  <tr>
+                  <!-- <tr>
                     <td>a</td>
                     <td>a</td>
                     <td>a</td>
@@ -121,7 +121,7 @@
                     <td>b</td>
                     <td>b</td>
                     <td>b</td>
-                  </tr>
+                  </tr> -->
                 </tbody>
               </table>
             </div>
