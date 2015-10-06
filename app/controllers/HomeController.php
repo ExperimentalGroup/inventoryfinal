@@ -446,7 +446,7 @@ class HomeController extends BaseController {
 		{
 			$join->on('tblInventory.strProdID','=','tblProducts.strProdID');
 		})
-		->select('strProdName', 'dblCurRetPrice', 'dblCurWPrice', 'intAvailQty')
+		// ->select('strProdID', 'strProdName', 'dblCurRetPrice', 'dblCurWPrice', 'intAvailQty')
 		->get();
 
 		return Response::json($products);
@@ -483,9 +483,31 @@ class HomeController extends BaseController {
 		return View::make('neworder')->with('products', $products)->with('data',$data)->with('newID',$newID)->with('ordProd',$ordProd);
 	}
 
-	public function newOrderAdd()
+	function newOrderAdd()
 	{
+		$order = Order::create(array(
+			'strOrdersID'=>Input::get('orderID'),
+			'strSupplID'=>Input::get('supplierID'),
+			'dtOrdDate'=>date('Y-m-d'),
+			'strPlacedBy'=>Input::get('empID')
+		));
+		$order->save();
 
+		$item = Input::get('itemsOrd');
+
+		// 'strOPOrdersID', 'strOPProdID', 'intOPQuantity'
+		for ($i = 0; $i < count($item); $i++)  
+		{
+			$ordItem = OrderProduct::create(
+				array(
+					'strOPOrdersID'=>Input::get('orderID'),
+					'strOPProdID'=>$item[$i][0],
+					'intOPQuantity'=>$item[$i][2]
+				)
+			);
+
+			$ordItem->save();
+		}
 	}
 
 	public function adjust()

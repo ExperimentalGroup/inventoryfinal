@@ -28,10 +28,11 @@
               <table class="centered" id="table-prod-list"> 
                 <thead>
                   <tr>
+                    <th>Product ID</th>
                     <th>Product Name</th>
                     <th>Retail Price</th>
                     <th>Wholesale Price</th>
-                    <th>Quantity</th>
+                    <!-- <th>Quantity</th> -->
                     <th></td>
                   </tr>
                 </thead>
@@ -58,6 +59,8 @@
                   @endforeach -->
                 </tbody>
               </table>
+              <!-- <button type="button" id="add-prod-btn">Add</button> -->
+              <!-- <div class="center-btn"><a class="waves-effect waves-light btn btn-small center-text" id="add-prod-btn">ADD TO PRODUCT LIST</a></div> -->
             </div>
 
             <!-- <p>
@@ -86,10 +89,11 @@
               <table class="centered" id="table-add-product">
                 <thead>
                   <tr>
+                    <th>Product ID</th>
                     <th>Product Name</th>
                     <th>Quantity</th>
                     <th>Subtotal Price</th>
-                    <th>Total Price</th>
+                    <!-- <th>Total Price</th> -->
                   </tr>
                 </thead>
                <!--  @foreach( $ordProd as $tempOrders)
@@ -154,7 +158,7 @@
                   <tr>
                     <th>Order ID</th>
                     <th>Supplier Name</th>
-                    <th>Placed by (Employee ID)</th>
+                    <th>Placed by</th>
                   </tr>
                 </thead>
 
@@ -162,13 +166,13 @@
                       <tr>
                         <td> <input type="text" class="form-control" name="orderID" id="orderID" value="{{$newID}}" readonly></td>
                         <td>
-                          {{ Form::select('strSuppCompanyName', $data['suppliers'], null, array('class' => 'browser-default')) }}
+                          {{ Form::select('strSuppCompanyName', $data['suppliers'], null, array('class' => 'browser-default', 'id' => 'supplier-select')) }}
                           {{-- <input type="text" class="form-control" name="suppName" id="suppliersppName" placeholder="Supplier"> --}}
                         </td>
                         <td><input type="text" class="form-control" name="empPlacer" id="empPlacer" readonly value="{{Session::get('empName')}}"></td>
                         <td>
                           <div class="center-btn">
-                          <a class="waves-effect waves-light btn btn-small center-text">SUBMIT</a>
+                          <a class="waves-effect waves-light btn btn-small center-text" id="submit-order">SUBMIT</a>
                           <a class="waves-effect waves-light btn btn-small center-text">CANCEL</a>
                           </div>
                         </td>
@@ -176,7 +180,7 @@
                 </tbody>
               </table>
             </div>
-
+            <input id="empID" hidden value="{{Session::get('empID')}}">
             <!-- <p>
               You have no items.
             </p> -->
