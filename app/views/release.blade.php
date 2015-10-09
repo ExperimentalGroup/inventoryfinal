@@ -11,7 +11,7 @@
            <div class="row">
       <div class="col s12 m12 l6">
         <div class="col s12 m12 l10">
-            <button class="modal-trigger waves-effect waves-light btn btn-small center-text" href="#newrel" disabled>ADD NEW RELEASE(INC)</button>
+            <button class="modal-trigger waves-effect waves-light btn btn-small center-text" href="#newrel">ADD NEW RELEASE</button>
           </form>
         </div>
       </div>
@@ -23,7 +23,7 @@
                 <span class="card-title">Release Report</span>
                 <div class="divider"></div>
                 <div class="card-content">
-                  <div class="col s12 m12 l4">
+                  <!-- <div class="col s12 m12 l4">
                     <div class="input-field">
                       <i class="prefix mdi-action-search"></i>
                       <input id="search" type="text" placeholder="Search by name"/>
@@ -53,7 +53,7 @@
                         <option value="2">SAMPLE2</option>
                         <option value="3">SAMPLE3</option>
                       </select>
-                    </div>
+                    </div> -->
                   </div>
 
                   <div class="col s12 m12 l12 overflow-x">
@@ -174,12 +174,13 @@
                                         <div class="form-group">
                                         <input type="number" name="quantityRel" id="quantityRel" min="1" value="1">
                                         </div>
-                                        <button class="waves-effect waves-light btn btn-small center-text">ACCEPT</button>
-                                        </form>
+                                        
                                   </p>
                                 </div>
                                 <div class="modal-footer">
                                   <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Close</a>
+                                  <button class="waves-effect waves-green btn-flat">ACCEPT</button>
+                                  </form>
                                 </div>
                               </div>
 @stop

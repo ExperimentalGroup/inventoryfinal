@@ -11,7 +11,7 @@
       <div class="row">
       <div class="col s12 m12 l6">
         <div class="col s12 m12 l10">
-            <button class="modal-trigger waves-effect waves-light btn btn-small center-text" href="#newdlv" disabled>ADD NEW DELIVERY (INC)</button>
+            <button class="modal-trigger waves-effect waves-light btn btn-small center-text" href="#newdlv" >ADD NEW DELIVERY</button>
           </form>
         </div>
       </div>
@@ -23,7 +23,7 @@
                 <span class="card-title">Delivery from Suppliers</span>
                 <div class="divider"></div>
                 <div class="card-content">
-                  <div class="col s12 m12 l4">
+                  <!-- <div class="col s12 m12 l4">
                     <div class="input-field">
                       <i class="prefix mdi-action-search"></i>
                       <input id="search" type="text" placeholder="Search by name"/>
@@ -52,7 +52,7 @@
                         <option value="2">Pending</option>
                         <option value="3">Declined</option>
                       </select>
-                    </div>
+                    </div> -->
                   </div>
 
                 <div class="col s12 m12 l12 overflow-x">
@@ -148,29 +148,30 @@
                                         <div class="form-group">
                                         <input id="dtDelv" name="dtDelv" type="date"/>
                                         </div>
-                                        <div class="form-group">
-                                        <label for="price">Order ID</label>
-                                        {{ Form::select('ordID', $data['orders'], null, array('class' => 'browser-default')) }}
-                                        {{-- <input type="text" class="form-control" name="ordID" id="ordID"> --}}
-                                        </div>
-                                        <div class="form-group">
+                                       <div class="form-group">
                                         <label for="price">Product</label>
-                                        {{ Form::select('delProd', $data['products'], null, array('class' => 'browser-default')) }}
-                                        {{-- <input type="text" class="form-control" name="delProd" id="delProd"> --}}
+                                        {{ Form::select('ordID', $data['orders'], null, array('class' => 'browser-default')) }}
+                                        {{-- <input type="text" class="form-control" name="ordID" id="ordID" onchange="onChangeEvent()"> --}}
                                         </div>
-                                        <label for="price">Quantity</label>
+                                        <label for="price">Wholesale Price</label>
                                         <div class="form-group">
-                                        <input type="number" name="quantity" id="quantity" min="1" value="1">
+                                        <input type="number" class="form-control" name="delWPrice" id="delWPrice">
                                         </div>
-                                        <button class="waves-effect waves-light btn btn-small center-text">ACCEPT</button>
+                                         <label for="price">Retail Price</label>
+                                        <div class="form-group">
+                                        <input type="number" class="form-control" name="delRPrice" id="delRPrice">
+                                        </div>
+                                        <p id="viewDetails"></p>
                                   </p>
                                 </div>
-                                </form>
+
                                 <div class="modal-footer">
                                   <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Close</a>
+                                   <button class=" waves-effect waves-green btn-flat " >ADD</button>
+                                    </form>
                                 </div>
                               </div>
-
+                          
 
 
 
@@ -186,4 +187,13 @@
     $('.modal-trigger').leanModal();
   }); 
 </script>
+
+<script>
+function onChangeEvent() {
+    var x = document.getElementById("ordID").value;
+    document.getElementById("viewDetails").innerHTML = "You selected: " + x;
+    
+}
+</script>
+
 @stop

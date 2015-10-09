@@ -27,12 +27,12 @@
                 <span class="card-title">gHuB Branches</span>
                 <div class="divider"></div>
                 <div class="card-content">
-                  <div class="col s12 m12 l4">
+                  <!-- <div class="col s12 m12 l4">
                     <div class="input-field">
                       <i class="prefix mdi-action-search"></i>
                       <input id="search" type="text" placeholder="Search by name"/>
                     </div>
-                  </div>
+                  </div> -->
 
                   
 

@@ -19,7 +19,6 @@ class HomeController extends BaseController {
 	{
 		$ids = DB::table('tblEmployees')
 			->select('strEmpID')
-			->orderBy('updated_at', 'desc')
 			->orderBy('strEmpID', 'desc')
 			->take(1)
 			->get();
@@ -55,7 +54,6 @@ class HomeController extends BaseController {
 		
 		$ids2 = DB::table('tblProducts')
 			->select('strProdID')
-			->orderBy('updated_at', 'desc')
 			->orderBy('strProdID', 'desc')
 			->take(1)
 			->get();
@@ -78,7 +76,6 @@ class HomeController extends BaseController {
 	{
 		$ids = DB::table('tblBranches')
 			->select('strBrchID')
-			->orderBy('updated_at', 'desc')
 			->orderBy('strBrchID', 'desc')
 			->take(1)
 			->get();
@@ -95,7 +92,6 @@ class HomeController extends BaseController {
 	{
 		$ids = DB::table('tblSuppliers')
 			->select('strSuppID')
-			->orderBy('updated_at', 'desc')
 			->orderBy('strSuppID', 'desc')
 			->take(1)
 			->get();
@@ -132,21 +128,28 @@ class HomeController extends BaseController {
 		$ID = $ids["0"]->strDlvryID;
 		$newID = $this->smart($ID);
 
-		$orders = Order::lists('strOrdersID', 'strOrdersID');
+
+		$orders = Order::all();
+		$op = OrderProduct::all();
+
+
+		$ord = Order::lists('strOrdersID', 'strOrdersID');
 		$products = Product::lists('strProdName', 'strProdID');
 
 		$data = array(
-			'orders' => $orders,
+			'orders' => $ord,
 			'products' => $products
 		);
 
-		return View::make('delivery')->with('djt', $djt)->with('data', $data)->with('newID',$newID);
+		return View::make('delivery')->with('djt', $djt)->with('newID',$newID)->with('orders',$orders)->with('op',$op)->with('data',$data);
 
 	}
 
 	public function add_delivery()
 	{
 
+		$id1 = Input::get('ordID');
+		$orderproduct = OrderProduct::find($id1);
 
 		$delivery = Delivery::create(array(
 			'strDlvryID' => Input::get('dlvID'),
@@ -158,14 +161,38 @@ class HomeController extends BaseController {
 
 		$details = DeliveryDetail::create(array(
 			'strDetID' => Input::get('dlvID'),
-			'strDetProdID' => Input::get('delProd'),
-			'intDetQty' => Input::get('quantity')
+			'strDetProdID' => $orderproduct->strOPProdID,
+			'intDetQty' => $orderproduct->intOPQuantity
 		));
 		$details->save();
 
+		$id1 = $orderproduct->strOPProdID;
+
+		$tryids = DB::table('tblInventory')
+			->select('strBatchID')
+			->where('strProdID','=',$id1)
+			->orderBy('strBatchID', 'asc')
+			->take(1)
+			->get();
+
+		$tryID = $tryids["0"]->strBatchID;
+
+		if($tryID != NULL)
+		{
+		$addQ = $orderproduct->intOPQuantity;
+		$inventory = Inventory::find($tryID);
+
+		$inventory->intAvailQty += $addQ;
+		$inventory->dblCurRetPrice = Input::get('delRPrice');
+		$inventory->dblCurWPrice = Input::get('delWPrice');
+
+		$inventory->save();
+		}
+
+		else
+		{
 		$ids = DB::table('tblInventory')
 			->select('strBatchID')
-			->orderBy('updated_at', 'desc')
 			->orderBy('strBatchID', 'desc')
 			->take(1)
 			->get();
@@ -175,14 +202,14 @@ class HomeController extends BaseController {
 				
 		$inv = Inventory::create(array(
 			'strBatchID' => $newID,
-			'strProdID' => Input::get('delProd'),
+			'strProdID' => $orderproduct->strOPProdID,
 			'strDlvryID' => Input::get('dlvID'),
-			'intAvailQty' => Input::get('quantity'),
-			'dblCurRetPrice' => '0',
-			'dblCurWPrice' => '0'
+			'intAvailQty' => $orderproduct->intOPQuantity,
+			'dblCurRetPrice' => Input::get('delRPrice'),
+			'dblCurWPrice' => Input::get('delWPrice')
 		));
 		$inv->save();
-
+		}
 
 		return Redirect::to('/delivery');
 
@@ -254,10 +281,20 @@ class HomeController extends BaseController {
 		));
 		$notes->save();
 
-
 		$id1 = Input::get('relProd');
+
+		$tryids = DB::table('tblInventory')
+			->select('strBatchID')
+			->where('strProdID','=',$id1)
+			->orderBy('strBatchID', 'asc')
+			->take(1)
+			->get();
+
+		$tryID = $tryids["0"]->strBatchID;
+
+		
 		$addQ = Input::get('quantityRel');
-		$inventory = Inventory::find($id1);
+		$inventory = Inventory::find($tryID);
 
 		$inventory->intAvailQty -= $addQ;
 

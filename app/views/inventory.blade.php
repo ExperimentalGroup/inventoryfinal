@@ -26,7 +26,7 @@
                 <span class="card-title">Items on {{Session::get('empBrch')}} branch</span>
                 <div class="divider"></div>
                 <div class="card-content">
-                  <div class="col s12 m12 l4">
+                  <!-- <div class="col s12 m12 l4">
                     <div class="input-field">
                       <i class="prefix mdi-action-search"></i>
                       <input id="search" type="text" placeholder="Search by name"/>
@@ -57,7 +57,7 @@
                         <option value="2">Critical</option>
                         <option value="3">Empty</option>
                       </select>
-                    </div>
+                    </div> -->
                   </div>
 
                   <div class="col s12 m12 l12 overflow-x">
@@ -79,7 +79,7 @@
                          @foreach($inventory as $inventory)
                          
                         <tr>
-                          <td>{{ $inventory->strBatchID }}</td>
+                          <td>{{ $inventory->strProdID }}</td>
                           <td>{{ $inventory->product->strProdName }}</td>
                           <td>{{ $inventory->product->strProdBrand }}</td>
                           <td>{{ $inventory->product->strProdModel }}</td>

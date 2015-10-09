@@ -25,7 +25,13 @@
               </div>
               <div class="account-pane center-align">
                 <!-- use amber for admin, blue for employee, ?? for manager -->
-                Logged in as: <span class="bold amber-text text-accent-4">{{Session::get('empName')}} ( {{Session::get('empRoleDesc')}} )</span>
+                @if( Session::get('empRole') == 'ROLE0001' )
+                Logged in as: <span class="bold amber-text text-accent-4">{{Session::get('empName')}} <br> ( {{Session::get('empRoleDesc')}} )</span>
+                @elseif( Session::get('empRole') == 'ROLE0002' )
+                Logged in as: <span class="bold green-text text-accent-4">{{Session::get('empName')}} <br> ( {{Session::get('empRoleDesc')}} )</span>
+                @else
+                Logged in as: <span class="bold blue-text text-accent-4">{{Session::get('empName')}} <br> ( {{Session::get('empRoleDesc')}} )</span>
+                @endif
                 <br/>
                 Branch: <span class="bold">{{Session::get('empBrch')}}</span>
               </div>
