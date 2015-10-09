@@ -5,6 +5,7 @@ class Order extends Eloquent
 	protected $table = 'tblOrders';
 	protected $primaryKey = 'strOrdersID';
 	protected $fillable = array('strOrdersID','strSupplID','dtOrdDate','strPlacedBy');
+	public $timestamps = false;
 
 	public function supplier() {
 		return $this->belongsTo('Supplier', 'strSupplID');
