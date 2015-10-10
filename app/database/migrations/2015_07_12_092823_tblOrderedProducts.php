@@ -16,6 +16,7 @@ class TblOrderedProducts extends Migration {
 			$table->string('strOPOrdersID');//fk
 			$table->string('strOPProdID');//fk
 			$table->integer('intOPQuantity');
+			$table->timestamps();
 
 			//composite keys
 			$table->primary(array('strOPOrdersID','strOPProdID'));

@@ -522,6 +522,7 @@ class HomeController extends BaseController {
 
 	function newOrderAdd()
 	{
+
 		$order = Order::create(array(
 			'strOrdersID'=>Input::get('orderID'),
 			'strSupplID'=>Input::get('supplierID'),
@@ -530,8 +531,23 @@ class HomeController extends BaseController {
 		));
 		$order->save();
 
-		$item = Input::get('itemsOrd');
+		$ids = DB::table('tblOrdNotes')
+			->select('strOrdNotesID')
+			->orderBy('updated_at', 'desc')
+			->take(1)
+			->get();
 
+		$ID = $ids["0"]->strOrdNotesID;
+		$newID = $this->smart($ID);
+
+		$notes = OrderNotes::create(array(
+			'strOrdNotesID'=>$newID,
+			'strOrderID'=>Input::get('orderID'),
+			'strOrdNotesStat'=>'Pending'
+		));
+		$notes->save();
+
+		$item = Input::get('itemsOrd');
 		// 'strOPOrdersID', 'strOPProdID', 'intOPQuantity'
 		for ($i = 0; $i < count($item); $i++)  
 		{
@@ -545,6 +561,8 @@ class HomeController extends BaseController {
 
 			$ordItem->save();
 		}
+
+		return Redirect::to('/branches');
 	}
 
 	public function adjust()

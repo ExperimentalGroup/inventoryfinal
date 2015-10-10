@@ -1,8 +1,5 @@
 $(function(){
 
-<<<<<<< HEAD
-	$id1="product-add";
-=======
 	var tblAddProduct = $('#table-add-product').DataTable();
 	var dataSet;
 
@@ -18,7 +15,6 @@ $(function(){
 		// tblAddProduct.row.add(dataSet).draw();
 		alert('jfdksjfkldsjlkfjkdsl');
 	});
->>>>>>> 6f0e7d9fb8168d155bfa2bb3c141540d6da1cd18
 
 	var tblProducts = $('#table-prod-list').DataTable({
 		ajax: {
@@ -35,21 +31,6 @@ $(function(){
 		]
 	});
 
-<<<<<<< HEAD
-	var tblAddProduct = $('#table-add-product').DataTable();
-	var dataSet;
-
-	$('#product-add').click(function(){
-		dataSet = 
-		[
-			'a',
-			'b',
-			'c'
-		];
-
-		tblAddProduct.row.add(dataSet).draw();
-		// alert( "Handler for .click() called." );
-=======
 	$('#table-prod-list tbody').on('click', 'tr', function()
 	{
 		$(this).toggleClass('selected');
@@ -107,6 +88,5 @@ $(function(){
 			}
 		});
 		console.log(tblAddProduct.rows().data());
->>>>>>> 6f0e7d9fb8168d155bfa2bb3c141540d6da1cd18
 	});
 });

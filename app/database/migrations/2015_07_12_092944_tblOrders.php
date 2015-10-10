@@ -17,6 +17,7 @@ class TblOrders extends Migration {
 			$table->string('strSupplID');//fk
 			$table->date('dtOrdDate');
 			$table->string('strPlacedBy');//fk
+			$table->timestamps();
 		});
 	}
 
