@@ -64,7 +64,7 @@
                     <table class="centered">
                       <thead>
                         <tr>
-                          <th>Product ID</th>
+                          <th>Batch ID</th>
                           <th>Product Name</th>
                           <th>Brand</th>
                           <th>Model</th>
@@ -79,7 +79,7 @@
                          @foreach($inventory as $inventory)
                          
                         <tr>
-                          <td>{{ $inventory->strProdID }}</td>
+                          <td>{{ $inventory->strBatchID }}</td>
                           <td>{{ $inventory->product->strProdName }}</td>
                           <td>{{ $inventory->product->strProdBrand }}</td>
                           <td>{{ $inventory->product->strProdModel }}</td>

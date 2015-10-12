@@ -30,8 +30,8 @@
                   <tr>
                     <th>Product ID</th>
                     <th>Product Name</th>
-                    <th>Retail Price</th>
-                    <th>Wholesale Price</th>
+                    <!-- <th>Retail Price</th>
+                    <th>Wholesale Price</th> -->
                     <!-- <th>Quantity</th> -->
                     <th></td>
                   </tr>
@@ -75,7 +75,6 @@
       </div>
     </div>
 
-
 <div class="row">
       <div class="col s12 m12 l12">
         <div class="card-panel">
@@ -92,6 +91,7 @@
                     <th>Product ID</th>
                     <th>Product Name</th>
                     <th>Quantity</th>
+                    <th></th>
                     <th>Subtotal Price</th>
                     <!-- <th>Total Price</th> -->
                   </tr>

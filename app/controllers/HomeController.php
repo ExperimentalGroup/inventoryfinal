@@ -146,7 +146,6 @@ class HomeController extends BaseController {
 
 	public function add_delivery()
 	{
-
 		$id1 = Input::get('ordID');
 		$orderproducts = OrderProduct::where('strOPOrdersID', '=', $id1)->get();
 
@@ -166,31 +165,7 @@ class HomeController extends BaseController {
 			));
 			$details->save();
 
-			$id1 = $orderproduct->strOPProdID;
 
-			$tryids = DB::table('tblInventory')
-				->select('strBatchID')
-				->where('strProdID','=',$id1)
-				->orderBy('strBatchID', 'asc')
-				->take(1)
-				->get();
-
-			$tryID = $tryids["0"]->strBatchID;
-
-			if($tryID != NULL)
-			{
-			$addQ = $orderproduct->intOPQuantity;
-			$inventory = Inventory::find($tryID);
-
-			$inventory->intAvailQty += $addQ;
-			$inventory->dblCurRetPrice = Input::get('delRPrice');
-			$inventory->dblCurWPrice = Input::get('delWPrice');
-
-			$inventory->save();
-			}
-
-			else
-			{
 			$ids = DB::table('tblInventory')
 				->select('strBatchID')
 				->orderBy('strBatchID', 'desc')
@@ -209,11 +184,63 @@ class HomeController extends BaseController {
 				'dblCurWPrice' => Input::get('delWPrice')
 			));
 			$inv->save();
-			}
+
 		}
+
+		$notesID = $id1;
+
+		$notes = OrderNotes::find($notesID);
+
+		$notes->strOrdNotesStat = "Accepted";
+
+		$notes->save();
 
 
 		return Redirect::to('/delivery');
+
+		// $id1 = Input::get('ordID');
+		// $orderproducts = OrderProduct::where('strOPOrdersID', '=', $id1)->get();
+
+		// $delivery = Delivery::create(array(
+		// 	'strDlvryID' => Input::get('dlvID'),
+		// 	'dtDlvryDate'=> Input::get('dtDelv'),
+		// 	'strOrdDlvry' => Input::get('ordID'),
+		// 	'strDlvryRecBy' => Session::get('empID')
+		// ));
+		// $delivery->save();
+
+		// foreach ($orderproducts as $orderproduct) {			
+		// 	$details = DeliveryDetail::create(array(
+		// 		'strDetID' => Input::get('dlvID'),
+		// 		'strDetProdID' => $orderproduct->strOPProdID,
+		// 		'intDetQty' => $orderproduct->intOPQuantity
+		// 	));
+		// 	$details->save();
+
+		// 	$id1 = $orderproduct->strOPProdID;
+		// 	$addQ = $orderproduct->intOPQuantity;
+
+		// 	$ids = DB::table('tblInventory')
+		// 		->select('strBatchID')
+		// 		->orderBy('strBatchID', 'desc')
+		// 		->take(1)
+		// 		->get();
+
+		// 	$ID = $ids["0"]->strBatchID;
+		// 	$newID = $this->smart($ID);
+					
+		// 	$inv = Inventory::create(array(
+		// 		'strBatchID' => $newID,
+		// 		'strProdID' => $orderproduct->strOPProdID,
+		// 		'strDlvryID' => Input::get('dlvID'),
+		// 		'intAvailQty' => $orderproduct->intOPQuantity,
+		// 		'dblCurRetPrice' => Input::get('delRPrice'),
+		// 		'dblCurWPrice' => Input::get('delWPrice')
+		// 	));
+		// 	$inv->save();
+		// }
+
+		// return Redirect::to('/delivery');
 
 	}
 
@@ -480,12 +507,7 @@ class HomeController extends BaseController {
 
 	public function productTable()
 	{
-		$products = DB::table('tblInventory')
-		->join('tblProducts', function($join)
-		{
-			$join->on('tblInventory.strProdID','=','tblProducts.strProdID');
-		})
-		// ->select('strProdID', 'strProdName', 'dblCurRetPrice', 'dblCurWPrice', 'intAvailQty')
+		$products = DB::table('tblProducts')
 		->get();
 
 		return Response::json($products);
@@ -563,37 +585,12 @@ class HomeController extends BaseController {
 
 			$ordItem->save();
 		}
-
-		return Redirect::to('/branches');
 	}
 
 	public function adjust()
 	{
 		return View::make('adjust');
 	}
-
-	public function details($id)
-	{
-
-		$order = Order::with('products.price')->find($id);
-		// $details = DB::table('tblOrderedProducts')
-		// ->where('strOPOrdersID', '=', $id)
-  //       ->join('tblOrders', function($join)
-  //       {
-  //           $join->on('tblOrderedProducts.strOPOrdersID', '=', 'tblOrders.strOrdersID');
-  //                // ->where('tblOrders.strOrdersID', '=','orderid');
-  //           	// ->where('strOPOrdersID', '=', $id);
-  //       })
-  //       ->join('tblProducts', function($join2)
-  //       {
-  //       	$join2->on('tblOrderedProducts.strOPProdID','=','tblProducts.strProdID');
-  //       })
-
-        // dd($order->products[0]->price->toArray());
-
-		return View::make('details')->with('order', $order);
-	}
-
 
 	private function smart($id)
 	{
