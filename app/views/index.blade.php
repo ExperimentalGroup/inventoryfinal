@@ -120,7 +120,8 @@
           <table class="centered table-fixed">
             <thead>
               <tr>
-                <th >Item</th>
+                <th>Order ID</th>
+                <th>Product Name</th>
                 <th>Qty</th>
                 <th>Supplier</th>
               </tr>
@@ -128,15 +129,16 @@
 
             <tbody>
              @foreach($orders as $order)
+             @foreach($order->products as $product)
              @if($order ->notes[0] -> strOrdNotesStat == 'Pending')
               <tr>
-               @foreach($order->products as $product)
+              <td>{{$order->strOrdersID}}</td>
                <td>{{ $product->strProdName}}</td>
                 <td>{{ $product->pivot->intOPQuantity}}</td>
                 <td>{{$order -> supplier -> strSuppCompanyName }}</td>
-                @endforeach
               </tr>
               @endif
+              @endforeach
               @endforeach
             </tbody>
           </table>
