@@ -43,6 +43,8 @@ Route::post('/inventory', array('uses'=>'HomeController@createInv'));
 
 Route::post('/delivery', array('uses'=>'HomeController@add_delivery'));
 
+Route::post('/deliveryprice', array('uses'=>'HomeController@finalize_delivery'));
+
 Route::post('/release', array('uses'=>'HomeController@minus_release'));
 
 Route::post('/adjust', array('uses'=>'HomeController@adjustInv'));

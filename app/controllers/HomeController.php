@@ -147,6 +147,7 @@ class HomeController extends BaseController {
 	public function add_delivery()
 	{
 		$id1 = Input::get('ordID');
+		$id2 = Input::get('dlvID');
 		$orderproducts = OrderProduct::where('strOPOrdersID', '=', $id1)->get();
 
 		$delivery = Delivery::create(array(
@@ -157,9 +158,21 @@ class HomeController extends BaseController {
 		));
 		$delivery->save();
 
-		foreach ($orderproducts as $orderproduct) {			
+		return View::make('deliveryDetails')->with('orderproducts',$orderproducts)->with('id1',$id1)->with('id2',$id2);
+
+	}
+
+	public function finalize_delivery()
+	{
+		$id1 = Input::get('orderID');
+		$id2 = Input::get('deliverID');
+		$orderproducts = OrderProduct::where('strOPOrdersID', '=', $id1)->get();
+		$a = 0;
+		$b = 0;	
+		foreach ($orderproducts as $orderproduct) {	
+			
 			$details = DeliveryDetail::create(array(
-				'strDetID' => Input::get('dlvID'),
+				'strDetID' => $id2,
 				'strDetProdID' => $orderproduct->strOPProdID,
 				'intDetQty' => $orderproduct->intOPQuantity
 			));
@@ -178,13 +191,15 @@ class HomeController extends BaseController {
 			$inv = Inventory::create(array(
 				'strBatchID' => $newID,
 				'strProdID' => $orderproduct->strOPProdID,
-				'strDlvryID' => Input::get('dlvID'),
+				'strDlvryID' => $id2,
 				'intAvailQty' => $orderproduct->intOPQuantity,
-				'dblCurRetPrice' => Input::get('delRPrice'),
-				'dblCurWPrice' => Input::get('delWPrice')
+				'dblCurRetPrice' => Input::get($b + 'Rprice'),
+				'dblCurWPrice' => Input::get($a + 'Wprice')
 			));
 			$inv->save();
 
+			$a++;
+			$b++;
 		}
 
 		$notesID = $id1;
@@ -195,53 +210,7 @@ class HomeController extends BaseController {
 
 		$notes->save();
 
-
 		return Redirect::to('/delivery');
-
-		// $id1 = Input::get('ordID');
-		// $orderproducts = OrderProduct::where('strOPOrdersID', '=', $id1)->get();
-
-		// $delivery = Delivery::create(array(
-		// 	'strDlvryID' => Input::get('dlvID'),
-		// 	'dtDlvryDate'=> Input::get('dtDelv'),
-		// 	'strOrdDlvry' => Input::get('ordID'),
-		// 	'strDlvryRecBy' => Session::get('empID')
-		// ));
-		// $delivery->save();
-
-		// foreach ($orderproducts as $orderproduct) {			
-		// 	$details = DeliveryDetail::create(array(
-		// 		'strDetID' => Input::get('dlvID'),
-		// 		'strDetProdID' => $orderproduct->strOPProdID,
-		// 		'intDetQty' => $orderproduct->intOPQuantity
-		// 	));
-		// 	$details->save();
-
-		// 	$id1 = $orderproduct->strOPProdID;
-		// 	$addQ = $orderproduct->intOPQuantity;
-
-		// 	$ids = DB::table('tblInventory')
-		// 		->select('strBatchID')
-		// 		->orderBy('strBatchID', 'desc')
-		// 		->take(1)
-		// 		->get();
-
-		// 	$ID = $ids["0"]->strBatchID;
-		// 	$newID = $this->smart($ID);
-					
-		// 	$inv = Inventory::create(array(
-		// 		'strBatchID' => $newID,
-		// 		'strProdID' => $orderproduct->strOPProdID,
-		// 		'strDlvryID' => Input::get('dlvID'),
-		// 		'intAvailQty' => $orderproduct->intOPQuantity,
-		// 		'dblCurRetPrice' => Input::get('delRPrice'),
-		// 		'dblCurWPrice' => Input::get('delWPrice')
-		// 	));
-		// 	$inv->save();
-		// }
-
-		// return Redirect::to('/delivery');
-
 	}
 
 	public function release()

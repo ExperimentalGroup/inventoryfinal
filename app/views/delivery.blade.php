@@ -152,15 +152,6 @@
                                         {{ Form::select('ordID', $data['orders'], null, array('class' => 'browser-default')) }}
                                         {{-- <input type="text" class="form-control" name="ordID" id="ordID" onchange="onChangeEvent()"> --}}
                                         </div>
-                                        <label for="price">Wholesale Price</label>
-                                        <div class="form-group">
-                                        <input type="number" class="form-control" name="delWPrice" id="delWPrice">
-                                        </div>
-                                         <label for="price">Retail Price</label>
-                                        <div class="form-group">
-                                        <input type="number" class="form-control" name="delRPrice" id="delRPrice">
-                                        </div>
-                                        <p id="viewDetails"></p>
                                   </p>
                                 </div>
 
@@ -187,12 +178,5 @@
   }); 
 </script>
 
-<script>
-function onChangeEvent() {
-    var x = document.getElementById("ordID").value;
-    document.getElementById("viewDetails").innerHTML = "You selected: " + x;
-    
-}
-</script>
 
 @stop

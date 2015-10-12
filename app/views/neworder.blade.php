@@ -92,7 +92,7 @@
                     <th>Product Name</th>
                     <th>Quantity</th>
                     <th></th>
-                    <th>Subtotal Price</th>
+                    <!-- <th>Subtotal Price</th> -->
                     <!-- <th>Total Price</th> -->
                   </tr>
                 </thead>

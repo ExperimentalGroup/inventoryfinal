@@ -5,6 +5,8 @@ $(function(){
 	var wholesaleprice;
 	var prodid;
 	var prodname;
+	var qty;
+	var indx;
 
 	var tblAddProduct = $('#table-add-product').DataTable({
 			"data": dataSet,
@@ -23,8 +25,8 @@ $(function(){
 				"render": function(data, type, full, meta){
 					console.log("data = "+data);
 
-					// if (data == '1' && data<=availqty){
-						return '<input type="text" name="" id="yes">';
+					// if (qty==1){
+						return '<input type="number" min="1" value="1" id="yes">';
 					// } else {
 					// 	return data;
 					// }
@@ -35,22 +37,45 @@ $(function(){
 				"render": function(data, type, full, meta){
 					console.log("data = "+data);
 
-					var add = '<div class="center-btn"><a class="waves-effect waves-light btn btn-small center-text product-edit">Edit</a></div>';
+					var add = '<div class="center-btn"><a class="waves-effect waves-light btn btn-small center-text product-edit">save</a></div>';
 					return add;
 				}
-			},
-			{
-				"targets": 4, 
-				"render": function(data, type, full, meta){
-					console.log("data = "+data);
-					return '<input type="number" min="1" value="">';
-				}
 			}
+			// ,{
+			// 	"targets": 4, 
+			// 	"render": function(data, type, full, meta){
+			// 		console.log("data = "+data);
+			// 		return '<input type="number" value="" id="">';
+			// 	}
+			// }
 			]
 	});	
-	$(document).on('click', '.product-add', function()
+
+	$('#table-add-product').on('click', 'tr', function()
 	{
-		console.log("basta");
+		indx = tblAddProduct.row(this).index();
+		$(this).toggleClass('selected');
+		// console.log(tblAddProduct.rows('.selected').data()[indx]);
+	});
+
+	$(document).on('click', '.product-edit', function()
+	{
+		
+		var x = document.getElementById("yes").value;
+		tblAddProduct.row(indx).data()[2] = x;
+		// var dataSet1 = 
+		// [
+		// 	[
+		// 		tblAddProduct.row('.selected').data()[0],
+		// 		tblAddProduct.row('.selected').data()[1],
+		// 		x,
+		// 		''
+		// 	]
+		// ];
+		// tblAddProduct.row('.selected').update().draw();
+		console.log(tblAddProduct.row(indx).data());
+		// tblAddProduct.rows.add(dataSet).draw();
+		//console.log(x);
 	});
 	// function commit(data){
 
@@ -88,7 +113,7 @@ $(function(){
 	$('#table-prod-list tbody').on('click', 'tr', function()
 	{
 		$(this).toggleClass('selected');
-		// console.log(tblProducts.rows('.selected').data());
+		console.log(tblProducts.rows('.selected').data());
 	});
 
 	$(document).on('click', '.product-add', function()
@@ -96,6 +121,7 @@ $(function(){
 		//wholesaleprice = tblProducts.row('.selected').data()['dblCurWPrice'];
 		prodid = tblProducts.row('.selected').data()['strProdID'];
 		prodname = tblProducts.row('.selected').data()['strProdName'];
+		qty=1;
 		// console.log(wahaha);
 		// alert('Added!');
 		dataSet = 
@@ -103,8 +129,7 @@ $(function(){
 			[
 				tblProducts.row('.selected').data()['strProdID'],
 				tblProducts.row('.selected').data()['strProdName'],
-				1,
-				'',
+				qty,
 				''
 			]
 		];
