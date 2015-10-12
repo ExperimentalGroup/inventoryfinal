@@ -39,6 +39,7 @@
           <table class="centered">
             <thead>
               <tr>
+                <th>Batch ID</th>
                 <th>Item</th>
                 <th>Qty</th>
                 <th>Actions</th>
@@ -49,6 +50,7 @@
               @foreach($index as $status)
               
               <tr>
+                <td>{{ $status -> strBatchID}}</td>
                 <td>{{ $status -> strProdName }}</td>
                 <td>{{ $status -> intAvailQty }}</td>
                 <td>

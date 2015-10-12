@@ -7,7 +7,8 @@
 		'Model',
 		'Retail Price',
 		'Wholesale Price',
-		'Available Stock'
+		'Available Stock',
+		'Date Delivered'
 	];
 ?>
 
@@ -45,13 +46,14 @@
 			<tbody>
 				@foreach($result as $row)
 					<tr>
-						<td>{{$row->strProdID}}</td>
+						<td>{{$row->strBatchID}}</td>
 						<td>{{$row->strProdName}}</td>
 						<td>{{$row->strProdBrand}}</td>
 						<td>{{$row->strProdModel}}</td>
 						<td>{{number_format($row->dblCurRetPrice,2)}}</td>
 						<td>{{number_format($row->dblCurWPrice,2)}}</td>
 						<td>{{$row->intAvailQty}}</td>
+						<td>{{$row->dtDlvryDate}}</td>
 					</tr>
 				@endforeach
 			</tbody>

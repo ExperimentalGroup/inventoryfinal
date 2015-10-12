@@ -612,7 +612,8 @@ class HomeController extends BaseController {
 		$queryResult = 
 			DB::table('tblInventory as a')
 			->join('tblProducts as b', 'b.strProdID', '=', 'a.strProdID')
-			->select('a.strProdID', 'b.strProdName', 'b.strProdBrand', 'b.strProdModel', 'a.dblCurRetPrice', 'a.dblCurWPrice', 'a.intAvailQty')
+			->join('tblDeliveries as c', 'c.strDlvryID', '=', 'a.strDlvryID')
+			->select('a.strBatchID', 'b.strProdName', 'b.strProdBrand', 'b.strProdModel', 'a.dblCurRetPrice', 'a.dblCurWPrice', 'a.intAvailQty', 'c.dtDlvryDate')
 			->get();
 		$pdf = PDF::loadView('reports-test', array('result'=>$queryResult));
 		return $pdf->stream();
