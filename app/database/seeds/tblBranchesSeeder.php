@@ -9,7 +9,7 @@ class tblBranchesSeeder extends Seeder{
 			array(
 
 				'strBrchID' => 'BRCH001',
-				'strBrchName' => 'GadgetHub Mandaluyong',	
+				'strBrchName' => 'Techno Galore Mandaluyong',	
 				'strBrchAddress' => 'Boni,Mandaluyong'
 
 			),
@@ -17,14 +17,14 @@ class tblBranchesSeeder extends Seeder{
 			array(
 
 				'strBrchID' => 'BRCH002',
-				'strBrchName' => 'GadgetHub Main',	
+				'strBrchName' => 'Techno Galore Main',	
 				'strBrchAddress' => 'Sta.Mesa,Manila'
 			),
 
 			array(
 
 				'strBrchID' => 'BRCH003',
-				'strBrchName' => 'GadgetHub Taguig',	
+				'strBrchName' => 'Techno Galore Taguig',	
 				'strBrchAddress' => 'Global City,Taguig'
 			)
 
