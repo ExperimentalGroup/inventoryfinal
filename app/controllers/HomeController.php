@@ -132,7 +132,6 @@ class HomeController extends BaseController {
 		$orders = Order::all();
 		$op = OrderProduct::all();
 
-
 		$ord = Order::lists('strOrdersID', 'strOrdersID');
 		$products = Product::lists('strProdName', 'strProdID');
 
@@ -149,7 +148,7 @@ class HomeController extends BaseController {
 	{
 
 		$id1 = Input::get('ordID');
-		$orderproduct = OrderProduct::find($id1);
+		$orderproducts = OrderProduct::where('strOPOrdersID', '=', $id1)->get();
 
 		$delivery = Delivery::create(array(
 			'strDlvryID' => Input::get('dlvID'),
@@ -159,57 +158,60 @@ class HomeController extends BaseController {
 		));
 		$delivery->save();
 
-		$details = DeliveryDetail::create(array(
-			'strDetID' => Input::get('dlvID'),
-			'strDetProdID' => $orderproduct->strOPProdID,
-			'intDetQty' => $orderproduct->intOPQuantity
-		));
-		$details->save();
+		foreach ($orderproducts as $orderproduct) {			
+			$details = DeliveryDetail::create(array(
+				'strDetID' => Input::get('dlvID'),
+				'strDetProdID' => $orderproduct->strOPProdID,
+				'intDetQty' => $orderproduct->intOPQuantity
+			));
+			$details->save();
 
-		$id1 = $orderproduct->strOPProdID;
+			$id1 = $orderproduct->strOPProdID;
 
-		$tryids = DB::table('tblInventory')
-			->select('strBatchID')
-			->where('strProdID','=',$id1)
-			->orderBy('strBatchID', 'asc')
-			->take(1)
-			->get();
+			$tryids = DB::table('tblInventory')
+				->select('strBatchID')
+				->where('strProdID','=',$id1)
+				->orderBy('strBatchID', 'asc')
+				->take(1)
+				->get();
 
-		$tryID = $tryids["0"]->strBatchID;
+			$tryID = $tryids["0"]->strBatchID;
 
-		if($tryID != NULL)
-		{
-		$addQ = $orderproduct->intOPQuantity;
-		$inventory = Inventory::find($tryID);
+			if($tryID != NULL)
+			{
+			$addQ = $orderproduct->intOPQuantity;
+			$inventory = Inventory::find($tryID);
 
-		$inventory->intAvailQty += $addQ;
-		$inventory->dblCurRetPrice = Input::get('delRPrice');
-		$inventory->dblCurWPrice = Input::get('delWPrice');
+			$inventory->intAvailQty += $addQ;
+			$inventory->dblCurRetPrice = Input::get('delRPrice');
+			$inventory->dblCurWPrice = Input::get('delWPrice');
 
-		$inventory->save();
+			$inventory->save();
+			}
+
+			else
+			{
+			$ids = DB::table('tblInventory')
+				->select('strBatchID')
+				->orderBy('strBatchID', 'desc')
+				->take(1)
+				->get();
+
+			$ID = $ids["0"]->strBatchID;
+			$newID = $this->smart($ID);
+					
+			$inv = Inventory::create(array(
+				'strBatchID' => $newID,
+				'strProdID' => $orderproduct->strOPProdID,
+				'strDlvryID' => Input::get('dlvID'),
+				'intAvailQty' => $orderproduct->intOPQuantity,
+				'dblCurRetPrice' => Input::get('delRPrice'),
+				'dblCurWPrice' => Input::get('delWPrice')
+			));
+			$inv->save();
+			}
 		}
 
-		else
-		{
-		$ids = DB::table('tblInventory')
-			->select('strBatchID')
-			->orderBy('strBatchID', 'desc')
-			->take(1)
-			->get();
-
-		$ID = $ids["0"]->strBatchID;
-		$newID = $this->smart($ID);
-				
-		$inv = Inventory::create(array(
-			'strBatchID' => $newID,
-			'strProdID' => $orderproduct->strOPProdID,
-			'strDlvryID' => Input::get('dlvID'),
-			'intAvailQty' => $orderproduct->intOPQuantity,
-			'dblCurRetPrice' => Input::get('delRPrice'),
-			'dblCurWPrice' => Input::get('delWPrice')
-		));
-		$inv->save();
-		}
 
 		return Redirect::to('/delivery');
 
