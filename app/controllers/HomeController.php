@@ -607,4 +607,16 @@ class HomeController extends BaseController {
 		return $somenew;
 	}
 
+	public function generateReport()
+	{
+		$queryResult = 
+			DB::table('tblInventory as a')
+			->join('tblProducts as b', 'b.strProdID', '=', 'a.strProdID')
+			->select('a.strProdID', 'b.strProdName', 'b.strProdBrand', 'b.strProdModel', 'a.dblCurRetPrice', 'a.dblCurWPrice', 'a.intAvailQty')
+			->get();
+		$pdf = PDF::loadView('reports-test', array('result'=>$queryResult));
+		return $pdf->stream();
+		return View::make('reports');
+	}
+
 }

@@ -19,6 +19,8 @@
      </div>
   @endif
 
+  <a href="{{ URL::to('/reports') }}">Generate Report</a>
+
 
           <div class="row">
             <div class="col s12 m12 l12">
