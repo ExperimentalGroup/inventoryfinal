@@ -69,3 +69,5 @@ Route::get('/request', function()
 Route::get('/product-load', 'HomeController@productTable');
 
 Route::post('/add-order', 'HomeController@newOrderAdd');
+
+Route::get('/reports', 'HomeController@generateReport');
