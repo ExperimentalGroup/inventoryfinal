@@ -16,12 +16,12 @@
           <span class="card-title">Product List</span>
           <div class="divider"></div>
           <div class="card-content">
-            <div class="col s12 m12 l4">
+            <!-- <div class="col s12 m12 l4">
               <div class="input-field">
                 <i class="prefix mdi-action-search"></i>
                 <input id="search" type="text" placeholder="Search by name"/>
               </div>
-            </div>
+            </div> -->
      
 
             <div class="col s12 m12 l12 overflow-x">
@@ -38,25 +38,7 @@
                 </thead>
 
                 <tbody>
-                 <!--  @foreach($products as $product)
-                      <tr>
-                        <td>{{ $product->strProdName }}</td>
-                        <td>{{ $product->dblCurRetPrice }}</td>
-                        <td>{{ $product->dblCurWPrice }}</td>
-                        <td> <input id="ordQTY" type="text" min="1" value="1" required/> </td>
-                        <td> 
-                              <select>
-                                <option value="1" selected>Retail</option>
-                                <option value="2">Wholesale</option>
-                              </select>
-                        </td>
-                        <td>
-                          <div class="center-btn">
-                          <a class="waves-effect waves-light btn btn-small center-text product-add">ADD TO PRODUCT LIST</a>
-                          </div>
-                        </td>
-                      </tr>
-                  @endforeach -->
+            
                 </tbody>
               </table>
               <!-- <button type="button" id="add-prod-btn">Add</button> -->

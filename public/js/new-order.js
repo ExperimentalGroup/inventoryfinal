@@ -51,16 +51,16 @@ $(function(){
 			]
 	});	
 
-	$('#table-add-product').on('click', 'tr', function()
-	{
-		indx = tblAddProduct.row(this).index();
-		$(this).toggleClass('selected');
-		// console.log(tblAddProduct.rows('.selected').data()[indx]);
-	});
+	// $('#table-add-product').on('click', 'tr', function()
+	// {
+	// 	indx = tblAddProduct.row(this).index();
+	// 	$(this).toggleClass('selected');
+	// 	// console.log(tblAddProduct.rows('.selected').data()[indx]);
+	// });
 
 	$(document).on('click', '.product-edit', function()
 	{
-		
+		indx = tblAddProduct.row(this).index();
 		var x = document.getElementById("yes").value;
 		tblAddProduct.row(indx).data()[2] = x;
 		// var dataSet1 = 
@@ -77,23 +77,6 @@ $(function(){
 		// tblAddProduct.rows.add(dataSet).draw();
 		//console.log(x);
 	});
-	// function commit(data){
-
-	// 	console.log("commit called");
-
-	// 	var list = ['a','b'];
-	// 	var info = $("td input[type=text]").each(function(idx) {
-	// 		this.outerHTML = this.value;
-	// 		list.push(this.value);
-	// 	});
-	// 	list = list.concat (['4','5']);
-
-	// 	var row = $data.closest('tr');
-	// 	var nRow = row[0];
-
-	// 	var table = $('#table-add-product').datatable();
-	// 		table.fnUpdate(list, nRow);
-	// }
 
 	var tblProducts = $('#table-prod-list').DataTable({
 		ajax: {
@@ -113,7 +96,7 @@ $(function(){
 	$('#table-prod-list tbody').on('click', 'tr', function()
 	{
 		$(this).toggleClass('selected');
-		console.log(tblProducts.rows('.selected').data());
+		console.log(tblProducts.row('.selected').data());
 	});
 
 	$(document).on('click', '.product-add', function()

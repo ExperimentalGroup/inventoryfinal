@@ -485,12 +485,13 @@ class HomeController extends BaseController {
 
 	public function newOrder()
 	{
-		$products = DB::table('tblInventory')
-		->join('tblProducts', function($join)
-		{
-			$join->on('tblInventory.strProdID','=','tblProducts.strProdID');
-		})->get();
+		// $products = DB::table('tblInventory')
+		// ->join('tblProducts', function($join)
+		// {
+		// 	$join->on('tblInventory.strProdID','=','tblProducts.strProdID');
+		// })->get();
 
+		$products = DB::table('tblProducts')->get();
 		$suppliers = Supplier::lists('strSuppCompanyName','strSuppID');
 
 		$data = array(

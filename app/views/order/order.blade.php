@@ -88,8 +88,6 @@
                                       <tr>
                                         <th>Ordered Items</th>
                                         <th>Quantity</th>
-                                        <th>Wholesale Price</th>
-                                        <th>Price Subtotals</th>
                                       </tr>
                                     </thead>
                                     <tbody>
@@ -97,8 +95,7 @@
                                           <tr>
                                             <td>{{ $product->strProdName}}</td>
                                             <td>{{ $product->pivot->intOPQuantity}}</td>
-                                            <td>{{ $product->price[0]->dblCurWPrice }}</td>
-                                            <td>{{ $product->price[0]->dblCurWPrice *  $product->pivot->intOPQuantity}}</td>
+                                           
                                           </tr>
                                         @endforeach
                                     </tbody>
