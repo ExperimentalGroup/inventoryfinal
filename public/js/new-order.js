@@ -7,6 +7,7 @@ $(function(){
 	var prodname;
 	var qty;
 	var indx;
+	var row;
 
 	var tblAddProduct = $('#table-add-product').DataTable({
 			"data": dataSet,
@@ -60,9 +61,8 @@ $(function(){
 
 	$(document).on('click', '.product-edit', function()
 	{
-		indx = tblAddProduct.row(this).index();
-		var x = document.getElementById("yes").value;
-		tblAddProduct.row(indx).data()[2] = x;
+		var row = tblAddProduct.row($(this).parent().parent().parent());
+		row.data()[2] = $($(row.node()).children()[2]).find('input').val();
 		// var dataSet1 = 
 		// [
 		// 	[
@@ -73,7 +73,6 @@ $(function(){
 		// 	]
 		// ];
 		// tblAddProduct.row('.selected').update().draw();
-		console.log(tblAddProduct.row(indx).data());
 		// tblAddProduct.rows.add(dataSet).draw();
 		//console.log(x);
 	});
@@ -131,7 +130,7 @@ $(function(){
 			itemsOrdered[i] = tblAddProduct.rows().data()[i];
 		};
 
-		console.log(itemsOrdered);
+		console.log('Items Ordered', itemsOrdered);
 
 		$.ajax({
 			url: '/add-order',
