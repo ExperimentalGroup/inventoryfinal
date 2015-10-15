@@ -12,6 +12,10 @@
       <div class="col s12 m12 l6">
         <div class="col s12 m12 l10">
             <button class="modal-trigger waves-effect waves-light btn btn-small center-text" href="#newrel">ADD NEW RELEASE</button>
+            @if(Session::has('delmessage'))
+            <?php $a=Session::get('delmessage'); ?>
+            <a> {{$a}} </a>
+            @endif
           </form>
         </div>
       </div>

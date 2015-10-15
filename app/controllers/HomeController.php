@@ -167,8 +167,8 @@ class HomeController extends BaseController {
 		$id1 = Input::get('orderID');
 		$id2 = Input::get('deliverID');
 		$orderproducts = OrderProduct::where('strOPOrdersID', '=', $id1)->get();
-		$a = 0;
-		$b = 0;	
+		$a = 1;
+		$b = 1;	
 		foreach ($orderproducts as $orderproduct) {	
 			
 			$details = DeliveryDetail::create(array(
@@ -247,6 +247,24 @@ class HomeController extends BaseController {
 
 	public function minus_release()
 	{
+
+		$id1 = Input::get('relProd');
+
+		$tryids = DB::table('tblInventory')
+			->select('strBatchID')
+			->where('strProdID','=',$id1)
+			->orderBy('strBatchID', 'asc')
+			->take(1)
+			->get();
+
+		$tryID = $tryids["0"]->strBatchID;
+
+		
+		$addQ = Input::get('quantityRel');
+		$inventory = Inventory::find($tryID);
+
+		if($addQ < $inventory->intAvailQty)
+		{
 		$release = Release::create(array(
 			'strReleasesID' => Input::get('relID'),
 			'strReleaseBrchID'=> Input::get('relBranch'),
@@ -279,27 +297,15 @@ class HomeController extends BaseController {
 		));
 		$notes->save();
 
-		$id1 = Input::get('relProd');
-
-		$tryids = DB::table('tblInventory')
-			->select('strBatchID')
-			->where('strProdID','=',$id1)
-			->orderBy('strBatchID', 'asc')
-			->take(1)
-			->get();
-
-		$tryID = $tryids["0"]->strBatchID;
-
-		
-		$addQ = Input::get('quantityRel');
-		$inventory = Inventory::find($tryID);
-
 		$inventory->intAvailQty -= $addQ;
 
 
 		$inventory->save();
 
 		return Redirect::to('/release');
+		}
+		else
+		return Redirect::to('/release')->with('delmessage', 'Quantity Insufficient');
 	}
 
 	public function adjustInv()

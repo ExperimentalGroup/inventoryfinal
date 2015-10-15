@@ -28,7 +28,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                <?php $a=0; $b=0; ?>
+                <?php $a=1; $b=1; ?>
                  @foreach($orderproducts as $orderproducts)
                       <tr>
                         <td>{{$orderproducts->strOPProdID}}</td>
