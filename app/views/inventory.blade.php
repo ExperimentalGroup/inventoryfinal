@@ -12,11 +12,8 @@
           <div class="row">
       <div class="col s12 m12 l6">
         <div class="col s12 m12 l10">
-<<<<<<< HEAD
-=======
-            <button class="modal-trigger waves-effect waves-light btn btn-small center-text" href="#newprod">ADD NEW PRODUCT</button>
-            <button class="modal-trigger waves-effect waves-light btn btn-small center-text" href="#viewprod">VIEW ALL PRODUCTS</button>
->>>>>>> 50baa96ff496d9f32fc2c311869d2a507a6cca14
+            <!-- <button class="modal-trigger waves-effect waves-light btn btn-small center-text" href="#newprod">ADD NEW PRODUCT</button>
+            <button class="modal-trigger waves-effect waves-light btn btn-small center-text" href="#viewprod">VIEW ALL PRODUCTS</button> -->
             <a class="modal-trigger waves-effect waves-light btn btn-small center-text" href="{{ URL::to('/reports') }}">Generate Report</a>
         </div>
       </div>

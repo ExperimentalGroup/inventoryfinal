@@ -663,6 +663,29 @@ class HomeController extends BaseController {
 
 			$relItem->save();
 		}
+
+		$prod = Input::get('itemsRelease');
+		for($ctr = 0; $ctr < count($prod); $ctr++)
+		{
+			$qty = $prod[$ctr][2];
+
+			$prodID = $prod[$ctr][0];
+
+			$batch = DB::table('tblInventory')
+					->select('strBatchID')
+					->where('strProdID','=',$prodID)
+					->orderBy('strBatchID', 'asc')
+					->take(1)
+					->get();
+
+			$inv = $batch["0"]->strBatchID;
+
+			$inventory = Inventory::find($inv);
+
+			$inventory->intAvailQty -= $qty;
+			$inventory->save();
+		}
+
 	}
 
 	public function adjust()

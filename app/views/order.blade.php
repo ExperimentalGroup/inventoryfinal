@@ -48,7 +48,7 @@
         <!-- ACTUAL PAGE CONTENT GOES HERE -->
         <div class="row">
           <div class="col s12 m12 l12">
-            <span class="page-title">Order</span>
+            <span class="page-title">Order Lists</span>
           </div>
 
            <div class="row">

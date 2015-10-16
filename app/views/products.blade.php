@@ -22,7 +22,7 @@
           <div class="row">
             <div class="col s12 m12 l12">
               <div class="card-panel">
-                <span class="card-title">gHuB Suppliers Available</span>
+                <span class="card-title">Technogalore Available Products</span>
                 <div class="divider"></div>
                 <div class="card-content">
                   <!-- <div class="col s12 m12 l4">
