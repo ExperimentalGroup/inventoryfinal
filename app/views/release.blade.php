@@ -11,8 +11,16 @@
            <div class="row">
       <div class="col s12 m12 l6">
         <div class="col s12 m12 l10">
+<<<<<<< HEAD
           <form action="/newrelease" method="GET">
             <button class="waves-effect waves-light btn btn-small center-text">ADD NEW RELEASE</button>
+=======
+            <button class="modal-trigger waves-effect waves-light btn btn-small center-text" href="#newrel">ADD NEW RELEASE</button>
+            @if(Session::has('delmessage'))
+            <?php $a=Session::get('delmessage'); ?>
+            <a> {{$a}} </a>
+            @endif
+>>>>>>> 50baa96ff496d9f32fc2c311869d2a507a6cca14
           </form>
             @if(Session::has('delmessage'))
             <?php $a=Session::get('delmessage'); ?>
