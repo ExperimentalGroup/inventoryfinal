@@ -81,7 +81,7 @@
                               <div id="{{$joined->strDlvryID}}" class="modal modal-fixed-footer">
                                 <div class="modal-content">
                                   <h4>Delivery Details</h4>
-                                  <p>Delivery ID: {{$joined-> strDlvryID}}<br>
+                                  <p>Reference Order ID: {{$joined-> strOrdDlvry}}<br>
                                      Supplier: {{$joined->strSuppCompanyName}}<br>
                                      Received By: {{$joined->employee->strEmpLName.', '.$joined->employee->strEmpFName}}<br>
                                      Delivery Date: {{$joined-> dtDlvryDate}}<br>

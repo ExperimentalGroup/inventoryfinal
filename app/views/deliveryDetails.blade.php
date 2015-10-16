@@ -28,10 +28,10 @@
                   </tr>
                 </thead>
                 <tbody>
-                <?php $a=0; $b=0; ?>
+                <?php $a=1; $b=1; ?>
                  @foreach($orderproducts as $orderproducts)
                       <tr>
-                        <td>{{$orderproducts->strOPProdID}}</td>
+                        <td>{{$orderproducts->strProdName}}</td>
                         <td>{{$orderproducts->intOPQuantity}}</td>
                         <td>
                         <form action="/deliveryprice" method="POST">

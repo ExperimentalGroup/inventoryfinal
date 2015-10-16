@@ -181,13 +181,13 @@
           <div class="modal-content">
           <h4>ALL EMPLOYEES AND THEIR BRANCHES</h4>
           <p>
-          <div class="col s12 m12 l4">
+          <!-- <div class="col s12 m12 l4">
               <div class="input-field">
                 <i class="prefix mdi-action-search"></i>
                 <input id="search" type="text" placeholder="Search by name"/>
               </div>
             </div>
-     
+      -->
 
             <div class="col s12 m12 l12 overflow-x">
               <table class="centered">
@@ -205,7 +205,7 @@
                   <tr>
                     <td>{{ $employee->strEmpID }}</td>  
                     <td>{{ $employee->strEmpLName . ", " . $employee->strEmpFName}}</td>
-                    <td>{{ $employee->strEmpBrchID}}</td>
+                    <td>{{ $employee->branch->strBrchName}}</td>
                     <td>{{ $employee->strEmpStatus }}</td>  
                     <td>{{ $employee->strEmpAddress }}</td>
                   </tr>

@@ -52,14 +52,7 @@ class HomeController extends BaseController {
 	public function inventoree()
 	{
 		
-		$ids2 = DB::table('tblProducts')
-			->select('strProdID')
-			->orderBy('strProdID', 'desc')
-			->take(1)
-			->get();
-
-		$ID2 = $ids2["0"]->strProdID;
-		$newID2 = $this->smart($ID2);
+		
 
 		// $inventory = DB::table('tblInventory')
 		// ->join('tblProducts', function($join)
@@ -67,9 +60,9 @@ class HomeController extends BaseController {
 		// 	$join->on('tblInventory.strProdID','=','tblProducts.strProdID');
 		// })->get();
 		$inventory = Inventory::all();
-		$products = Product::all();
+		
 
-		return View::make('inventory')->with('inventory', $inventory)->with('newID2', $newID2)->with('products',$products);
+		return View::make('inventory')->with('inventory', $inventory);
 	}
 
 	public function branches()
@@ -104,6 +97,23 @@ class HomeController extends BaseController {
 		$suppliers = Supplier::all();
 
 		return View::make('suppliers')->with('suppliers', $suppliers)->with('newID', $newID);
+	}
+
+	public function products()
+	{
+		$ids2 = DB::table('tblProducts')
+			->select('strProdID')
+			->orderBy('strProdID', 'desc')
+			->take(1)
+			->get();
+
+		$ID2 = $ids2["0"]->strProdID;
+		$newID2 = $this->smart($ID2);
+
+		// Get all products from the database
+		$products = Product::all();
+
+		return View::make('products')->with('products',$products)->with('newID2', $newID2);
 	}
 
 	public function delivery()
@@ -148,7 +158,11 @@ class HomeController extends BaseController {
 	{
 		$id1 = Input::get('ordID');
 		$id2 = Input::get('dlvID');
-		$orderproducts = OrderProduct::where('strOPOrdersID', '=', $id1)->get();
+		//$orderproducts = OrderProduct::where('strOPOrdersID', '=', $id1)->get();
+		$orderproducts = DB::table('tblOrderedProducts as a')
+		->join('tblProducts as b', 'b.strProdID', '=', 'a.strOPProdID')
+		->join('tblOrders as c', 'c.strOrdersID', '=', 'a.strOPOrdersID')
+		->where('strOPOrdersID', '=', $id1)->get();
 
 		$delivery = Delivery::create(array(
 			'strDlvryID' => Input::get('dlvID'),
@@ -167,8 +181,8 @@ class HomeController extends BaseController {
 		$id1 = Input::get('orderID');
 		$id2 = Input::get('deliverID');
 		$orderproducts = OrderProduct::where('strOPOrdersID', '=', $id1)->get();
-		$a = 0;
-		$b = 0;	
+		$a = 1;
+		$b = 1;	
 		foreach ($orderproducts as $orderproduct) {	
 			
 			$details = DeliveryDetail::create(array(
@@ -247,6 +261,24 @@ class HomeController extends BaseController {
 
 	public function minus_release()
 	{
+
+		$id1 = Input::get('relProd');
+
+		$tryids = DB::table('tblInventory')
+			->select('strBatchID')
+			->where('strProdID','=',$id1)
+			->orderBy('strBatchID', 'asc')
+			->take(1)
+			->get();
+
+		$tryID = $tryids["0"]->strBatchID;
+
+		
+		$addQ = Input::get('quantityRel');
+		$inventory = Inventory::find($tryID);
+
+		if($addQ < $inventory->intAvailQty)
+		{
 		$release = Release::create(array(
 			'strReleasesID' => Input::get('relID'),
 			'strReleaseBrchID'=> Input::get('relBranch'),
@@ -279,27 +311,15 @@ class HomeController extends BaseController {
 		));
 		$notes->save();
 
-		$id1 = Input::get('relProd');
-
-		$tryids = DB::table('tblInventory')
-			->select('strBatchID')
-			->where('strProdID','=',$id1)
-			->orderBy('strBatchID', 'asc')
-			->take(1)
-			->get();
-
-		$tryID = $tryids["0"]->strBatchID;
-
-		
-		$addQ = Input::get('quantityRel');
-		$inventory = Inventory::find($tryID);
-
 		$inventory->intAvailQty -= $addQ;
 
 
 		$inventory->save();
 
 		return Redirect::to('/release');
+		}
+		else
+		return Redirect::to('/release')->with('delmessage', 'Quantity Insufficient');
 	}
 
 	public function adjustInv()
@@ -387,7 +407,7 @@ class HomeController extends BaseController {
 		return Redirect::to('/employees');
 	}
 
- 	public function createInv()
+ 	public function createProd()
 	{
 
 		//$inventory = DB::table('tblInventory')
@@ -415,7 +435,7 @@ class HomeController extends BaseController {
 		$inv->save();*/
 
 		
-		return Redirect::to('/inventory');
+		return Redirect::to('/products');
 	}
 
 	public function update_supplier()
@@ -465,6 +485,20 @@ class HomeController extends BaseController {
 		return Redirect::to('/employees');
 	} 
 
+	public function update_product()
+	{
+		$id = Input::get('prodID');
+		$product = Product::find($id);
+
+		$product->strProdName = Input::get('prodName');
+		$product->strProdBrand = Input::get('prodBrand');
+		$product->strProdModel = Input::get('prodModel');
+
+		$product->save();
+
+		return Redirect::to('/products');
+	} 
+
 	public function order()
 	{
 		$orders = Order::with('supplier', 'employee','products','notes')
@@ -480,6 +514,15 @@ class HomeController extends BaseController {
 		->get();
 
 		return Response::json($products);
+	}
+
+	public function inventoryProdTbl()
+	{
+		$invprod = DB::table('tblInventory as a')
+			->join('tblProducts as b', 'b.strProdID', '=', 'a.strProdID')
+			->get();
+
+		return Response::json($invprod);
 	}
 
 
@@ -512,6 +555,29 @@ class HomeController extends BaseController {
 		$ordProd = OrderProduct::all();
 
 		return View::make('neworder')->with('products', $products)->with('data',$data)->with('newID',$newID)->with('ordProd',$ordProd);
+	}
+
+	public function newrelease()
+	{
+		// $products = DB::table('tblInventory as a')
+		// 	->join('tblProducts as b', 'b.strProdID', '=', 'a.strProdID')
+		// 	->get();
+
+		$products = DB::table('tblProducts')->get();
+		$branches = Branch::lists('strBrchName','strBrchID');
+
+		$ids = DB::table('tblReleases')
+			->select('strReleasesID')
+			->orderBy('strReleasesID', 'desc')
+			->take(1)
+			->get();
+
+		$ID = $ids["0"]->strReleasesID;
+		$newID = $this->smart($ID);
+
+		Session::put('newreleaseid',$newID);
+
+		return View::make('newrelease')->with('products', $products)->with('branches',$branches);
 	}
 
 	function newOrderAdd()
@@ -554,6 +620,48 @@ class HomeController extends BaseController {
 			);
 
 			$ordItem->save();
+		}
+	}
+
+	function addNewRelease()
+	{
+		$release = Release::create(array(
+			'strReleasesID'=>Input::get('releaseID'),
+			'strReleaseBrchID'=>Input::get('branchID'),
+			'strReleaseBy'=>Input::get('empID'),
+			'dtDateReleased'=>date('Y-m-d')
+		));
+		$release->save();
+
+		$ids = DB::table('tblReleaseNotes')
+			->select('strReleaseNotesID')
+			->orderBy('strReleaseNotesID', 'desc')
+			->take(1)
+			->get();
+
+		$ID = $ids["0"]->strReleaseNotesID;
+		$newID = $this->smart($ID);
+
+		$notes = ReleaseNote::create(array(
+			'strReleaseNotesID'=> $newID,
+			'strReleaseID' => Input::get('releaseID'),
+			'strReleaseNotesStat' => 'Pending'
+		));
+		$notes->save();
+
+		$item = Input::get('itemsRelease');
+		// 'strOPOrdersID', 'strOPProdID', 'intOPQuantity'
+		for ($i = 0; $i < count($item); $i++)  
+		{
+			$relItem = ReleaseDetail::create(
+				array(
+					'strReleaseHeaderID'=>Input::get('releaseID'),
+					'strReleaseProducts'=>$item[$i][0],
+					'intReleaseQty'=>$item[$i][2]
+				)
+			);
+
+			$relItem->save();
 		}
 	}
 

@@ -1,7 +1,7 @@
 <?php
 	$columns = 
 	[
-		'Product ID',
+		'Batch ID',
 		'Product Name',
 		'Brand',
 		'Model',
@@ -15,7 +15,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Generate Report</title>
+		<title>Technogalore Inventory Report</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 		<style type="text/css">
 			table {

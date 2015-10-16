@@ -11,8 +11,13 @@
            <div class="row">
       <div class="col s12 m12 l6">
         <div class="col s12 m12 l10">
-            <button class="modal-trigger waves-effect waves-light btn btn-small center-text" href="#newrel">ADD NEW RELEASE</button>
+          <form action="/newrelease" method="GET">
+            <button class="waves-effect waves-light btn btn-small center-text">ADD NEW RELEASE</button>
           </form>
+            @if(Session::has('delmessage'))
+            <?php $a=Session::get('delmessage'); ?>
+            <a> {{$a}} </a>
+            @endif
         </div>
       </div>
      </div>
@@ -60,7 +65,7 @@
                     <table class="centered">
                       <thead>
                         <tr>
-                          <th>Release Number</th>
+                          <th>Release ID</th>
                           <th>Branch Name</th>
                           <th>Release by</th>
                           <th>Date</th>
@@ -143,7 +148,7 @@
       </div>
 
                               <!-- Modal Structure -->
-                              <div id="newrel" class="modal modal-fixed-footer">
+                              <!-- <div id="newrel" class="modal modal-fixed-footer">
                                 <div class="modal-content">
                                   <h4>ADD NEW RELEASE</h4>
                                   <p>
@@ -182,7 +187,7 @@
                                   <button class="waves-effect waves-green btn-flat">ACCEPT</button>
                                   </form>
                                 </div>
-                              </div>
+                              </div> -->
 @stop
 
 @section('scripts')

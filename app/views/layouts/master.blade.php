@@ -41,6 +41,7 @@
               <li class="bold {{ strpos(Request::url(), 'order') !== false ? 'active' : '' }}"><a href="/order">Order</a></li>
               <li class="bold {{ strpos(Request::url(), 'delivery') !== false ? 'active' : '' }}"><a href="/delivery">Delivery</a></li>
               <li class="bold {{ strpos(Request::url(), 'release') !== false ? 'active' : '' }}"><a href="/release">Release</a></li>
+              <li class="bold {{ strpos(Request::url(), 'products') !== false ? 'active' : '' }}"><a href="/products">Products</a></li>
               <li class="bold {{ strpos(Request::url(), 'branches') !== false ? 'active' : '' }}"><a href="/branches">Branches</a></li>
               <li class="bold {{ strpos(Request::url(), 'employees') !== false ? 'active' : '' }}"><a href="/employees">Employees</a></li>
               <li class="bold {{ strpos(Request::url(), 'suppliers') !== false ? 'active' : '' }}"><a href="/suppliers">Suppliers</a></li>
