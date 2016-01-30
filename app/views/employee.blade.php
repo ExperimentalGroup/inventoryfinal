@@ -47,6 +47,7 @@
                 <tbody>
                  @foreach($data['employees'] as $employee)
                  @if( Session::get('empBrchID') == $employee -> strEmpBrchID)
+                 @if($employee->actStatus == 1)
                   <tr>
                     <td>{{ $employee->strEmpID }}</td>  
                     <td>{{ $employee->strEmpLName . ", " . $employee->strEmpFName}}</td>
@@ -100,10 +101,36 @@
                                 </div>
                                 </form>
                               </div>
+
+                              <button class="modal-trigger waves-effect waves-light btn btn-small center-text" href="#{{$employee->strEmpID}}del">DELETE</button>
+                             
+                              <!-- Modal Structure -->
+                              <div id="{{$employee->strEmpID}}del" class="modal modal-fixed-footer">
+                                <div class="modal-content">
+                                  <h4>ARE YOU SURE YOU WANT TO DELETE?</h4>
+                                  <p>
+                                  <form action="/empDel" method="POST">
+                                      <div class="form-group">
+                                        <label for="disabled">Employee ID</label>
+                                        <input value="{{$employee->strEmpID}}" name="deleteID" id="deleteID" type="text" class="form-control" readonly>
+                                      </div>
+                                      <div class="form-group">
+                                        <label for="disabled">Employee Name</label>
+                                        <input value="{{$employee->strEmpLName}}, {{$employee->strEmpFName}}" name="empname" id="empname" type="text" class="form-control" readonly>
+                                      </div>
+                                  </p>
+                                </div>
+                                <div class="modal-footer">
+                                  <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">CANCEL</a>
+                                  <button type="submit" class="waves-effect waves-green btn-flat ">OK</button>
+                                </div>
+                                </form>
+                              </div>
                             
 
                           </td>
                   </tr>
+                  @endif
                   @endif
                   @endforeach
                 </tbody>
@@ -140,7 +167,7 @@
                   </div> -->
                   EMPLOYEE PERSONAL DETAILS<br>
                   <label for="price">Employee ID</label>
-                  <input value="{{$newID}}" type="text" class="form-control" name="empID" id="empID" placeholder="Employee ID" readonly>
+                  <input value="{{$newID}}" type="text" class="form-control" name="empID" id="empID" placeholder="Employee ID">
                   </div>
                   <label for="price">Employee Last Name</label>
                   <div class="form-group">

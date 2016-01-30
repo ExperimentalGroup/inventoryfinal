@@ -4,7 +4,7 @@ class Product extends Eloquent
 {
 	protected $table = 'tblProducts';
 	protected $primaryKey = 'strProdID';
-	protected $fillable = array('strProdID','strProdName', 'strProdBrand', 'strProdModel');
+	protected $fillable = array('strProdID','strProdName', 'strProdBrand', 'strProdModel','actStatus');
 
 	public function price()
 	{

@@ -17,6 +17,7 @@ class TblProducts extends Migration {
 			$table->string('strProdName');
 			$table->string('strProdBrand');
 			$table->string('strProdModel');
+			$table->boolean('actStatus')->default('1');
 			$table->timestamps();
 		});
 	}

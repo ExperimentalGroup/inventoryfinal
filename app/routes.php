@@ -83,3 +83,11 @@ Route::post('/add-order', 'HomeController@newOrderAdd');
 Route::post('/add-release', 'HomeController@addNewRelease');
 
 Route::get('/reports', 'HomeController@generateReport');
+
+Route::post('/prodDel',array('uses'=>'HomeController@delete_prod'));
+
+Route::post('/suppDel',array('uses'=>'HomeController@delete_supp'));
+
+Route::post('/empDel',array('uses'=>'HomeController@delete_emp'));
+
+Route::post('/brchDel',array('uses'=>'HomeController@delete_branch'));

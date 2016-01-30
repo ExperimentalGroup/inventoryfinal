@@ -46,6 +46,7 @@
                 </thead>
                 <tbody>
                  @foreach($products as $products)
+                 @if($products->actStatus == 1)
                   <tr>
                     <td>{{ $products->strProdID }}</td>
                     <td>{{ $products->strProdName }}</td>
@@ -87,8 +88,34 @@
                               </div>
                             
 
+                        
+                        <button class="modal-trigger waves-effect waves-light btn btn-small center-text" href="#{{$products->strProdID}}del">DELETE</button>
+                             
+                              <!-- Modal Structure -->
+                              <div id="{{$products->strProdID}}del" class="modal modal-fixed-footer">
+                                <div class="modal-content">
+                                  <h4>ARE YOU SURE YOU WANT TO DELETE?</h4>
+                                  <p>
+                                  <form action="/prodDel" method="POST">
+                                      <div class="form-group">
+                                        <label for="disabled">Product ID</label>
+                                        <input value="{{$products->strProdID}}" name="deleteID" id="deleteID" type="text" class="form-control" readonly>
+                                        <label for="disabled">Product Name</label>
+                                        <input value="{{$products->strProdName}}" name="deleteName" id="deleteName" type="text" class="form-control" readonly>
+                                      </div>
+                                  </p>
+                                </div>
+                                <div class="modal-footer">
+                                  <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">CANCEL</a>
+                                  <button type="submit" class="waves-effect waves-green btn-flat ">OK</button>
+                                </div>
+                                </form>
+                              </div>
+                            
+
                           </td>
                   </tr>
+                  @endif
                   @endforeach
                 </tbody>
                     </table>
@@ -113,7 +140,7 @@
                  <form action="/products" method="POST">
                       <div class="form-group">
                       <label for="price">Product ID</label>
-                      <input value="{{$newID2}}" type="text" class="form-control" name="proID" id="proID" placeholder="ProdID" readonly>
+                      <input value="{{$newID2}}" type="text" class="form-control" name="proID" id="proID" placeholder="ProdID">
                       </div>
                       <label for="price">Product Name</label>
                       <div class="form-group">

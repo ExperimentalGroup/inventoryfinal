@@ -146,7 +146,7 @@
 
                 <tbody>
                       <tr>
-                        <td> <input type="text" class="form-control" name="orderID" id="orderID" value="{{$newID}}" readonly></td>
+                        <td> <input type="text" class="form-control" name="orderID" id="orderID" value="{{$newID}}"></td>
                         <td>
                           {{ Form::select('strSuppCompanyName', $data['suppliers'], null, array('class' => 'browser-default', 'id' => 'supplier-select')) }}
                           {{-- <input type="text" class="form-control" name="suppName" id="suppliersppName" placeholder="Supplier"> --}}

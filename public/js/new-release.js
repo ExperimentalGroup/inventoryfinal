@@ -14,7 +14,7 @@ $(function(){
 			"data": dataSet,
 			"ordering": false,
 			"columnDefs":[{
-				"targets": 2, 
+				"targets": 3, 
 				"render": function(data, type, full, meta){
 					//console.log("data = "+data);
 
@@ -26,7 +26,7 @@ $(function(){
 				}
 			},
 			{
-				"targets": 3, 
+				"targets": 4, 
 				"render": function(data, type, full, meta){
 					//console.log("data = "+data);
 
@@ -54,7 +54,7 @@ $(function(){
 	$(document).on('click', '.product-edit', function()
 	{
 		var row = tblAddProduct.row($(this).parent().parent().parent());
-		row.data()[2] = $($(row.node()).children()[2]).find('input').val();
+		row.data()[3] = $($(row.node()).children()[3]).find('input').val();
 		// var dataSet1 = 
 		// [
 		// 	[
@@ -75,12 +75,13 @@ $(function(){
 			dataSrc: '',
 		},
 		columns: [
+			{ data: 'strBatchID'},
 			{ data: 'strProdID' },
 			{ data: 'strProdName' },
 			// { data: 'dblCurRetPrice' },
 			// { data: 'dblCurWPrice' },
 			{ data: 'intAvailQty' },
-			{ data: null, defaultContent: '<div class="center-btn"><a class="waves-effect waves-light btn btn-small center-text product-add">ADD TO ORDER</a></div>'	}
+			{ data: null, defaultContent: '<div class="center-btn"><a class="waves-effect waves-light btn btn-small center-text product-add">ADD TO List</a></div>'	}
 		]
 	});
 
@@ -93,15 +94,17 @@ $(function(){
 	$(document).on('click', '.product-add', function()
 	{
 		//wholesaleprice = tblProducts.row('.selected').data()['dblCurWPrice'];
+
 		prodid = tblProducts.row('.selected').data()['strProdID'];
 		prodname = tblProducts.row('.selected').data()['strProdName'];
-		qty = tblProducts.row('.selected').data()['intAvailQty'];
-		//qty=1;
+		//qty = tblProducts.row('.selected').data()['intAvailQty'];
+		qty=1;
 		// console.log(wahaha);
 		// alert('Added!');
 		dataSet = 
 		[
 			[
+				tblProducts.row('.selected').data()['strBatchID'],
 				tblProducts.row('.selected').data()['strProdID'],
 				tblProducts.row('.selected').data()['strProdName'],
 				qty,

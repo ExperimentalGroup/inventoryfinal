@@ -47,6 +47,7 @@
 
                       <tbody>
                         @foreach($suppliers as $suppliers)
+                        @if($suppliers->actStatus == 1)
                         <tr>
                           <td>{{ $suppliers->strSuppID }}</td>  
                           <td>{{ $suppliers->strSuppCompanyName }}</td>
@@ -94,10 +95,37 @@
                                 </div>
                                 </form>
                               </div>
+
+                               <button class="modal-trigger waves-effect waves-light btn btn-small center-text" href="#{{$suppliers->strSuppID}}del">DELETE</button>
+                             
+                              <!-- Modal Structure -->
+                              <div id="{{$suppliers->strSuppID}}del" class="modal modal-fixed-footer">
+                                <div class="modal-content">
+                                  <h4>ARE YOU SURE YOU WANT TO DELETE?</h4>
+                                  <p>
+                                  <form action="/suppDel" method="POST">
+                                      <div class="form-group">
+                                        <label for="disabled">Supplier ID</label>
+                                        <input value="{{$suppliers->strSuppID}}" name="deleteID" id="deleteID" type="text" class="form-control" readonly>
+                                      </div>
+                                      <div class="form-group">
+                                        <label for="disabled">Supplier Company Name</label>
+                                        <input value="{{$suppliers->strSuppCompanyName}}" name="deletename" id="deletename" type="text" class="form-control" readonly>
+                                      </div>
+                                  </p>
+                                </div>
+                                <div class="modal-footer">
+                                  <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">CANCEL</a>
+                                  <button type="submit" class="waves-effect waves-green btn-flat ">OK</button>
+                                </div>
+                                </form>
+                              </div>
+                            
                             
 
                           </td>
                         </tr>
+                        @endif
                         @endforeach
                       </tbody>
                     </table>
@@ -124,7 +152,7 @@
                         
                         <div class="form-control">
                           <label for="price">Supplier ID</label>
-                          <input type="text" value="{{$newID}}" name="suppID" id="suppID" readonly>
+                          <input type="text" value="{{$newID}}" name="suppID" id="suppID">
                         </div>                                 
                         <label for="price">Company Name</label>
                         <input type="text" class="form-control" name="compName" id="compName" placeholder="Company">

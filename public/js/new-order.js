@@ -27,7 +27,7 @@ $(function(){
 					console.log("data = "+data);
 
 					// if (qty==1){
-						return '<input type="number" min="1" value="1" id="yes">';
+						return '<input type="number" class="form-control" min="1" value="1" id="yes">';
 					// } else {
 					// 	return data;
 					// }

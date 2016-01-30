@@ -14,8 +14,8 @@ class tblSuppliersSeeder extends Seeder{
 				'strSuppOwnerLName' => 'Legaspi',
 				'strSuppOwnerFName' =>'Melody',
 				'strSuppContactNo' => '09162451291',
-				'strSuppAddress' => 'RBC Tower, Ayala Ave.,Makati City'
-		
+				'strSuppAddress' => 'RBC Tower, Ayala Ave.,Makati City',
+				'actStatus'=>'1'
 			),
 
 			array(
@@ -25,8 +25,8 @@ class tblSuppliersSeeder extends Seeder{
 				'strSuppOwnerLName' => 'Kim',
 				'strSuppOwnerFName' =>'Josephine',
 				'strSuppContactNo' => '09123450000',
-				'strSuppAddress' => 'The Fort, Global City,Makati City'
-		
+				'strSuppAddress' => 'The Fort, Global City,Makati City',
+				'actStatus'=>'1'
 			)
 		);
 

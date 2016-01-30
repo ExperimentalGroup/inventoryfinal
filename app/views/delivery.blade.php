@@ -137,7 +137,7 @@
                                   <div class="form-group">
                                       <form action="/delivery" method="POST">
                                         <label for="price">Delivery ID</label>
-                                        <input value="{{$newID}}" type="text" class="form-control" name="dlvID" id="dlvID" readonly>
+                                        <input value="{{$newID}}" type="text" class="form-control" name="dlvID" id="dlvID">
                                         </div>
                                         <label for="price">Received By</label>
                                         <div class="form-group">

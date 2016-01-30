@@ -21,6 +21,7 @@ class TblEmployees extends Migration {
 			$table->string('strEmpAddress');
 			$table->string('strEmpBrchID');//fk
 			$table->string('strEmpRoleID');//fk
+			$table->boolean('actStatus')->default('1');
 			$table->timestamps();
 		});
 	}

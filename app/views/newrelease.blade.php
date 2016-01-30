@@ -28,6 +28,7 @@
               <table class="centered" id="table-prod-list"> 
                 <thead>
                   <tr>
+                    <th>Batch ID</th>
                     <th>Product ID</th>
                     <th>Product Name</th>
                     <th>Available Quantity</th>
@@ -62,6 +63,7 @@
               <table class="centered" id="table-add-product">
                 <thead>
                   <tr>
+                    <th>Batch ID</th>
                     <th>Product ID</th>
                     <th>Product Name</th>
                     <th>Quantity</th>
@@ -107,7 +109,7 @@
 
                 <tbody>
                       <tr>
-                        <td> <input type="text" class="form-control" name="releaseID" id="releaseID" value="{{Session::get('newreleaseid')}}" readonly></td>
+                        <td> <input type="text" class="form-control" name="releaseID" id="releaseID" value="{{Session::get('newreleaseid')}}"></td>
                         <td>
                           {{ Form::select('strBrchName', $branches, null, array('class' => 'browser-default', 'id' => 'branch-select')) }}
                           {{-- <input type="text" class="form-control" name="branchName" id="branchName" placeholder="Branch"> --}}

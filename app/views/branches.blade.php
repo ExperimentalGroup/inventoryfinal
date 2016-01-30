@@ -48,6 +48,7 @@
 
                       <tbody>
                          @foreach($branches as $branches)
+                         @if($branches->actStatus == 1)
                         <tr>
                           <td>{{ $branches->strBrchID }}</td>
                           <td>{{ $branches->strBrchName }}</td>
@@ -83,9 +84,34 @@
                                 </form>
                               </div>
                             
+                              <button class="modal-trigger waves-effect waves-light btn btn-small center-text" href="#{{$branches->strBrchID}}del">DELETE</button>
+                             
+                              <!-- Modal Structure -->
+                              <div id="{{$branches->strBrchID}}del" class="modal modal-fixed-footer">
+                                <div class="modal-content">
+                                  <h4>ARE YOU SURE YOU WANT TO DELETE?</h4>
+                                  <p>
+                                  <form action="/brchDel" method="POST">
+                                      <div class="form-group">
+                                        <label for="disabled">Branch ID</label>
+                                        <input value="{{$branches->strBrchID}}" name="deleteID" id="deleteID" type="text" class="form-control" readonly>
+                                      </div>
+                                      <div class="form-group">
+                                        <label for="disabled">Branch Name</label>
+                                        <input value="{{$branches->strBrchName}}" name="branchname" id="branchname" type="text" class="form-control" readonly>
+                                      </div>
+                                  </p>
+                                </div>
+                                <div class="modal-footer">
+                                  <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">CANCEL</a>
+                                  <button type="submit" class="waves-effect waves-green btn-flat ">OK</button>
+                                </div>
+                                </form>
+                              </div>
 
                           </td>
                         </tr>
+                        @endif
                         @endforeach
                       </tbody>
                     </table>
@@ -111,8 +137,8 @@
                       <div class="form-group">
                       <!-- <label for="price">Branch ID</label>
                       <input type="text" class="form-control" name="brnchID" id="brnchID" placeholder="BranchID"> -->
-                        <label for="disabled">Branch ID</label>
-                        <input value="{{$newID}}" name="brnchID" id="brnchID" placeholder="BranchID" type="text" class="form-control" readonly>
+                        <label >Branch ID</label>
+                        <input value="{{$newID}}" name="brnchID" id="brnchID" placeholder="BranchID" type="text" class="form-control">
                       </div>
                       <div class="form-group">
                       <label for="price">Branch Name</label>

@@ -16,6 +16,7 @@ class TblBranches extends Migration {
 			$table->string('strBrchID')->primary();
 			$table->string('strBrchName');
 			$table->string('strBrchAddress');
+			$table->boolean('actStatus')->default('1');
 			$table->timestamps();
 		});
 	}

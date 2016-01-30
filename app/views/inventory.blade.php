@@ -41,7 +41,7 @@
                          <!--  <th>Brand</th>
                           <th>Model</th> -->
                           <th>Retail Price</th>
-                          <th>Wholesale Price</th>
+                          <!-- <th>Wholesale Price</th> -->
                           <th>Available Stock</th>
                           <th>Status</th>
                         </tr>
@@ -56,7 +56,7 @@
                           <!-- <td>{{ $inventory->product->strProdBrand }}</td>
                           <td>{{ $inventory->product->strProdModel }}</td> -->
                           <td>{{ $inventory->dblCurRetPrice }}</td>
-                          <td>{{ $inventory->dblCurWPrice }}</td>
+                          <!-- <td>{{ $inventory->dblCurWPrice }}</td> -->
                           <td>{{ $inventory->intAvailQty }}</td>
                          @if($inventory->intAvailQty <= 1)
                           <td class="red-text bold">DEPLETED</td>

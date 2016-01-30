@@ -4,7 +4,7 @@ class Employee extends Eloquent
 {
 	protected $table = 'tblEmployees';
 	protected $primaryKey = 'strEmpID';
-	protected $fillable = array('strEmpID' , 'strEmpFName', 'strEmpLName','strEmpStatus', 'strEmpAddress', 'strEmpBrchID', 'strEmpRoleID');
+	protected $fillable = array('strEmpID' , 'strEmpFName', 'strEmpLName','strEmpStatus', 'strEmpAddress', 'strEmpBrchID', 'strEmpRoleID','actStatus');
 
 	public function orders() {
 		return $this->hasMany('Order', 'strPlacedBy', 'strEmpID');

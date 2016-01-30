@@ -19,6 +19,7 @@ class HomeController extends BaseController {
 	{
 		$ids = DB::table('tblEmployees')
 			->select('strEmpID')
+			->orderBy('updated_at', 'desc')
 			->orderBy('strEmpID', 'desc')
 			->take(1)
 			->get();
@@ -69,6 +70,7 @@ class HomeController extends BaseController {
 	{
 		$ids = DB::table('tblBranches')
 			->select('strBrchID')
+			->orderBy('updated_at', 'desc')
 			->orderBy('strBrchID', 'desc')
 			->take(1)
 			->get();
@@ -85,6 +87,7 @@ class HomeController extends BaseController {
 	{
 		$ids = DB::table('tblSuppliers')
 			->select('strSuppID')
+			->orderBy('updated_at', 'desc')
 			->orderBy('strSuppID', 'desc')
 			->take(1)
 			->get();
@@ -103,6 +106,7 @@ class HomeController extends BaseController {
 	{
 		$ids2 = DB::table('tblProducts')
 			->select('strProdID')
+			->orderBy('updated_at', 'desc')
 			->orderBy('strProdID', 'desc')
 			->take(1)
 			->get();
@@ -131,6 +135,7 @@ class HomeController extends BaseController {
 
 		$ids = DB::table('tblDeliveries')
 			->select('strDlvryID')
+			->orderBy('updated_at', 'desc')
 			->orderBy('strDlvryID', 'desc')
 			->take(1)
 			->get();
@@ -232,6 +237,7 @@ class HomeController extends BaseController {
 		
 		$ids = DB::table('tblReleases')
 			->select('strReleasesID')
+			->orderBy('updated_at', 'desc')
 			->orderBy('strReleasesID', 'desc')
 			->take(1)
 			->get();
@@ -297,6 +303,7 @@ class HomeController extends BaseController {
 
 		$ids = DB::table('tblReleaseNotes')
 			->select('strReleaseNotesID')
+			->orderBy('updated_at', 'desc')
 			->orderBy('strReleaseNotesID', 'desc')
 			->take(1)
 			->get();
@@ -327,6 +334,7 @@ class HomeController extends BaseController {
 
 		$ids = DB::table('tblAdjustments')
 			->select('strAdjID')
+			->orderBy('updated_at', 'desc')
 			->orderBy('strAdjID', 'desc')
 			->take(1)
 			->get();
@@ -543,6 +551,7 @@ class HomeController extends BaseController {
 
 		$ids = DB::table('tblOrders')
 			->select('strOrdersID')
+			->orderBy('updated_at', 'desc')
 			->orderBy('strOrdersID', 'desc')
 			->take(1)
 			->get();
@@ -568,6 +577,7 @@ class HomeController extends BaseController {
 
 		$ids = DB::table('tblReleases')
 			->select('strReleasesID')
+			->orderBy('updated_at', 'desc')
 			->orderBy('strReleasesID', 'desc')
 			->take(1)
 			->get();
@@ -594,6 +604,7 @@ class HomeController extends BaseController {
 		$ids = DB::table('tblOrdNotes')
 			->select('strOrdNotesID')
 			->orderBy('updated_at', 'desc')
+			->orderBy('strOrdNotesID', 'desc')
 			->take(1)
 			->get();
 
@@ -635,6 +646,7 @@ class HomeController extends BaseController {
 
 		$ids = DB::table('tblReleaseNotes')
 			->select('strReleaseNotesID')
+			->orderBy('updated_at', 'desc')
 			->orderBy('strReleaseNotesID', 'desc')
 			->take(1)
 			->get();
@@ -656,8 +668,8 @@ class HomeController extends BaseController {
 			$relItem = ReleaseDetail::create(
 				array(
 					'strReleaseHeaderID'=>Input::get('releaseID'),
-					'strReleaseProducts'=>$item[$i][0],
-					'intReleaseQty'=>$item[$i][2]
+					'strReleaseProducts'=>$item[$i][1],
+					'intReleaseQty'=>$item[$i][3]
 				)
 			);
 
@@ -667,20 +679,22 @@ class HomeController extends BaseController {
 		$prod = Input::get('itemsRelease');
 		for($ctr = 0; $ctr < count($prod); $ctr++)
 		{
-			$qty = $prod[$ctr][2];
+			$qty = $prod[$ctr][3];
 
-			$prodID = $prod[$ctr][0];
+			//$prodID = $prod[$ctr][1];
 
-			$batch = DB::table('tblInventory')
-					->select('strBatchID')
-					->where('strProdID','=',$prodID)
-					->orderBy('strBatchID', 'asc')
-					->take(1)
-					->get();
+			// $batch = DB::table('tblInventory')
+			// 		->select('strBatchID')
+			// 		->where('strProdID','=',$prodID)
+			// 		->orderBy('strBatchID', 'asc')
+			// 		->take(1)
+			// 		->get();
 
-			$inv = $batch["0"]->strBatchID;
+			$batch = $prod[$ctr][0];
 
-			$inventory = Inventory::find($inv);
+			//$inv = $batch["0"]->strBatchID;
+
+			$inventory = Inventory::find($batch);
 
 			$inventory->intAvailQty -= $qty;
 			$inventory->save();
@@ -752,4 +766,54 @@ class HomeController extends BaseController {
 		return View::make('reports');
 	}
 
+	public function delete_prod()
+	{
+	$getID = Input::get('deleteID');
+	$product = Product::find($getID);
+
+	$product->actStatus = '0';
+
+	$product->save();
+
+	return Redirect::to('/products');
+	}
+
+	public function delete_supp()
+	{
+	$getID = Input::get('deleteID');
+
+	$supp = Supplier::find($getID);
+
+	$supp->actStatus = '0';
+
+	$supp->save();
+
+	return Redirect::to('/suppliers');
+	}
+
+	public function delete_emp()
+	{
+	$getID = Input::get('deleteID');
+
+	$employee = Employee::find($getID);
+
+	$employee->actStatus = '0';
+
+	$employee->save();
+
+	return Redirect::to('/employees');
+	}
+
+	public function delete_branch()
+	{
+	$getID = Input::get('deleteID');
+
+	$branch = Branch::find($getID);
+
+	$branch->actStatus = '0';
+
+	$branch->save();
+
+	return Redirect::to('/branches');
+	}
 }
